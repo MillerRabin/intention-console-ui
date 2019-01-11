@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<header id="Header">
+    <div class="top">
+        <nav>
+            <a href="/" class="focus logo">
+                <h1>Internet intensions</h1>
+                <h2>Management Console</h2>
+            </a>
+            <ul>
+                <li>
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li class="create" v-bind:class="{ show: loaded }">
+                    <router-link to="/listener.html">Listener</router-link>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

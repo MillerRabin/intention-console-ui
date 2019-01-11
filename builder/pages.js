@@ -23,7 +23,7 @@ let config = {
             root: path.resolve(mainConfig.root),
             desktop: path.resolve(mainConfig.root, 'styles-min', 'desktop.css'),
             mobile: path.resolve(mainConfig.root, 'styles-min', 'mobile.css'),
-            path: path.resolve(mainConfig.root, 'styles'),
+            path: path.resolve(mainConfig.root, 'apps'),
             enabled: mainConfig.production
         }
     },
