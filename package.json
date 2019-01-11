@@ -14,6 +14,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/intensionteam/intension-console-ui#readme",
   "dependencies": {
+    "moment": "^2.23.0",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2"
   }
