@@ -3,9 +3,9 @@
         <div class="output">
             <div class="answer" v-for="answer in answers">
                 <p v-text="answer.text"></p>
-                <div v-if="answer.alternatives.length > 1">
+                <div class="alternatives" v-if="answer.alternatives.length > 0">
                     <button><span>+</span>Alternatives</button>
-                    <div v-for="alternative in answer.alternatives">
+                    <div class="text" v-for="alternative in answer.alternatives">
                         <span v-text="alternative.transcript"></span>
                     </div>
                 </div>

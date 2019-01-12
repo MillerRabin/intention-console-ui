@@ -30,13 +30,33 @@
 }
 
 .Listener .content .answer {
-    background-color: #0088c3;
+    background-color: #242323;
     padding: 0.5rem 1rem;
+    border: 1px solid #a0a0a0;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
+    width: 70%;
+    align-self: flex-end;
+}
+
+.Listener .content .answer.answered {
+    background-color: #0088c3;
+    padding: 1rem 1rem;
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+    align-self: unset;
 }
 
 .Listener .content .answer p {
     margin: 0;
     padding: 0
 }
+
+.Listener .content .alternatives {
+    margin-top: 0.5rem;
+}
+
+.Listener .content .alternatives .text{
+    margin-left: 0.5rem;
+}
+

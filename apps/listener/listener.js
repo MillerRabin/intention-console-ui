@@ -12,8 +12,11 @@ function createRecognition() {
 
 function formatAnswer(results) {
     const text = results[0].transcript;
+    const alt = [];
+    for (let i = 1; i < results.length; i++)
+        alt.push(results[i]);
     return {
-        alternatives: event.results,
+        alternatives: alt,
         text: text
     };
 }
@@ -25,7 +28,7 @@ function startRecognition(recognition, data) {
         const answer = formatAnswer(last);
         data.newText = answer.text;
         data.answers.push(answer);
-        console.log(event.results.length);
+        console.log(answer);
     };
 
     recognition.onerror = function(event) {
