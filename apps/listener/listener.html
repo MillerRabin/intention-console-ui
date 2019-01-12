@@ -1,5 +1,14 @@
 <div class="Listener" v-bind:class="{ show: loaded == true }">
     <div class="content">
-        <textarea class="hear-input" title="hear input" v-model="rText"></textarea>
+        <div class="output">
+            <div v-for="answer in answers">
+                <p v-text="answer.text"></p>
+                <div>
+                    <button><span>+</span>Alternatives</button>
+                    <div v-for="alternatives in answer.alternatives"
+                </div>
+            </div>
+        </div>
+        <textarea class="hear-input" title="hear input" v-model="newText" autofocus></textarea>
     </div>
 </div>

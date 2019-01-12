@@ -1,4 +1,27 @@
-.Listener .hear-input {
+.Listener {
+    height: 100%;
+    padding-bottom: 1rem;
+}
+
+.Listener .content {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 5vw;
+    grid-row-gap: 0.5rem;
+    height: 100%;
+}
+
+.Listener .content .output {
+    border: 1px solid #a0a0a0;
+    border-radius: 0.5rem;
+}
+
+.Listener .content  .hear-input {
+    height: 100%;
+    display: block;
     width: 100%;
-    height: 10vw;
+    padding: 0.5rem;
+    border: 1px solid #a0a0a0;
+    border-radius: 0.5rem;
+
 }

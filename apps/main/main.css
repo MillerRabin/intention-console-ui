@@ -312,8 +312,5 @@ dialog input[type="checkbox"] {
 
 .content {
     padding: 0 8rem 0 8rem;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
     height: 100%;
 }
