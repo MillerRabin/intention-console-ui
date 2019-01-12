@@ -1,11 +1,13 @@
 <div class="Listener" v-bind:class="{ show: loaded == true }">
     <div class="content">
         <div class="output">
-            <div v-for="answer in answers">
+            <div class="answer" v-for="answer in answers">
                 <p v-text="answer.text"></p>
-                <div>
+                <div v-if="answer.alternatives.length > 1">
                     <button><span>+</span>Alternatives</button>
-                    <div v-for="alternatives in answer.alternatives"
+                    <div v-for="alternative in answer.alternatives">
+                        <span v-text="alternative.transcript"></span>
+                    </div>
                 </div>
             </div>
         </div>

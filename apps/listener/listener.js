@@ -11,20 +11,21 @@ function createRecognition() {
 }
 
 function formatAnswer(results) {
-    const text = event.results[0][0].transcript;
+    const text = results[0].transcript;
     return {
         alternatives: event.results,
-        text: data.newText
+        text: text
     };
 }
 
 
 function startRecognition(recognition, data) {
     recognition.onresult = (event) => {
-        console.log(event.results[0]);
-        const answer = formatAnswer(event.results);
-        data.rtext =answer.text;
+        const last = event.results[event.results.length - 1];
+        const answer = formatAnswer(last);
+        data.newText = answer.text;
         data.answers.push(answer);
+        console.log(event.results.length);
     };
 
     recognition.onerror = function(event) {
@@ -35,11 +36,11 @@ function startRecognition(recognition, data) {
             }, 0);
     };
 
-    recognition.onaudioend = function(error) {
-        console.log('Stopped. Restarting');
+    recognition.onend = function(error) {
+        console.log('On end. Trying to restart');
         setTimeout(() => {
             startRecognition(recognition, data)
-        }, 1000);
+        }, 100);
     };
 
     stopRecognition(recognition);
