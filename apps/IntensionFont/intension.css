@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'intension';
-  src: url('../font/intension.eot?24946200');
-  src: url('../font/intension.eot?24946200#iefix') format('embedded-opentype'),
-       url('../font/intension.woff2?24946200') format('woff2'),
-       url('../font/intension.woff?24946200') format('woff'),
-       url('../font/intension.ttf?24946200') format('truetype'),
-       url('../font/intension.svg?24946200#intension') format('svg');
+  src: url('/fonts/intension.eot?24946200');
+  src: url('/fonts/intension.eot?24946200#iefix') format('embedded-opentype'),
+       url('/fonts/intension.woff2?24946200') format('woff2'),
+       url('/fonts/intension.woff?24946200') format('woff'),
+       url('/fonts/intension.ttf?24946200') format('truetype'),
+       url('/fonts/intension.svg?24946200#intension') format('svg');
   font-weight: normal;
   font-style: normal;
 }
