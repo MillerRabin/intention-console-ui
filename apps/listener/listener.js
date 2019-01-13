@@ -10,15 +10,28 @@ function createRecognition() {
     return recognition;
 }
 
+function getAnswer(params) {
+    params.time = window.moment();
+    params.alternatives = (params.alternatives == null) ? [] : params.alternatives;
+    params.text = (params.text == null) ? '' : params.text;
+    return params;
+}
+
 function formatAnswer(results) {
     const text = results[0].transcript;
     const alt = [];
     for (let i = 1; i < results.length; i++)
         alt.push(results[i]);
-    return {
+    return getAnswer({
         alternatives: alt,
-        text: text
-    };
+        text,
+        time: window.moment()
+    });
+}
+
+function createAnswer(data) {
+    const answer = getAnswer({ text: data.newText});
+    data.answers.push(answer);
 }
 
 
@@ -26,9 +39,7 @@ function startRecognition(recognition, data) {
     recognition.onresult = (event) => {
         const last = event.results[event.results.length - 1];
         const answer = formatAnswer(last);
-        data.newText = answer.text;
         data.answers.push(answer);
-        console.log(answer);
     };
 
     recognition.onerror = function(event) {
@@ -55,8 +66,33 @@ function startRecognition(recognition, data) {
     }
 }
 
+function enableRecognition(recognition, data) {
+    enableListener = true;
+    startRecognition(recognition, data);
+}
+
+function disableRecognition(recognition) {
+    enableListener = false;
+    stopRecognition(recognition);
+}
+
 function stopRecognition(recognition) {
     recognition.abort();
+}
+
+function dispatchAnswer(event, data) {
+    if (!event.ctrlKey && (event.keyCode == 13)){
+        if (data.newText == '') {
+            event.stopPropagation();
+            event.preventDefault();
+            return;
+        }
+        createAnswer(data);
+        setTimeout(() => {
+            data.newText = '';
+            data.$forceUpdate();
+        });
+    }
 }
 
 let enableListener = false;
@@ -66,26 +102,40 @@ loader.application('listener', [async () => {
         return {
             loaded: false,
             newText: '',
-            answers: []
+            answers: [],
+            showAlternatives: false
         }
     }
 
     await loader.createVueTemplate({ path: 'apps/listener/listener.html', id: 'Listener-Template' });
     const res = {};
     const recognition = createRecognition();
+    let typeInterval = null;
+    const typeTimeout = 1000;
 
     res.Constructor = Vue.component('listener', {
         template: '#Listener-Template',
         data: init,
-        methods: {},
+        methods: {
+            toggleAlternatives: function (answer) {
+                answer.showAlternatives = !answer.showAlternatives;
+                this.$forceUpdate();
+            },
+            startTyping: function (event) {
+                dispatchAnswer(event, this);
+                disableRecognition(recognition);
+                if (typeInterval != null) clearInterval(typeInterval);
+                typeInterval = setTimeout(() => {
+                    enableRecognition(recognition, this);
+                }, typeTimeout);
+            }
+        },
         mounted: function () {
             this.loaded = true;
-            enableListener = true;
-            startRecognition(recognition, this);
+            enableRecognition(recognition, this);
         },
         destroyed: function () {
-            enableListener = false;
-            stopRecognition(recognition);
+            disableRecognition(recognition);
         }
     });
     return res;

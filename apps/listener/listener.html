@@ -2,15 +2,21 @@
     <div class="content">
         <div class="output">
             <div class="answer" v-for="answer in answers">
+                <p class="time" v-text="answer.time.format('DD-MMM-YYYY HH:mm')"></p>
                 <p v-text="answer.text"></p>
                 <div class="alternatives" v-if="answer.alternatives.length > 0">
-                    <button><span>+</span>Alternatives</button>
-                    <div class="text" v-for="alternative in answer.alternatives">
-                        <span v-text="alternative.transcript"></span>
+                    <button v-on:click="toggleAlternatives(answer)">
+                        <span class="icon" v-bind:class="{'icon-plus-squared-alt': !answer.showAlternatives, 'icon-minus-squared-alt': answer.showAlternatives}"></span>
+                        <span>Alternatives</span>
+                    </button>
+                    <div v-if="answer.showAlternatives">
+                        <div class="text" v-for="alternative in answer.alternatives">
+                            <span v-text="alternative.transcript"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <textarea class="hear-input" title="hear input" v-model="newText" autofocus></textarea>
+        <textarea class="hear-input" title="hear input" v-model="newText" autofocus v-on:keypress="startTyping($event)"></textarea>
     </div>
 </div>

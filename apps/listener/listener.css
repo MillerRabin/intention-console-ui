@@ -18,6 +18,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .Listener .content  .hear-input {
@@ -52,11 +54,33 @@
     padding: 0
 }
 
+.Listener .content .answer .time {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+
 .Listener .content .alternatives {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
 }
 
 .Listener .content .alternatives .text{
     margin-left: 0.5rem;
 }
+
+.Listener .content .alternatives button {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem 0.2rem 0;
+    text-decoration: none;
+}
+
+.Listener .content .alternatives button:hover {
+    text-decoration: underline;
+}
+
+.Listener .content .alternatives button .icon {
+    margin-right: 0.2rem;
+}
+
 
