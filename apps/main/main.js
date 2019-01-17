@@ -1,5 +1,6 @@
-import loader from '../loader.js';
+import loader from '../../core/loader.js';
 import '../router/router.js';
+import '../../intensions/config.js';
 
 loader.application('Main', ['router', async (router) => {
     const data = {

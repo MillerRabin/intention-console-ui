@@ -1,9 +1,9 @@
-<div class="Listener" v-bind:class="{ show: loaded == true }">
+<div class="Listener dynamicPage" v-bind:class="{ show: loaded == true }">
     <div class="content">
         <div class="output">
             <div class="answer" v-for="answer in answers">
                 <p class="time" v-text="answer.time.format('DD-MMM-YYYY HH:mm')"></p>
-                <p v-text="answer.text"></p>
+                <pre v-text="answer.text"></pre>
                 <div class="alternatives" v-if="answer.alternatives.length > 0">
                     <button v-on:click="toggleAlternatives(answer)">
                         <span class="icon" v-bind:class="{'icon-plus-squared-alt': !answer.showAlternatives, 'icon-minus-squared-alt': answer.showAlternatives}"></span>
@@ -17,6 +17,6 @@
                 </div>
             </div>
         </div>
-        <textarea class="hear-input" title="hear input" v-model="newText" autofocus v-on:keypress="startTyping($event)"></textarea>
+        <textarea title="text input"></textarea>
     </div>
 </div>

@@ -304,11 +304,30 @@ dialog input[type="checkbox"] {
     border: 1px solid #ff603d;
 }
 
+.border-box {
+    border: 1px solid #a0a0a0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 
 .tabs .tab.active {
     border-bottom: 0.069vw solid #ff603d;
     color: #ff603d;
 }
+
+.dynamicPage {
+    height: 100%;
+    padding-bottom: 1rem;
+    display: none;
+}
+
+.dynamicPage.show {
+    display: block;
+}
+
 
 .content {
     padding: 0 8rem 0 8rem;

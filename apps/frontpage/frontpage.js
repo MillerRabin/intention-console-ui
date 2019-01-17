@@ -1,4 +1,4 @@
-import loader from '../loader.js';
+import loader from '../../core/loader.js';
 
 loader.application('frontpage', [async () => {
     function init() {

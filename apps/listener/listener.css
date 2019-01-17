@@ -1,19 +1,21 @@
 .Listener {
-    height: 100%;
-    padding-bottom: 1rem;
+
 }
 
 .Listener .content {
     display: grid;
+    grid-template-areas: 'output'
+                          'input';
     grid-template-columns: auto;
     grid-template-rows: 1fr 5vw;
-    grid-row-gap: 0.5rem;
+    grid-gap: 0.5rem;
     height: 100%;
 }
 
 .Listener .content .output {
     border: 1px solid #a0a0a0;
     border-radius: 0.5rem;
+    grid-area: output;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -22,13 +24,15 @@
     overflow-y: auto;
 }
 
-.Listener .content  .hear-input {
+.Listener .content textarea {
     height: 100%;
     display: block;
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #a0a0a0;
     border-radius: 0.5rem;
+    grid-area: input;
+    resize: none;
 }
 
 .Listener .content .answer {
@@ -49,9 +53,10 @@
     align-self: unset;
 }
 
-.Listener .content .answer p {
+.Listener .content .answer p, .Listener .content .answer pre {
     margin: 0;
-    padding: 0
+    padding: 0;
+    white-space: normal;
 }
 
 .Listener .content .answer .time {
