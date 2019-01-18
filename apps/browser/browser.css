@@ -1,0 +1,27 @@
+.Browser {
+
+}
+
+.Browser .border-box {
+    height: 100%;
+}
+
+.Browser .sortButtons {
+    display: flex;
+}
+
+.Browser .sortButtons button {
+    width: 5vw;
+}
+
+.Browser .content {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: min-content auto;
+    grid-row-gap: 0.5rem;
+}
+
+.Browser .content .border-box > .Tree > ul {
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,11 @@
+<div class="Browser dynamicPage" v-bind:class="{ show: loaded == true }">
+    <div class="content">
+        <div class="sortButtons">
+            <button v-bind:class="{ active: sortMode == 'byOrigin' }" v-on:click="byOrigin">By origin</button>
+            <button v-bind:class="{ active: sortMode == 'byKey' }" v-on:click="byKey">By key</button>
+        </div>
+        <div class="border-box">
+            <div is="tree" v-bind:tree="list"></div>
+        </div>
+    </div>
+</div>

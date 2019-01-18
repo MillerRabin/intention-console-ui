@@ -1,23 +1,26 @@
 import safe from '../../core/safe.js';
 import uuid from '../../core/uuid.js';
-import AcceptedIntensions from '../../classes/AcceptedIntensions.js';
+import AcceptedIntensions from './AcceptedIntensions.js';
 
 async function accept(source, target) {
+    let tData = null;
+    let sData = null;
     try {
         try {
-            await source.onAccept(target);
+            sData = await source.onAccept(target);
         } catch (e) {
             target.sendError(e);
             throw e;
         }
         try {
-            await target.onAccept(source);
+            tData = await target.onAccept(source, sData);
         } catch (e) {
             source.sendError(e);
             throw e;
         }
         source.accepted.set(target);
         target.accepted.set(source);
+        if (tData != null) target.send(tData);
     } catch (e) {
         console.log(e);
     }

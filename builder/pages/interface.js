@@ -21,13 +21,13 @@ exports.pages = [{
         body: fs.readFileSync(path.resolve(__dirname, '../../apps/listener/listener.html'))
     }]
 }, {
-    template: 'apps/intensionsBrowser/intensionsBrowser.pug',
-    destination: 'intensionsBrowser.html',
+    template: 'apps/browser/browser.pug',
+    destination: 'browser.html',
     priority: 0.8,
     freq: 'weekly',
     templates: [{
-        id: 'IntensionsBrowser-Template',
-        body: fs.readFileSync(path.resolve(__dirname, '../../apps/intensionsBrowser/intensionsBrowser.html'))
+        id: 'Browser-Template',
+        body: fs.readFileSync(path.resolve(__dirname, '../../apps/browser/browser.html'))
     }]
 }];
 

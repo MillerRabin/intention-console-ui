@@ -1,0 +1,18 @@
+<div class="Tree">
+    <div class="title" v-if="(tree != null) && (tree.showRoot !== false)">
+        <button class="plus"
+                v-bind:class="{ 'icon-plus-squared-alt': !tree.opened, 'icon-minus-squared-alt': tree.opened, visible: hasChilds() }"
+                v-on:click="toggle" v-on:contextmenu="context"></button>
+        <input type="checkbox" v-model="tree.checked" title="Выделить" v-on:change="setChecked" v-if="(tree.single === false) && (tree.single != null)"/>
+        <button v-text="tree.name" v-on:click="toggle" v-on:mouseover="mover" v-on:contextmenu="context"></button>
+    </div>
+    <ul v-if="(tree != null) && (tree.childs != null)" v-show="tree.opened">
+        <li v-for="child in tree.childs" is="tree"
+            v-bind:tree="child"
+            v-bind:selected="selected"
+            v-bind:mouseover="mouseover"
+            v-bind:onchecked="onchecked"
+            v-bind:keypath="keypath"
+            v-bind:oncontext="oncontext"></li>
+    </ul>
+</div>

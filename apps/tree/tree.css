@@ -1,0 +1,37 @@
+.Tree .title {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;
+}
+
+.Tree .title button {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    font-size: 1.3em;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.Tree .title .plus {
+    visibility: hidden;
+    margin-right: 0.5rem;
+}
+
+.Tree .title .plus.visible {
+    visibility: visible;
+}
+
+.Tree .title input {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+    margin: 0 0.5rem 0 0;
+}
+
+.Tree ul {
+    list-style: none;
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+}

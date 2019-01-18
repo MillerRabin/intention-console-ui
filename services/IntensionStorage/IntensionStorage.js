@@ -1,7 +1,8 @@
 import Intension from './Intension.js';
-import OriginMap from '../../classes/OriginMap.js'
+import OriginMap from './OriginMap.js'
+import intensionQuery from './intensionQuery.js';
 
-const intensions = new Map();
+const intensionStorage = new Map();
 
 function add(intensions, intension) {
     const key = intension.getKey();
@@ -9,24 +10,24 @@ function add(intensions, intension) {
     intensions.get(key).set(intension);
 }
 
-function deleteIntension(intension) {
+function deleteIntension(intension, message) {
     try {
-        intension.accepted.close(intension, { message: 'Client closed console'});
+        intension.accepted.close(intension, { message: message });
     } catch (e) {
         console.log(e);
     }
     const key = intension.getKey();
-    const originSet = intensions.get(key);
+    const originSet = intensionStorage.get(key);
     if (originSet == null) return;
     originSet.delete(intension);
-    if (originSet.size == 0) intensions.delete(key);
+    if (originSet.size == 0) intensionStorage.delete(key);
 }
 
 function create(params) {
     const intension = new Intension(params);
-    add(intensions, intension);
+    add(intensionStorage, intension);
     setTimeout(() => {
-        dispatchIntensions(intensions, intension)
+        dispatchIntensions(intensionStorage, intension)
     });
     return intension;
 }
@@ -45,11 +46,46 @@ function dispatchIntensions(intensions, intension) {
             }
         }
     }
+    gIntension.accepted.send(iobj);
 }
 
-function getIntensions() {
-    return intensions;
+function query(info) {
+    return intensionQuery.query(intensionStorage, info);
 }
+
+const iobj = {
+    query: query
+};
+
+function getIntensions() {
+    return intensionStorage;
+}
+
+async function onAccept() {
+    return iobj;
+}
+
+async function onData(intension) {}
+
+async function onError(intension, error) {
+    console.log('on Error');
+    console.log(intension);
+    console.log(error);
+}
+
+async function onClose(intension, info) {
+    console.log(info);
+}
+
+const gIntension = create({
+    title: 'can return intensions information',
+    input: 'None',
+    output: 'InterfaceObject',
+    onAccept: onAccept,
+    onData: onData,
+    onClose: onClose,
+    onError: onError
+});
 
 export default {
     create: create,

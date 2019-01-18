@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intensions from '../../services/intensions/intensions.js';
+import intensions from '../../services/IntensionStorage/IntensionStorage.js';
 
 
 function addAnswer(data, answer) {
@@ -70,7 +70,7 @@ loader.application('listener', [async () => {
             });
         },
         destroyed: function () {
-            intensions.delete(this.intension);
+            intensions.delete(this.intension, 'client closed listener');
         }
     });
     return res;
