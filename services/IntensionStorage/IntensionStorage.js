@@ -54,37 +54,22 @@ function query(info) {
 }
 
 const iobj = {
-    query: query
+    query: query,
 };
 
 function getIntensions() {
     return intensionStorage;
 }
 
-async function onAccept() {
-    return iobj;
-}
-
-async function onData(intension) {}
-
-async function onError(intension, error) {
-    console.log('on Error');
-    console.log(intension);
-    console.log(error);
-}
-
-async function onClose(intension, info) {
-    console.log(info);
+async function onData(status) {
+    if (status == 'accept') return iobj;
 }
 
 const gIntension = create({
-    title: 'can return intensions information',
+    title: 'can query intension storage information',
     input: 'None',
     output: 'InterfaceObject',
-    onAccept: onAccept,
-    onData: onData,
-    onClose: onClose,
-    onError: onError
+    onData: onData
 });
 
 export default {

@@ -5,7 +5,63 @@
             <button v-bind:class="{ active: sortMode == 'byKey' }" v-on:click="byKey">By key</button>
         </div>
         <div class="border-box">
-            <div is="tree" v-bind:tree="list"></div>
+            <div is="tree" v-bind:tree="list" v-bind:onchecked="onchecked" keypath="name"></div>
+        </div>
+        <div class="border-box">
+            <table class="props" v-if="selected != null">
+                <tr>
+                    <td>Key</td>
+                    <td v-text="selected.key"></td>
+                </tr>
+                <tr>
+                    <td>Origin</td>
+                    <td v-text="selected.origin"></td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td v-text="selected.title"></td>
+                </tr>
+                <tr>
+                    <td>Id</td>
+                    <td v-text="selected.id"></td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td v-text="selected.mtime.format('DD-MMM-YYYY HH:MM')"></td>
+                </tr>
+                <tr>
+                    <td>Input</td>
+                    <td v-text="selected.input"></td>
+                </tr>
+                <tr>
+                    <td>Output</td>
+                    <td v-text="selected.output"></td>
+                </tr>
+                <tr v-if="selected.accepted.length > 0">
+                    <td class="accepted">Accepted</td>
+                    <td>
+                        <table class="props border-box" v-for="accepted of selected.accepted">
+                            <tr>
+                                <td>Key</td>
+                                <td v-text="accepted.key"></td>
+                            </tr>
+                            <tr>
+                                <td>Origin</td>
+                                <td v-text="accepted.origin"></td>
+                            </tr>
+                            <tr>
+                                <td>Title</td>
+                                <td v-text="accepted.title"></td>
+                            </tr>
+                            <tr>
+                                <td>Id</td>
+                                <td v-text="accepted.id"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
         </div>
     </div>
 </div>

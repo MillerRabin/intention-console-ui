@@ -1,6 +1,8 @@
 export default class AcceptedIntensions {
-    constructor () {
+    constructor (intension) {
+        if (intension == null) throw new Error('intension expected');
         this.accepted = new Map();
+        this.intension = intension;
     }
     set(value) {
         this.accepted.set(value.id, value);
@@ -11,7 +13,7 @@ export default class AcceptedIntensions {
     send(data) {
         for (let [, intension] of this.accepted) {
             try {
-                intension.send(data);
+                intension.send('data', this.intension, data);
             } catch (e) {
                 console.log(e);
             }
@@ -27,4 +29,18 @@ export default class AcceptedIntensions {
         }
         this.accepted.clear();
     }
+    toObject() {
+        const res = [];
+        for (let [, intension] of this.accepted) {
+            res.push({
+                id: intension.id,
+                origin: intension.origin,
+                title: intension.title,
+                key: intension.getKey()
+            });
+        }
+        return res;
+    }
+
+
 }

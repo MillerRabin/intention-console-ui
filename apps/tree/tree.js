@@ -5,10 +5,6 @@ loader.application('tree', [async () => {
         return {};
     }
 
-    function hasChild(node) {
-        return (node.childs != null) && (node.childs.length > 0);
-    }
-
     function clear(selected) {
         for (let key in selected) {
             if (!selected.hasOwnProperty(key)) continue;
@@ -19,11 +15,9 @@ loader.application('tree', [async () => {
     function selectItem(vm, node, selected, checked) {
         const keyVal = (vm.keypath == null) ? 'path' : vm.keypath;
         const key = node[keyVal];
+        if (vm.tree.single == true)
+            clear(selected);
         if (!checked) {
-            if (vm.single == true) {
-                clear(selected);
-                return;
-            }
             Vue.delete(selected, key);
             return;
         }
@@ -33,7 +27,7 @@ loader.application('tree', [async () => {
 
     function setChecked(vm, node, selected, checked) {
         node.checked = checked;
-        if (selected != null) selectItem(vm, node, selected, checked);
+        selectItem(vm, node, selected, checked);
     }
 
     await loader.createVueTemplate({ path: 'apps/tree/tree.html', id: 'Tree-Template' });
@@ -47,24 +41,23 @@ loader.application('tree', [async () => {
             onchecked: Function,
             mouseover: Function,
             keypath: String,
-            single: Boolean,
             oncontext: Function
         },
         methods: {
             toggle: function () {
                 if (!this.hasChilds()) {
-                    this.tree.checked = !this.tree.checked;
+                    this.tree.checked = (this.tree.single) ? true: !this.tree.checked;
                     this.setChecked();
                     return;
                 }
                 Vue.set(this.tree, 'opened', !this.tree.opened);
                 this.setChecked();
-                this.$forceUpdate();
             },
             context: function (e) {
                 if (this.oncontext != null) this.oncontext(this.tree, e);
             },
             setChecked: function () {
+                if (this.selected == null) this.selected = {};
                 setChecked(this, this.tree, this.selected, this.tree.checked);
                 if (this.onchecked != null) this.onchecked(this.selected, this.tree);
             },

@@ -13,20 +13,8 @@ function addAnswer(data, answer) {
         });
 }
 
-async function accept(intension) {}
-
 async function onData({data, answer}) {
     addAnswer(data, answer);
-}
-
-async function onError(intension, error) {
-    console.log(intension);
-    console.log(error);
-}
-
-async function onClose(intension, info) {
-    console.log(intension);
-    console.log(info);
 }
 
 loader.application('listener', [async () => {
@@ -60,12 +48,10 @@ loader.application('listener', [async () => {
                 title: 'Need interact with user',
                 input: 'Recognition',
                 output: 'HTMLTextAreaElement',
-                onAccept: accept,
-                onData: async (intension, data) => {
-                    await onData({ data: this, answer: data });
+                onData: async (status, intension, data) => {
+                    if (status == 'data')
+                        await onData({ data: this, answer: data });
                 },
-                onError: onError,
-                onClose: onClose,
                 parameters: [this.input]
             });
         },

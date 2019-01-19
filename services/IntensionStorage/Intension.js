@@ -7,20 +7,21 @@ async function accept(source, target) {
     let sData = null;
     try {
         try {
-            sData = await source.onAccept(target);
+            sData = await source.send('accept', target);
         } catch (e) {
             target.sendError(e);
             throw e;
         }
         try {
-            tData = await target.onAccept(source, sData);
+            tData = await target.send('accept', source);
         } catch (e) {
             source.sendError(e);
             throw e;
         }
         source.accepted.set(target);
         target.accepted.set(source);
-        if (tData != null) target.send(tData);
+        if (tData != null) source.send('data', target, tData);
+        if (sData != null) target.send('data', source, sData);
     } catch (e) {
         console.log(e);
     }
@@ -30,55 +31,62 @@ async function accept(source, target) {
 export default class Intension {
     constructor ({
         title,
+        description,
         input,
         output,
-        onAccept,
         onData,
-        onError,
-        onClose,
-        maxConnections = 1,
         parameters = []
     }) {
         if (safe.isEmpty(title)) throw new Error('Intension must have a title');
         if (safe.isEmpty(input)) throw new Error('Intension must have an input parameters');
         if (safe.isEmpty(output)) throw new Error('Intension must have an output parameters');
-        if (typeof(onAccept) != 'function') throw new Error('Intension onAccept must be an async function');
         if (typeof(onData) != 'function') throw new Error('Intension onData must be an async function');
-        if (typeof(onError) != 'function') throw new Error('Intension onError must be an async function');
-        if (typeof(onClose) != 'function') throw new Error('Intension onClose must be an async function');
-        if (isNaN(maxConnections)) throw new Error('MaxConnections mst be a number');
         if (!Array.isArray(parameters)) throw new Error('Parameters must be array');
 
         this.time = new Date();
         this.title = title;
+        this.description = description;
         this.input = input;
         this.output = output;
         this.origin = window.location.host;
-        this.onAccept = onAccept;
         this.onData = onData;
-        this.onClose = onClose;
-        this.onError = onError;
         this.parameters = parameters;
         this.id = uuid.generate();
-        this.accepted = new AcceptedIntensions();
+        this.accepted = new AcceptedIntensions(this);
     }
     getKey(reverse = false) {
         return (!reverse) ? `${ this.input } - ${ this.output }` : `${ this.output } - ${ this.input }`;
     }
-    accept(intension) {
-        return accept(this, intension);
-    }
     getParameters() {
         return this.parameters;
     }
-    send(data) {
-        this.onData(this, data);
+    async send(status, intension, data) {
+        return await this.onData(status, intension, data);
     }
-    sendError(error) {
-        this.onError(this, error);
+    async sendError(error) {
+        return await this.onData('error', this, error);
     }
-    close(intension, info) {
-        this.onClose(this, info);
-        this.accepted.delete(intension);
+    async accept(intension) {
+        return await accept(this, intension);
+    }
+    async close(intension, info) {
+        try {
+            return await this.onData('close', intension, info);
+        }
+        finally {
+            this.accepted.delete(intension);
+        }
+    }
+    toObject() {
+        return {
+            id: this.id,
+            time: this.time,
+            key: this.getKey(),
+            input: this.input,
+            output: this.output,
+            origin: this.origin,
+            title: this.title,
+            accepted: this.accepted.toObject()
+        }
     }
 }

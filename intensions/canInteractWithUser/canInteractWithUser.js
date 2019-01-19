@@ -5,6 +5,8 @@ import intensions from '../../services/IntensionStorage/IntensionStorage.js';
 let typeInterval = null;
 const typeTimeout = 1000;
 
+const gParamHash = {};
+
 function getAnswer(params) {
     params.time = window.moment();
     params.alternatives = (params.alternatives == null) ? [] : params.alternatives;
@@ -59,35 +61,27 @@ function stop(input) {
     speech.disable();
 }
 
-async function onAccept(intension) {
-    const parameters = intension.getParameters();
-    const input = parameters[0];
-    if (input == null) throw new Error('HTMLTextAreaElement must be the first parameter');
-    gIntension.input = input;
-    start(input);
-}
-
-async function onData(intension) {}
-
-async function onError(intension, error) {
-    console.log('on Error');
-    console.log(intension);
-    console.log(error);
-}
-
-async function onClose(intension, info) {
-    console.log(info);
-    stop(gIntension.input);
+async function onData(status, intension, info) {
+    if (status == 'accept') {
+        const parameters = intension.getParameters();
+        const input = parameters[0];
+        if (input == null) throw new Error('HTMLTextAreaElement must be the first parameter');
+        gParamHash[intension.id] = input;
+        start(input);
+        return;
+    }
+    if (status == 'close') {
+        const input = gParamHash[intension.id];
+        stop(input);
+        delete gParamHash[intension.id];
+    }
 }
 
 const gIntension = intensions.create({
     title: 'can interact with user',
     input: 'HTMLTextAreaElement',
     output: 'Recognition',
-    onAccept: onAccept,
-    onData: onData,
-    onClose: onClose,
-    onError: onError
+    onData: onData
 });
 
 
