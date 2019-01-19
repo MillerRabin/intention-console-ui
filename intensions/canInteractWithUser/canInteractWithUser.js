@@ -1,6 +1,6 @@
 import speech from './speech.js';
 import keyboard from './keyboard.js';
-import intensions from '../../services/IntensionStorage/IntensionStorage.js';
+import intensions from '/node_modules/intension-storage/main.js';
 
 let typeInterval = null;
 const typeTimeout = 1000;

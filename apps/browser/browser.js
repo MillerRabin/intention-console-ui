@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intensionStorage from '../../services/IntensionStorage/IntensionStorage.js';
+import intensionStorage from '/node_modules/intension-storage/main.js';
 import '../tree/tree.js';
 
 loader.application('browser', ['tree', async () => {
