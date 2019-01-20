@@ -1,1 +1,1 @@
-import './canInteractWithUser/canInteractWithUser.js';
+import '/node_modules/intension-can-interact-with-user/main.js';
