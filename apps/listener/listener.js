@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intensions from '/node_modules/intension-storage/main.js';
+import intensions from '/node_modules/intension-storage/browser/main.js';
 
 
 function addAnswer(data, answer) {
