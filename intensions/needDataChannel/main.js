@@ -6,7 +6,7 @@ async function onData() {
 }
 
 const gIntension = IntensionStorage.create({
-    title: 'need Data Channel',
+    title: 'Need Data Channel',
     input: 'DataChannelServer',
     output: 'DataChannelClient',
     onData: onData

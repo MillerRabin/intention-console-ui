@@ -88,7 +88,7 @@ loader.application('browser', ['tree', async () => {
         },
         mounted: function () {
             this.intension = intensionStorage.create({
-                title: 'need return intensions information',
+                title: 'Need return intensions information',
                 input: 'InterfaceObject',
                 output: 'None',
                 onData: async (status, intension, interfaceObject) => {

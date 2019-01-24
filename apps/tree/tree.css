@@ -9,9 +9,20 @@
     background-color: transparent;
     color: inherit;
     font-size: 1.3em;
-    display: inline-block;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.Tree .title button.intension span:first-child {
+    color: #00BFFF;
+}
+
+.Tree .title button.intension span:last-child {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #cccccc;
 }
 
 .Tree .title .plus {
