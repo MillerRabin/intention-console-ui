@@ -164,7 +164,7 @@ loader.loadContent = async (path, id) => {
 
 loader.createVueTemplate = async (module) => {
     await loader.globalContentLoaded;
-    let head = document.getElementsByTagName('head').item(0);
+    const head = document.getElementsByTagName('head').item(0);
     let script = window.document.getElementById(module.id);
     if (script == null) {
         script = document.createElement('script');
@@ -172,7 +172,8 @@ loader.createVueTemplate = async (module) => {
         script.setAttribute('id', module.id);
         head.appendChild(script);
     }
-    let data = await loader.request(module.path);
+    const current = loader.getCurrentPath(module.meta, module.path);
+    const data = await loader.request(current);
     script.innerHTML = '\n' + data.text;
     return script;
 };
@@ -243,5 +244,14 @@ loader.wait = async (module, timeout = 10000) => {
     return applications[module].loader.promise;
 };
 
+loader.getCurrentPath = (meta, item) => {
+    if (meta == null) return item;
+    const paths = meta.url.split('/');
+    paths.pop();
+    if (item == null)
+        return paths.join('/');
+    paths.push(item);
+    return paths.join('/');
+};
 
 export default loader;

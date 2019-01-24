@@ -30,7 +30,7 @@ loader.application('tree', [async () => {
         selectItem(vm, node, selected, checked);
     }
 
-    await loader.createVueTemplate({ path: 'apps/tree/tree.html', id: 'Tree-Template' });
+    await loader.createVueTemplate({ path: 'tree.html', id: 'Tree-Template', meta: import.meta });
     const res = {};
     res.Constructor = Vue.component('tree', {
         template: '#Tree-Template',

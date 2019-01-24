@@ -65,7 +65,7 @@ loader.application('browser', ['tree', async () => {
         throw new Error(`Sort ${ vm.sortMode } is unsupported`);
     }
 
-    await loader.createVueTemplate({ path: 'apps/browser/browser.html', id: 'Browser-Template' });
+    await loader.createVueTemplate({ path: 'browser.html', id: 'Browser-Template', meta: import.meta });
     const res = {};
 
     res.Constructor = Vue.component('browser', {
@@ -87,7 +87,6 @@ loader.application('browser', ['tree', async () => {
             }
         },
         mounted: function () {
-            this.loaded = true;
             this.intension = intensionStorage.create({
                 title: 'need return intensions information',
                 input: 'InterfaceObject',
@@ -98,9 +97,11 @@ loader.application('browser', ['tree', async () => {
                     sortHash(this);
                 }
             });
+            this.loaded = true;
         },
         destroyed: function () {
             intensionStorage.delete(this.intension, 'client closed browser');
+            this.loaded = false;
         }
     });
     return res;
