@@ -36,7 +36,7 @@
 }
 
 .Listener .content .answer {
-    background-color: #242323;
+    background-color: #373636;
     padding: 0.5rem 1rem;
     border: 1px solid #a0a0a0;
     border-radius: 1rem;
@@ -45,8 +45,8 @@
     align-self: flex-end;
 }
 
-.Listener .content .answer.answered {
-    background-color: #0088c3;
+.Listener .content .answer.ext {
+    background-color: #242323;
     padding: 1rem 1rem;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
@@ -59,10 +59,19 @@
     white-space: normal;
 }
 
-.Listener .content .answer .time {
-    font-style: italic;
+.Listener .content .answer .top {
     font-size: 0.8rem;
+    display: flex;
+}
+
+.Listener .content .answer .top .time {
+    font-style: italic;
     color: #a0a0a0;
+}
+
+.Listener .content .answer .top .context {
+    color: #ff603d;
+    margin-left: 0.5rem;
 }
 
 .Listener .content .alternatives {

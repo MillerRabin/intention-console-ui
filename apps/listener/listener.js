@@ -1,11 +1,13 @@
 import loader from '../../core/loader.js';
-import intensions from '/node_modules/intension-storage/browser/main.js';
+import intensionStorage from '/node_modules/intension-storage/browser/main.js';
 
-
-function addAnswer(data, answer) {
+function addAnswer(data, answer, ext = true) {
     const offset = data.output.scrollTop + data.output.clientHeight;
     const sh = data.output.scrollHeight;
     const threshold = 10;
+    answer.time = window.moment(answer.time);
+    if (answer.alternatives == null) answer.alternatives = [];
+    answer.ext = ext;
     data.answers.push(answer);
     if ((sh >= offset - threshold) && (sh <= offset + threshold))
         setTimeout(() => {
@@ -13,8 +15,38 @@ function addAnswer(data, answer) {
         });
 }
 
+
+function createIntensions(vm) {
+    vm.iInteract = intensionStorage.create({
+        title: 'Need interact with user',
+        input: 'Recognition',
+        output: 'HTMLTextAreaElement',
+        onData: async (status, intension, data) => {
+            if (status == 'data')
+                await addAnswer(vm, data, false);
+        },
+        parameters: [vm.input]
+    });
+
+    vm.iPost = intensionStorage.create({
+        title: 'Can post data to console',
+        input: 'ContextText',
+        output: 'None',
+        onData: async (status, intension, value) => {
+            if (status == 'data')
+                await addAnswer(vm, value);
+        }
+    });
+
+}
+
+function deleteIntensions(vm) {
+    intensionStorage.delete(vm.iInteract, 'client closed listener');
+    intensionStorage.delete(vm.iPost, 'client closed listener');
+}
+
 async function onData({data, answer}) {
-    addAnswer(data, answer);
+
 }
 
 loader.application('listener', [async () => {
@@ -25,11 +57,11 @@ loader.application('listener', [async () => {
             showAlternatives: false,
             output: null,
             input: null,
-            intension: null
+            culture: 'ru'
         }
     }
 
-    await loader.createVueTemplate({ path: 'apps/listener/listener.html', id: 'Listener-Template' });
+    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta });
     const res = {};
     res.Constructor = Vue.component('listener', {
         template: '#Listener-Template',
@@ -38,25 +70,23 @@ loader.application('listener', [async () => {
             toggleAlternatives: function (answer) {
                 answer.showAlternatives = !answer.showAlternatives;
                 this.$forceUpdate();
+            },
+            getText(contextText) {
+                let text = contextText[this.culture];
+                if (text != null) return text;
+                const vals = Object.values(contextText);
+                return vals[0];
             }
         },
         mounted: function () {
-            this.loaded = true;
             this.output = this.$el.querySelector('.output');
             this.input = this.$el.querySelector('.content textarea');
-            this.intension = intensions.create({
-                title: 'Need interact with user',
-                input: 'Recognition',
-                output: 'HTMLTextAreaElement',
-                onData: async (status, intension, data) => {
-                    if (status == 'data')
-                        await onData({ data: this, answer: data });
-                },
-                parameters: [this.input]
-            });
+            createIntensions(this);
+            this.loaded = true;
         },
         destroyed: function () {
-            intensions.delete(this.intension, 'client closed listener');
+            deleteIntensions(this);
+            this.loaded = false;
         }
     });
     return res;

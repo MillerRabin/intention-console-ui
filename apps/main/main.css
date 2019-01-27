@@ -100,7 +100,7 @@ button:last-child {
 }
 
 button:hover {
-    background-color: #ffa44b;
+    background-color: rgba(255, 113, 79, 1);
 }
 
 button.active {

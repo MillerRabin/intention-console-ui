@@ -1,0 +1,21 @@
+.Storages {
+
+}
+
+.Storages .border-box {
+    height: 100%;
+}
+
+
+.Storages .content {
+    display: grid;
+    grid-template-columns: auto 20%;
+    grid-template-rows: auto;
+    grid-gap: 0.5rem;
+}
+
+.Storages .content .controls {
+    display: flex;
+    flex-direction: column;
+}
+
