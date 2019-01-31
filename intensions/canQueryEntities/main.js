@@ -32,13 +32,13 @@ function searchEntities(recognition) {
     return res;
 }
 
-function addProtocols(protocols) {
-    for (let protocol of protocols) {
-        const keys = getEntityKeys(protocol);
+function addEntities(entities) {
+    for (let entity of entities) {
+        const keys = getEntityKeys(entity);
         for (let key of keys) {
             const tp = gEntities.get(key);
             if (tp != null) throw new Error(`Protocol ${key} already defined`);
-            gEntities.add(key, protocol);
+            gEntities.add(key, entity);
         }
     }
 }
@@ -51,7 +51,7 @@ IntensionStorage.create({
     onData: async (status, intension, value) => {
         if (status == 'data') {
             try {
-                addProtocols(value);
+                addEntities(value);
             } catch (e) {
                 intension.send('error', this, e);
             }
@@ -68,7 +68,8 @@ IntensionStorage.create({
         if (status == 'data') {
             setTimeout(() => {
                 const sr = searchEntities(value);
-                intension.send('data', this, sr);
+                if (sr.length > 0)
+                    intension.send('data', this, sr);
             }, 0);
         }
     }

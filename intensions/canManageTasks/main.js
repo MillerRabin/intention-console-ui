@@ -12,8 +12,14 @@ IntensionStorage.create({
     onData: async function onData(status, intension, value) {
         if (status != 'data') return;
         const mtask = value.task;
-        const task = new Task({ name: mtask.name.name, parameters: mtask.parameters});
-        gTasks.add(task);
+        if (mtask != null) {
+            const task = new Task({ name: mtask.name.name, parameters: mtask.parameters});
+            gTasks.add(task);
+        }
+        const structures = value.structures;
+        if (structures != null) {
+            console.log(structures);
+        }
     }
 });
 
