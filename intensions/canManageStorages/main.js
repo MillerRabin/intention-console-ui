@@ -1,35 +1,27 @@
 import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
 
-const gProtocols = [
+const gTasks = [
     {
+        type: 'task',
         name: {
-            en: 'Create storage',
-            ru: 'Создание хранилища'
+            name: 'Add storage',
+            en: 'Add storage',
+            ru: 'Добавление хранилища'
         },
         words: {
             ru: 'Добавить хранилище',
+            en: 'Add storage'
         },
-        fields: [{
-            address: 'Text',
-            port: 'Integer?80'
+        parameters: [{
+            name: 'webAddress',
+            ru: 'веб адрес?',
+            en: 'web address?'
         }],
         intensions: [{
-                title: 'Post started',
-                input: 'None',
-                output: 'Text',
-                parameters: [{
-                    ru: 'Добавление хранилища'
-                }]
-            }, {
-                title: 'Protocol create storage',
-                input: 'StorageInfo',
-                output: 'StorageOperationInfo',
-                parameters: [{
-                    address: "@fields.address",
-                    port:    "@fields.address",
-                }]
-            }
-        ]
+            title: 'Protocol create storage',
+            input: 'StorageInfo',
+            output: 'StorageOperationInfo'
+        }]
     }
 ];
 
@@ -46,20 +38,11 @@ IntensionStorage.create({
 });
 
 IntensionStorage.create({
-    title: 'Can send storage protocols information',
-    description: '<p>Storage protocol information</p>',
+    title: 'Can send storage tasks information',
+    description: '<p>Storage tasks information</p>',
     input: 'None',
-    output: 'ProtocolInfo',
+    output: 'EntitiesInfo',
     onData: async function onData(status) {
-        if (status == 'accept') return gProtocols;
+        if (status == 'accept') return gTasks;
     }
-});
-
-
-const iPost = IntensionStorage.create({
-    title: 'Need post data to console',
-    description: '<p>Need post data to console</p>',
-    input: 'None',
-    output: 'Text',
-    onData: async function onData(status) {}
 });

@@ -19,7 +19,7 @@ function recursiveSearch(root, words, res, current) {
         cw.value = branch.value;
         if (cw.value != null) {
             res.push({
-                words: cw.words.join(' '),
+                words: cw.words,
                 value: cw.value
             });
         }

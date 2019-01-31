@@ -1,4 +1,5 @@
 import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import decision from './decision.js';
 
 IntensionStorage.create({
     title: 'Can structurize user input',
@@ -11,31 +12,13 @@ IntensionStorage.create({
 });
 
 const iQuery = IntensionStorage.create({
-    title: 'Need return Protocols by words',
-    description: '<p>Need return protocol by words</p>',
-    input: 'Protocols',
+    title: 'Need return entities by words',
+    description: '<p>Need return entities by words</p>',
+    input: 'Entities',
     output: 'Recognition',
     onData: async (status, intension, value) => {
         if (status == 'data') {
-            const tp = value[0];
-            if ((tp == null) || (tp.value == null)) return;
-            iPost.accepted.send({
-                time: new Date(),
-                context: tp.value.name,
-                text: 'Протокол распознан'
-            })
+            decision.build(value);
         }
-    }
-});
-
-const iPost = IntensionStorage.create({
-    title: 'Need post data to console',
-    description: '<p>Need post data to console</p>',
-    input: 'None',
-    output: 'ContextText',
-    onData: async function (status, intension, value) {
-        console.log(status);
-        console.log(intension);
-        console.log(value);
     }
 });

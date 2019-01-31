@@ -6,7 +6,7 @@
                     <span class="time" v-text="answer.time.format('DD-MMM-YYYY HH:mm:ss.SSS')"></span>
                     <span class="context" v-if="answer.context != null" v-text="`[${getText(answer.context)}]`"></span>
                 </div>
-                <pre v-text="answer.text"></pre>
+                <pre v-text="getText(answer.text)"></pre>
                 <div class="alternatives" v-if="answer.alternatives.length > 0">
                     <button v-on:click="toggleAlternatives(answer)">
                         <span class="icon" v-bind:class="{'icon-plus-squared-alt': !answer.showAlternatives, 'icon-minus-squared-alt': answer.showAlternatives}"></span>
@@ -14,7 +14,7 @@
                     </button>
                     <div v-if="answer.showAlternatives">
                         <div class="text" v-for="alternative in answer.alternatives">
-                            <span v-text="alternative.transcript"></span>
+                            <span v-text="getText(alternative.transcript)"></span>
                         </div>
                     </div>
                 </div>

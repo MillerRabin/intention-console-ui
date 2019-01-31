@@ -1,31 +1,31 @@
 import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
 import WordTree from './WordTree.js';
 
-const gProtocols = new WordTree();
+const gEntities = new WordTree();
 
-function getProtocolKeys(protocol) {
+function getEntityKeys(protocol) {
     const words = protocol.words;
-    if (words == null) throw new Error('Protocol must has a words');
+    if (words == null) throw new Error('Entity must has a words');
     if (typeof(words) == 'string') return [words.toLowerCase()];
     if (typeof(words) == 'object') return Object.values(words).map(v => v.toLowerCase());
-    throw new Error('Protocol word format is unsupported');
+    throw new Error('Entity word format is unsupported');
 }
 
-function searchProtocol(recognition) {
+function searchEntities(recognition) {
     const res = [];
     if (typeof(recognition) == 'string') {
-        const val = gProtocols.search(recognition.toLowerCase());
+        const val = gEntities.search(recognition.toLowerCase());
         if (val.length > 0) res.push(...val);
     }
 
     if (recognition.text != null) {
-        const val = gProtocols.search(recognition.text.toLowerCase());
+        const val = gEntities.search(recognition.text.toLowerCase());
         if (val.length > 0) res.push(...val);
     }
 
     if (recognition.alternatives != null) {
         for (let alt of recognition.alternatives) {
-            const val = gProtocols.search(alt.transcript.toLowerCase());
+            const val = gEntities.search(alt.transcript.toLowerCase());
             if (val.length > 0) res.push(...val);
         }
     }
@@ -34,22 +34,28 @@ function searchProtocol(recognition) {
 
 function addProtocols(protocols) {
     for (let protocol of protocols) {
-        const keys = getProtocolKeys(protocol);
+        const keys = getEntityKeys(protocol);
         for (let key of keys) {
-            const tp = gProtocols.get(key);
+            const tp = gEntities.get(key);
             if (tp != null) throw new Error(`Protocol ${key} already defined`);
-            gProtocols.add(key, protocol);
+            gEntities.add(key, protocol);
         }
     }
 }
 
 IntensionStorage.create({
-    title: 'Need protocol information',
-    description: '<p>Collects information about protocols</p>',
-    input: 'ProtocolInfo',
+    title: 'Need entities',
+    description: '<p>Collects information about entities</p>',
+    input: 'EntitiesInfo',
     output: 'None',
     onData: async (status, intension, value) => {
-        if (status == 'data') addProtocols(value);
+        if (status == 'data') {
+            try {
+                addProtocols(value);
+            } catch (e) {
+                intension.send('error', this, e);
+            }
+        }
     }
 });
 
@@ -57,14 +63,13 @@ IntensionStorage.create({
     title: 'Can return Protocols by recognition',
     description: '<p>Can return protocol by words</p>',
     input: 'Recognition',
-    output: 'Protocols',
+    output: 'Entities',
     onData: async function (status, intension, value) {
         if (status == 'data') {
             setTimeout(() => {
-                const sr = searchProtocol(value);
+                const sr = searchEntities(value);
                 intension.send('data', this, sr);
             }, 0);
         }
-
     }
 });

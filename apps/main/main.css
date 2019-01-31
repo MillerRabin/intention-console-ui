@@ -339,3 +339,20 @@ dialog input[type="checkbox"] {
     padding: 0 8rem 0 8rem;
     height: 100%;
 }
+
+#Listener {
+    position: absolute;
+    height: 30vh;
+    width: 20vw;
+    right: 2rem;
+    bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 0.5rem;
+    background-color: #323232;
+    padding:0;
+}
+
+#Listener .content {
+    padding: 0.5rem;
+    grid-template-rows: 1fr 3vw;
+}

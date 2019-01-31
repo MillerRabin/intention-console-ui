@@ -15,7 +15,6 @@ function addAnswer(data, answer, ext = true) {
         });
 }
 
-
 function createIntensions(vm) {
     vm.iInteract = intensionStorage.create({
         title: 'Need interact with user',
@@ -37,16 +36,11 @@ function createIntensions(vm) {
                 await addAnswer(vm, value);
         }
     });
-
 }
 
 function deleteIntensions(vm) {
     intensionStorage.delete(vm.iInteract, 'client closed listener');
     intensionStorage.delete(vm.iPost, 'client closed listener');
-}
-
-async function onData({data, answer}) {
-
 }
 
 loader.application('listener', [async () => {
@@ -72,6 +66,7 @@ loader.application('listener', [async () => {
                 this.$forceUpdate();
             },
             getText(contextText) {
+                if (typeof(contextText) == 'string') return contextText;
                 let text = contextText[this.culture];
                 if (text != null) return text;
                 const vals = Object.values(contextText);
