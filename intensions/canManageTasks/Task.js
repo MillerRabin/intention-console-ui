@@ -10,9 +10,7 @@ function resolveParameters(task) {
     pTask.onExecute = function () {
         iPost.accepted.send({
             text: parameter.context,
-            context: {
-                name: task.name
-            },
+            context: task.name,
             time: new Date()
         });
     };
@@ -20,12 +18,22 @@ function resolveParameters(task) {
     return false;
 }
 
-function getParameters(parameters) {
+function searchParameter(name, structures) {
+    for (let structure of structures) {
+        const value = structure.value;
+        if (value.type != 'type') continue;
+        if (value.name.name.toLowerCase() == name) return structure
+    }
+    return null;
+}
+
+function getParameters(parameters, structures) {
     const res = [];
     for (let parameter of parameters) {
+        const st = searchParameter(parameter.name.toLowerCase(), structures);
         const tp = {
             context: parameter,
-            value: null
+            value: (st != null) ? st.words : null
         };
         res.push(tp);
     }
@@ -35,10 +43,12 @@ function getParameters(parameters) {
 export default class Task {
     constructor({
         name,
-        parameters = []
+        parameters = [],
+        structures = []
     }) {
         this.id = IntensionStorage.generateUUID();
-        this.parameters = getParameters(parameters);
+        this.structures = structures;
+        this.parameters = getParameters(parameters, structures);
         this.name = name;
         this.dependencies = new Set();
         this.onExecute = this.complete;
@@ -60,8 +70,8 @@ export default class Task {
 }
 
 const iPost = IntensionStorage.create({
-    title: 'Need post data to console',
-    description: '<p>Need post data to console</p>',
+    title: 'Need post data to console from Tasks',
+    description: '<p>Need post data to console from tasks</p>',
     input: 'None',
     output: 'ContextText',
     onData: async function (status, intension, value) {}

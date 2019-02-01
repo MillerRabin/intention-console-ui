@@ -13,7 +13,15 @@ IntensionStorage.create({
         if (status != 'data') return;
         const mtask = value.task;
         if (mtask != null) {
-            const task = new Task({ name: mtask.name.name, parameters: mtask.parameters});
+            const task = new Task({ name: mtask.name, parameters: mtask.parameters, structures: value.structures});
+            task.onExecute = function () {
+                console.log(this);
+                iPost.accepted.send({
+                    text: 'Выполняю',
+                    context: task.name,
+                    time: new Date()
+                });
+            };
             gTasks.add(task);
         }
         const structures = value.structures;
@@ -31,4 +39,12 @@ IntensionStorage.create({
     onData: async function onData(status) {
         if (status == 'accept') return gTasks;
     }
+});
+
+const iPost = IntensionStorage.create({
+    title: 'Need post data to console',
+    description: '<p>Need post data to console</p>',
+    input: 'None',
+    output: 'ContextText',
+    onData: async function (status, intension, value) {}
 });

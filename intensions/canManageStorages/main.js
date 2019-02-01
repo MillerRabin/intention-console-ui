@@ -38,8 +38,8 @@ IntensionStorage.create({
 });
 
 IntensionStorage.create({
-    title: 'Can send storage tasks information',
-    description: '<p>Storage tasks information</p>',
+    title: 'Can send storage entities',
+    description: '<p>Storage entities</p>',
     input: 'None',
     output: 'EntitiesInfo',
     onData: async function onData(status) {

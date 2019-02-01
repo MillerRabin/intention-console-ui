@@ -4,3 +4,4 @@ import '/intensions/canStructurize/main.js';
 import '/intensions/canManageStorages/main.js';
 import '/intensions/canQueryEntities/main.js';
 import '/intensions/canManageTasks/main.js';
+import '/intensions/webAddresses/main.js';

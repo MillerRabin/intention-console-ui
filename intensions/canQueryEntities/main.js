@@ -1,5 +1,6 @@
 import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
 import WordTree from './WordTree.js';
+import typeAutodetect from './typeAutodetect.js';
 
 const gEntities = new WordTree();
 
@@ -11,24 +12,40 @@ function getEntityKeys(protocol) {
     throw new Error('Entity word format is unsupported');
 }
 
+function appendResults(resMap, values) {
+    for (let val of values) {
+        let pData = resMap.get(val.value);
+        if (pData == null) {
+            pData = Object.assign({}, val);
+            pData.parameters = new Map();
+            resMap.set(val.value, pData);
+        }
+        if (val.parameters != null) {
+            const key = val.parameters.join(' ');
+            pData.parameters.set(key, val);
+        }
+    }
+}
+
 function searchEntities(recognition) {
-    const res = [];
+    const res = new Map();
     if (typeof(recognition) == 'string') {
-        const val = gEntities.search(recognition.toLowerCase());
-        if (val.length > 0) res.push(...val);
+        const vals = gEntities.search(recognition.toLowerCase());
+        appendResults(res, vals);
     }
 
     if (recognition.text != null) {
-        const val = gEntities.search(recognition.text.toLowerCase());
-        if (val.length > 0) res.push(...val);
+        const vals = gEntities.search(recognition.text.toLowerCase());
+        if (vals.length > 0) appendResults(res, vals);
     }
 
     if (recognition.alternatives != null) {
         for (let alt of recognition.alternatives) {
-            const val = gEntities.search(alt.transcript.toLowerCase());
-            if (val.length > 0) res.push(...val);
+            const vals = gEntities.search(alt.transcript.toLowerCase());
+            appendResults(res, vals);
         }
     }
+
     return res;
 }
 
@@ -68,7 +85,7 @@ IntensionStorage.create({
         if (status == 'data') {
             setTimeout(() => {
                 const sr = searchEntities(value);
-                if (sr.length > 0)
+                if (sr.size > 0)
                     intension.send('data', this, sr);
             }, 0);
         }
