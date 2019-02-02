@@ -1,20 +1,15 @@
 import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
 
 function resolveParameters(task) {
-    const up = task.parameters.filter(p => (p.value == null) && (p.task == null));
+    const up = task.parameters.filter(p => (p.value === undefined));
     if (up.length == 0) return true;
     const parameter = up[0];
-    const pTask = new Task({ name: `Resolve parameter ${ parameter.context.name } for task ${ task.name }`});
-    parameter.task = pTask;
-    pTask.addDependency(pTask);
-    pTask.onExecute = function () {
-        iPost.accepted.send({
-            text: parameter.context,
-            context: task.name,
-            time: new Date()
-        });
-    };
-    task.list.add(pTask);
+    task.list.waitTypes(parameter.context.name, task);
+    iPost.accepted.send({
+        text: parameter.context,
+        context: task.name,
+        time: new Date()
+    });
     return false;
 }
 
@@ -32,9 +27,10 @@ function getParameters(parameters, structures) {
     for (let parameter of parameters) {
         const st = searchParameter(parameter.name.toLowerCase(), structures);
         const tp = {
-            context: parameter,
-            value: (st != null) ? st.words : null
+            context: Object.assign({}, parameter),
+            value: (st != null) ? st.value : undefined
         };
+        tp.context.name = tp.context.name.toLowerCase();
         res.push(tp);
     }
     return res;
@@ -66,6 +62,9 @@ export default class Task {
         for (let dep of this.dependencies) {
             this.list.delete(dep);
         }
+    }
+    searchParameterByType(type) {
+        return this.parameters.find(p => (p.context.name == type) && (p.value === undefined));
     }
 }
 

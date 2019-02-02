@@ -15,7 +15,6 @@ IntensionStorage.create({
         if (mtask != null) {
             const task = new Task({ name: mtask.name, parameters: mtask.parameters, structures: value.structures});
             task.onExecute = function () {
-                console.log(this);
                 iPost.accepted.send({
                     text: 'Выполняю',
                     context: task.name,
@@ -26,7 +25,7 @@ IntensionStorage.create({
         }
         const structures = value.structures;
         if (structures != null) {
-            console.log(structures);
+            gTasks.dispatchParameters(structures);
         }
     }
 });

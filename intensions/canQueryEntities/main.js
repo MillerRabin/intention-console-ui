@@ -17,11 +17,13 @@ function appendResults(resMap, values) {
         let pData = resMap.get(val.value);
         if (pData == null) {
             pData = Object.assign({}, val);
-            pData.parameters = new Map();
+            delete pData.parameters;
             resMap.set(val.value, pData);
         }
         if (val.parameters != null) {
             const key = val.parameters.join(' ');
+            if (pData.parameters == null)
+                pData.parameters = new Map();
             pData.parameters.set(key, val);
         }
     }

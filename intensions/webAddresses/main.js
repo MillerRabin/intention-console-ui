@@ -13,15 +13,17 @@ const gAddresses = [
         words: {
             ru: 'локалхост',
             en: 'localhost'
-        }
+        },
+        value: 'localhost'
     },
     {
         type: 'type',
         name: waName,
         words: {
             ru: 'локал хост',
-            en: 'local host'
-        }
+            en: 'local host',
+        },
+        value: 'localhost'
     }
 ];
 
