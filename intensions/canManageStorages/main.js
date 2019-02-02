@@ -19,8 +19,8 @@ const gTasks = [
         }],
         intensions: [{
             title: 'Protocol create storage',
-            input: 'StorageInfo',
-            output: 'StorageOperationInfo'
+            input: 'StorageOperationInfo',
+            output: 'StorageInfo'
         }]
     }
 ];
@@ -31,7 +31,6 @@ IntensionStorage.create({
     input: 'StorageInfo',
     output: 'StorageOperationInfo',
     onData: async function onData(status, intension, value) {
-        if (status != 'data') return;
         console.log(intension);
         console.log(value);
     }

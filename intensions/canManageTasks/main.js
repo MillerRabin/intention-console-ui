@@ -13,11 +13,19 @@ IntensionStorage.create({
         if (status != 'data') return;
         const mtask = value.task;
         if (mtask != null) {
-            const task = new Task({ name: mtask.name, parameters: mtask.parameters, structures: value.structures});
+            const task = new Task({
+                name: mtask.name,
+                parameters: mtask.parameters,
+                structures: value.structures,
+                intensions: mtask.intensions
+            });
             task.onExecute = function () {
                 iPost.accepted.send({
-                    text: 'Выполняю',
-                    context: task.name,
+                    text: {
+                        ru: 'Выполняю',
+                        en: 'Executing job'
+                    },
+                    context: this.name,
                     time: new Date()
                 });
             };

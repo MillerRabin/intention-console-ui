@@ -23,8 +23,10 @@ export default class TaskList {
             if (structure.value.type != 'type') continue;
             const name = structure.value.name.name.toLowerCase();
             const ts = this.waitTypesMap.get(name);
+            if (ts == null) continue;
             for (let task of ts) {
                 const par = task.searchParameterByType(name);
+                if (par == null) continue;
                 par.value = structure.value;
                 task.execute();
             }

@@ -22,6 +22,28 @@ function searchParameter(name, structures) {
     return null;
 }
 
+function executeIntensions(task) {
+    if (task.intensions == null) return;
+    for (let intension of task.intensions) {
+        IntensionStorage.create({
+            title: intension.title,
+            description: intension.description,
+            input: intension.input,
+            output: intension.output,
+            parameters: task.parameters.map((p) => {
+                return { value: p.value.value, type: p.value.name.name }
+            }),
+            onData: async (status, intension, data) => {
+                task.log.push({
+                    status: status,
+                    intension: intension,
+                    data: data
+                })
+            }
+        });
+    }
+}
+
 function getParameters(parameters, structures) {
     const res = [];
     for (let parameter of parameters) {
@@ -40,7 +62,8 @@ export default class Task {
     constructor({
         name,
         parameters = [],
-        structures = []
+        structures = [],
+        intensions
     }) {
         this.id = IntensionStorage.generateUUID();
         this.structures = structures;
@@ -49,15 +72,23 @@ export default class Task {
         this.dependencies = new Set();
         this.onExecute = this.complete;
         this.list = null;
+        this.intensions = intensions;
+        this.log = [];
     }
     execute() {
         if (!resolveParameters(this)) return;
+        executeIntensions(this);
         this.onExecute();
     }
     addDependency(task) {
         this.dependencies.add(task);
     }
     complete() {
+        if (this.intensions != null) {
+            for (let intension of this.intensions) {
+                IntensionStorage.delete(intension);
+            }
+        }
         this.list.delete(this);
         for (let dep of this.dependencies) {
             this.list.delete(dep);
