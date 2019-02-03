@@ -24,8 +24,8 @@ function searchParameter(name, structures) {
 
 function executeIntensions(task) {
     if (task.intensions == null) return;
-    for (let intension of task.intensions) {
-        IntensionStorage.create({
+    for (let intension of task.textIntensions) {
+        task.intensions.push(IntensionStorage.create({
             title: intension.title,
             description: intension.description,
             input: intension.input,
@@ -38,9 +38,12 @@ function executeIntensions(task) {
                     status: status,
                     intension: intension,
                     data: data
-                })
+                });
+                if ((status == 'data') || (status == 'error')) {
+                    task.complete();
+                }
             }
-        });
+        }));
     }
 }
 
@@ -72,7 +75,8 @@ export default class Task {
         this.dependencies = new Set();
         this.onExecute = this.complete;
         this.list = null;
-        this.intensions = intensions;
+        this.textIntensions = intensions;
+        this.intensions = [];
         this.log = [];
     }
     execute() {

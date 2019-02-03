@@ -30,9 +30,26 @@ IntensionStorage.create({
     description: '<p>Manages storages</p>',
     input: 'StorageInfo',
     output: 'StorageOperationInfo',
-    onData: async function onData(status, intension, value) {
-        console.log(intension);
-        console.log(value);
+    onData: async function onData(status, intension) {
+        if ((status != 'accept') && (status != 'data')) return;
+        try {
+            const parameters = intension.getParameters();
+            const res = IntensionStorage.storage.addLink(parameters);
+            intension.send('data', this, { success: true });
+            iPost.accepted.send({
+                text: {
+                    en: `Added linked storage ${ res }`,
+                    ru: `Добавлено хранилище ${ res }`
+                },
+                context: {
+                    en: 'Linked storage manager',
+                    ru: 'Связанные хранилища'
+                },
+                time: new Date()
+            });
+        } catch (e) {
+            intension.send('error', this, e);
+        }
     }
 });
 
@@ -44,4 +61,12 @@ IntensionStorage.create({
     onData: async function onData(status) {
         if (status == 'accept') return gTasks;
     }
+});
+
+const iPost = IntensionStorage.create({
+    title: 'Need post data to console from Tasks',
+    description: '<p>Need post data to console from tasks</p>',
+    input: 'None',
+    output: 'ContextText',
+    onData: async function (status, intension, value) {}
 });
