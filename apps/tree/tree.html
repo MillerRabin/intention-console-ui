@@ -5,7 +5,7 @@
                 v-on:click="toggle" v-on:contextmenu="context"></button>
         <input type="checkbox" v-model="tree.checked" title="Выделить" v-on:change="setChecked" v-if="(tree.single !== true)"/>
         <button v-on:click="toggle" v-on:mouseover="mover" v-on:contextmenu="context" v-bind:class="{ intension: tree.value != null }">
-            <span v-if="tree.value != null" v-text="tree.value.title"></span>
+            <span v-if="tree.value != null" v-text="getText(tree.value.title)"></span>
             <span v-text="tree.name"></span>
         </button>
     </div>

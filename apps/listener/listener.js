@@ -1,5 +1,6 @@
 import loader from '../../core/loader.js';
 import intensionStorage from '/node_modules/intension-storage/browser/main.js';
+import localization from '../../core/localization.js';
 
 function addAnswer(data, answer, ext = true) {
     const offset = data.output.scrollTop + data.output.clientHeight;
@@ -15,7 +16,7 @@ function addAnswer(data, answer, ext = true) {
         });
 }
 
-function createIntensions(vm) {
+function createIntensions(vm, lang) {
     vm.iInteract = intensionStorage.create({
         title: 'Need interact with user',
         input: 'Recognition',
@@ -24,7 +25,7 @@ function createIntensions(vm) {
             if (status == 'data')
                 await addAnswer(vm, data, false);
         },
-        parameters: [vm.input]
+        parameters: [lang.speechRecognizer, vm.input]
     });
 
     vm.iPost = intensionStorage.create({
@@ -50,12 +51,13 @@ loader.application('listener', [async () => {
             answers: [],
             showAlternatives: false,
             output: null,
-            input: null,
-            culture: 'ru'
+            input: null
         }
     }
 
-    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta, localization: {} });
+
+    const lang = localization.get();
+    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta, localization: { use: lang.interface } });
     const res = {};
     res.Constructor = Vue.component('listener', {
         template: '#Listener-Template',
@@ -66,17 +68,13 @@ loader.application('listener', [async () => {
                 this.$forceUpdate();
             },
             getText(contextText) {
-                if (typeof(contextText) == 'string') return contextText;
-                let text = contextText[this.culture];
-                if (text != null) return text;
-                const vals = Object.values(contextText);
-                return vals[0];
+                return localization.getText(lang, contextText);
             }
         },
         mounted: function () {
             this.output = this.$el.querySelector('.output');
             this.input = this.$el.querySelector('.content textarea');
-            createIntensions(this);
+            createIntensions(this, lang);
             this.loaded = true;
         },
         destroyed: function () {

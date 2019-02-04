@@ -1,4 +1,5 @@
 import loader from '../../core/loader.js';
+import localization from '../../core/localization.js';
 
 loader.application('tree', [async () => {
     function init() {
@@ -32,6 +33,7 @@ loader.application('tree', [async () => {
 
     await loader.createVueTemplate({ path: 'tree.html', id: 'Tree-Template', meta: import.meta });
     const res = {};
+    const lang = localization.get();
     res.Constructor = Vue.component('tree', {
         template: '#Tree-Template',
         data: init,
@@ -68,6 +70,9 @@ loader.application('tree', [async () => {
                 if (this.mouseover != null) this.mouseover(this.tree);
                 event.stopPropagation();
                 event.preventDefault();
+            },
+            getText: function (contextText) {
+                return localization.getText(lang, contextText);
             }
         },
         mounted: function () {

@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td>Title</td>
-                    <td v-text="selected.title"></td>
+                    <td v-text="getText(selected.title)"></td>
                 </tr>
                 <tr>
                     <td>Id</td>
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td>Time</td>
-                    <td v-text="selected.mtime.format('DD-MMM-YYYY HH:MM')"></td>
+                    <td v-text="selected.mtime.format('MMM DD, YYYY HH:MM')"></td>
                 </tr>
                 <tr>
                     <td>Input</td>
@@ -51,7 +51,7 @@
                             </tr>
                             <tr>
                                 <td>Title</td>
-                                <td v-text="accepted.title"></td>
+                                <td v-text="getText(accepted.title)"></td>
                             </tr>
                             <tr>
                                 <td>Id</td>

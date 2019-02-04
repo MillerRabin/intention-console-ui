@@ -22,7 +22,17 @@ function set(localization) {
     return loc;
 }
 
+function getText(lang, contextText) {
+    if (typeof(contextText) == 'string') return contextText;
+    let text = contextText[lang.interface];
+    if (text != null) return text;
+    const vals = Object.values(contextText);
+    return vals[0];
+}
+
+
 export default {
     get: get,
-    set: set
+    set: set,
+    getText: getText
 }

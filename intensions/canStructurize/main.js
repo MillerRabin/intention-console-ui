@@ -3,7 +3,7 @@ import decision from './decision.js';
 
 IntensionStorage.create({
     title: 'Can structurize user input',
-    description: '<p>It`s very primitive structurizer</p>',
+    description: '<p>It`s a primitive built-in structurizer</p>',
     input: 'Recognition',
     output: 'HTMLTextAreaElement',
     onData: async function (status, intension, value) {

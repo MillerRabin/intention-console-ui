@@ -1,6 +1,7 @@
 import loader from '../../core/loader.js';
 import intensionStorage from '/node_modules/intension-storage/browser/main.js';
 import '../tree/tree.js';
+import localization from '../../core/localization.js';
 
 loader.application('browser', ['tree', async () => {
     function init() {
@@ -70,7 +71,8 @@ loader.application('browser', ['tree', async () => {
         throw new Error(`Sort ${ vm.sortMode } is unsupported`);
     }
 
-    await loader.createVueTemplate({ path: 'browser.html', id: 'Browser-Template', meta: import.meta, localization: {} });
+    const lang = localization.get();
+    await loader.createVueTemplate({ path: 'browser.html', id: 'Browser-Template', meta: import.meta, localization: { use: lang.interface } });
     const res = {};
 
     res.Constructor = Vue.component('browser', {
@@ -89,6 +91,9 @@ loader.application('browser', ['tree', async () => {
                 const vals = Object.values(selected);
                 if (vals.length == 0) return;
                 this.selected = vals[0].value;
+            },
+            getText(contextText) {
+                return localization.getText(lang, contextText);
             }
         },
         mounted: function () {

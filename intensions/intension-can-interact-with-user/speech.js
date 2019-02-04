@@ -1,10 +1,10 @@
 let enableListener = false;
 
-function createRecognition() {
+function createRecognition(lang) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition == null) throw new Error('Speech recognition is not supported');
     const recognition = new SpeechRecognition();
-    recognition.lang = 'ru-RU';
+    recognition.lang = lang;
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
     recognition.continuous = true;
@@ -62,7 +62,7 @@ function stopRecognition(recognition) {
     recognition.abort();
 }
 
-const recognition = createRecognition();
+const recognition = createRecognition('en-US');
 
 function enable() {
     enableRecognition(recognition);

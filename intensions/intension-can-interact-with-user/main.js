@@ -43,7 +43,7 @@ function onSpeechData(event) {
     gIntension.accepted.send(answer);
 }
 
-function start(input) {
+function start(lang, input) {
     if (input != null) {
         stop(input);
         input.addEventListener('keydown', pauseSpeech);
@@ -51,6 +51,7 @@ function start(input) {
         speech.recognition.addEventListener('data', onSpeechData);
         keyboard.enable(input);
     }
+    speech.recognition.lang = lang;
     speech.enable();
 }
 
@@ -71,9 +72,10 @@ const gIntension = intensionStorage.create({
     onData: async function (status, intension) {
         if (status == 'accept') {
             const parameters = intension.getParameters();
-            const input = parameters[0];
+            const lang = parameters[0];
+            const input = parameters[1];
             gParamHash[intension.id] = input;
-            start(input);
+            start(lang, input);
             return;
         }
         if (status == 'close') {
