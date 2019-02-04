@@ -51,12 +51,20 @@ const gLanguages = [
 
 IntensionStorage.create({
     title: {
-        en: 'Localization',
-        ru: 'Локализации'
+        en: 'Localization Types and intensions for localization managing',
+        ru: 'Типы и Намерения для управления локализацией'
     },
     description: {
-        en: '<p>Describes languages and intensions for changing localization</p>',
-        ru: '<p>описывает языки и команды для смены локализации</p>'
+        ru: `<h2>Поддерживаемые языки</h2>
+            <ul>
+                <li>Русский ru-RU</li>
+                <li>Английский en-US</li>
+            </ul>`,
+        en: `<h2>Supported languages</h2>
+            <ul>
+                <li>Russian ru-RU</li>
+                <li>English en-US</li>
+            </ul>`
     },
     input: 'None',
     output: 'EntitiesInfo',

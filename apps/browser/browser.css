@@ -11,7 +11,7 @@
 
 .Browser .content {
     display: grid;
-    grid-template-columns: auto 20%;
+    grid-template-columns: auto 30%;
     grid-template-rows: 5% 95%;
     grid-gap: 0.5rem;
 }
@@ -48,4 +48,19 @@
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.Browser .content .props .description p {
+    padding: 0;
+    margin: 0;
+}
+
+.Browser .content .props .description ul {
+    padding: 0;
+    margin: 0 0 0 2.5rem;
+}
+
+.Browser .content .props .description h2 {
+    font-size: 1.5rem;
+    color: white;
 }

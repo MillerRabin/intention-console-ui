@@ -350,13 +350,13 @@ dialog input[type="radio"] {
 
 #Listener {
     position: absolute;
-    height: 30vh;
-    width: 20vw;
+    height: 40vh;
+    width: 30vw;
     right: 2rem;
     bottom: 2rem;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border-radius: 0.5rem;
-    background-color: #323232;
+    background-color: #32323220;
     padding:0;
 }
 

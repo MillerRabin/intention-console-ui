@@ -33,6 +33,7 @@
     border-radius: 0.5rem;
     grid-area: input;
     resize: none;
+    background-color: #ffffff90;
 }
 
 .Listener .content .answer {

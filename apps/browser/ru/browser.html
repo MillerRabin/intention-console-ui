@@ -21,6 +21,10 @@
                     <td>Заголовок</td>
                     <td v-text="getText(selected.title)"></td>
                 </tr>
+                <tr class="description" v-if="selected.description != null">
+                    <td>Описание</td>
+                    <td v-html="getText(selected.description)"></td>
+                </tr>
                 <tr>
                     <td>Id</td>
                     <td v-text="selected.id"></td>
