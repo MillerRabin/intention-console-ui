@@ -5,17 +5,17 @@ const interfacePages = require('./pages/interface.js').pages;
 
 let config = {
     directory: mainConfig.root,
-    domain: 'https://ci.raintech.su',
+    domain: 'https://intension.tech',
     utils: {
         getModTime: sitemap.getModTime
     },
     robots: {
         userAgent: '*',
-        template: 'templates/robots.pug',
+        template: 'apps/main/robots.pug',
         destination: 'robots.txt'
     },
     sitemap: {
-        template: 'templates/sitemap.pug',
+        template: 'apps/main/sitemap.pug',
         destination: 'sitemap.xml'
     },
     css: {
@@ -26,29 +26,6 @@ let config = {
             path: path.resolve(mainConfig.root, 'apps'),
             enabled: mainConfig.production
         }
-    },
-    scripts: {
-        libs: {
-            relativeRoot: path.resolve(mainConfig.root),
-            singleFile: path.resolve(mainConfig.root, 'scripts-min','libs.min.js'),
-            compress: false,
-            enabled: mainConfig.production
-        },
-        sources: {
-            relativeRoot: path.resolve(mainConfig.root),
-            singleFile: path.resolve(mainConfig.root, 'scripts-min', 'sources.min.js'),
-            searchPath: path.resolve(mainConfig.root, 'scripts'),
-            compress: true,
-            enabled: mainConfig.production,
-            es5: {
-                enabled: true,
-                singleFile: path.resolve(mainConfig.root, 'scripts-min', 'sourcesES5.min.js'),
-                outputFolder: path.resolve(mainConfig.root, 'scriptsES5'),
-            },
-        }
-    },
-    materials: {
-        path: path.resolve(mainConfig.root, 'static')
     },
     pages: []
 };
@@ -77,9 +54,6 @@ exports.addFileToBundle = (fPath, bundle) => {
     branch.libraries.relative.push(fPath);
 };
 
-exports.addFileToBundle('node_modules/moment/min/moment-with-locales.min.js', 'libs');
-exports.addFileToBundle('node_modules/vue/dist/vue.min.js', 'libs');
-exports.addFileToBundle('node_modules/vue-router/dist/vue-router.min.js', 'libs');
 
 exports.build = async () => {
     config.pages = config.pages.concat(

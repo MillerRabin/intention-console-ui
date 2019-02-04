@@ -247,10 +247,11 @@ dialog .close:hover {
 }
 
 dialog label {
-    display: block;
+    display: flex;
     width: 100%;
     margin-top: 1rem;
     text-align: left;
+    align-items: center;
 }
 
 dialog label:first-child {
@@ -275,6 +276,13 @@ dialog input {
 dialog input[type="checkbox"] {
     display: inline;
     width: auto;
+}
+
+dialog input[type="radio"] {
+    width: 1.7rem;
+    height: 1.7rem;
+    margin: 0 0.5rem 0 0;
+    font-size: inherit;
 }
 
 .tabs {

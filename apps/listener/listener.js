@@ -55,7 +55,7 @@ loader.application('listener', [async () => {
         }
     }
 
-    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta });
+    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta, localization: {} });
     const res = {};
     res.Constructor = Vue.component('listener', {
         template: '#Listener-Template',

@@ -23,7 +23,7 @@ html(lang='en')
             meta(name='description' content=description)
 
         block keywords
-            - var keywords = ( item.keywords == null) ? 'Intenrnet Intension Console' : item.keywords;
+            - var keywords = ( item.keywords == null) ? 'Internet Intension Console' : item.keywords;
             meta(name='Keywords', content=keywords)
 
         each bundle in config.css.files
@@ -32,20 +32,20 @@ html(lang='en')
             each link in bundle.mobileFiles
                 link(href='/' + link, rel='stylesheet', media='screen and (orientation: portrait), screen and (max-width: 640px)')
 
-        script(src="node_modules/vue/dist/vue.min.js")
-        script(src="node_modules/vue-router/dist/vue-router.min.js")
-        script(src="node_modules/moment/min/moment.min.js")
-        script(src="apps/main/main.js" type="module")
+        script(src="/node_modules/vue/dist/vue.min.js")
+        script(src="/node_modules/vue-router/dist/vue-router.min.js")
+        script(src="/node_modules/moment/min/moment.min.js")
+        script(src="/apps/main/main.js" type="module")
 
 
     body
         #Intension
             #Header_Container
-                include ../apps/header/header.html
+                include ../../header/en/header.html
             #Center
                 #Router(is="router-view")
                     block content
                 #Listener(is="listener" inline-template)
-                    include ../apps/listener/listener.html
+                    include ../../listener/en/listener.html
             #Footer_Container
-                    include ../apps/footer/footer.html
+                    include ../../footer/en/footer.html

@@ -1,0 +1,25 @@
+<header id="Header">
+    <div class="top">
+        <nav>
+            <a href="/ru/index.html" class="focus logo ru">
+                <h1>Интернет намерений</h1>
+                <h2>Управляющая консоль</h2>
+            </a>
+            <ul>
+                <li>
+                    <router-link to="/" v-bind:class="{ active: active == 1}">Намерения</router-link>
+                </li>
+                <li class="create" v-bind:class="{ show: loaded }">
+                    <router-link to="/storages.html">Хранилища</router-link>
+                </li>
+            </ul>
+        </nav>
+        <button class="lang" v-on:click="showLangDialog">ru</button>
+    </div>
+    <dialog class="lang">
+        <label>
+            <input type="radio" name="lang" value="en-US" v-on:click="selectLanguage" v-model="langRadio"/>
+            <span>English USA</span>
+        </label>
+    </dialog>
+</header>

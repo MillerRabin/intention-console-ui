@@ -70,7 +70,7 @@ loader.application('browser', ['tree', async () => {
         throw new Error(`Sort ${ vm.sortMode } is unsupported`);
     }
 
-    await loader.createVueTemplate({ path: 'browser.html', id: 'Browser-Template', meta: import.meta });
+    await loader.createVueTemplate({ path: 'browser.html', id: 'Browser-Template', meta: import.meta, localization: {} });
     const res = {};
 
     res.Constructor = Vue.component('browser', {

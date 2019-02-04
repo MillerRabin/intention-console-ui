@@ -162,6 +162,38 @@ loader.loadContent = async (path, id) => {
     elem.innerHTML = data.text;
 };
 
+async function loadLocalizedContent(module) {
+    async function load(module, localization) {
+        const current = loader.getCurrentPath(module.meta, localization, module.path);
+        return await loader.request(current);
+    }
+
+    if (module.localization == null) {
+        try {
+            return await load(module, null);
+        } catch (e) {}
+    }
+
+    const cl = module.localization.use;
+    if (cl != null)
+        try {
+            return await load(module, cl);
+        } catch (e) {}
+
+    const ucl = window.navigator.language;
+    try {
+        return await load(module, ucl);
+    } catch (e) {}
+
+    for (let language of window.navigator.languages)
+        try {
+            return await load(module, language);
+        } catch (e) {}
+
+    return await load(module, null);
+}
+
+
 loader.createVueTemplate = async (module) => {
     await loader.globalContentLoaded;
     const head = document.getElementsByTagName('head').item(0);
@@ -172,8 +204,7 @@ loader.createVueTemplate = async (module) => {
         script.setAttribute('id', module.id);
         head.appendChild(script);
     }
-    const current = loader.getCurrentPath(module.meta, module.path);
-    const data = await loader.request(current);
+    const data = await loadLocalizedContent(module);
     script.innerHTML = '\n' + data.text;
     return script;
 };
@@ -244,10 +275,12 @@ loader.wait = async (module, timeout = 10000) => {
     return applications[module].loader.promise;
 };
 
-loader.getCurrentPath = (meta, item) => {
+loader.getCurrentPath = (meta, localization, item) => {
     if (meta == null) return item;
     const paths = meta.url.split('/');
     paths.pop();
+    if (localization != null)
+        paths.push(localization);
     if (item == null)
         return paths.join('/');
     paths.push(item);
