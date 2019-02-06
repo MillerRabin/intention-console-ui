@@ -4,7 +4,7 @@
   "description": "Ui part of Internet intension console",
   "main": "index.js",
   "scripts": {
-    "test": "test/inedx.html"
+    "test": "test/index.html"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/intensionteam/intension-console-ui#readme",
   "dependencies": {
-    "intension-storage": "0.0.17",
+    "intention-storage": "0.0.1",
     "moment": "^2.24.0",
     "vue": "^2.6.0",
     "vue-router": "^3.0.2"
