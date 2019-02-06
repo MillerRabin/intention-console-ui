@@ -1,33 +1,25 @@
-import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
-
-const waName = {
-    name: 'WebAddress',
-    en: 'Web address',
-    ru: 'Веб адрес'
-};
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 const gAddresses = [
     {
         type: 'type',
-        name: waName,
-        words: {
+        name: {
+            name: 'WebAddress',
+            en: 'Web address',
+            ru: 'Веб адрес'
+        },
+        words: [{
             ru: 'локалхост',
             en: 'localhost'
-        },
-        value: 'localhost'
-    },
-    {
-        type: 'type',
-        name: waName,
-        words: {
+        }, {
             ru: 'локал хост',
             en: 'local host',
-        },
+        }],
         value: 'localhost'
     }
 ];
 
-IntensionStorage.create({
+IntentionStorage.create({
     title: {
         en: 'Types and Intentions to work with web addresses',
         ru: 'Типы и Намерения для работы с веб адресами',
