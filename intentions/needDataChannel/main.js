@@ -6,7 +6,10 @@ async function onData() {
 }
 
 const gIntension = IntensionStorage.create({
-    title: 'Need Data Channel',
+    title: {
+        en: 'Need private data channel',
+        ru: 'Необходим канал передачи данных'
+    },
     input: 'DataChannelServer',
     output: 'DataChannelClient',
     onData: onData

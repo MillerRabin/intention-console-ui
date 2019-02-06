@@ -66,7 +66,10 @@ function stop(input) {
 }
 
 const gIntention = intentionStorage.create({
-    title: 'Can listen user',
+    title: {
+        en: 'Can receive raw user input from microphone or keyboard',
+        ru: 'Забираю пользовательский ввод с микрофона или клавиатуры'
+    },
     input: 'HTMLTextAreaElement',
     output: 'Recognition',
     onData: async function (status, intention) {

@@ -18,7 +18,10 @@ function addAnswer(data, answer, ext = true) {
 
 function createIntentions(vm, lang) {
     vm.iInteract = intentionStorage.create({
-        title: 'Need interact with user',
+        title: {
+            en: 'Need possibility to interact with user',
+            ru: 'Нужна возможность взаимодействия с пользователем'
+        },
         input: 'Recognition',
         output: 'HTMLTextAreaElement',
         onData: async (status, intention, data) => {
@@ -29,7 +32,10 @@ function createIntentions(vm, lang) {
     });
 
     vm.iPost = intentionStorage.create({
-        title: 'Can post data to console',
+        title: {
+            en: 'Can post data to console',
+            ru: 'Отправляю данные в пользовательскую консоль'
+        },
         input: 'ContextText',
         output: 'None',
         onData: async (status, intention, value) => {

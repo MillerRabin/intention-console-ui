@@ -2,8 +2,10 @@ import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 import decision from './decision.js';
 
 IntensionStorage.create({
-    title: 'Can structurize user input',
-    description: '<p>It`s a primitive built-in structurizer</p>',
+    title: {
+        en: 'Can translate raw user input to known entities and tasks',
+        ru: 'Преобразую пользовательский ввод в известные сущности и задачи'
+    },
     input: 'Recognition',
     output: 'HTMLTextAreaElement',
     onData: async function (status, intension, value) {
@@ -12,8 +14,10 @@ IntensionStorage.create({
 });
 
 const iQuery = IntensionStorage.create({
-    title: 'Need return entities by words',
-    description: '<p>Need return entities by words</p>',
+    title: {
+        en: 'Need possibility to return known entities by raw user input',
+        ru: 'Нужна возможность возвращать известные сущности из пользовательского ввода'
+    },
     input: 'Entities',
     output: 'Recognition',
     onData: async (status, intension, value) => {

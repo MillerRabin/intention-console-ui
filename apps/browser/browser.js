@@ -97,8 +97,13 @@ loader.application('browser', ['tree', async () => {
             }
         },
         mounted: function () {
+            intentionStorage.enableStats();
             this.intention = intentionStorage.create({
-                title: 'Need return intentions information',
+                title: {
+                    en: 'Need data about intentions at the storage',
+                    ru: 'Необходимы данные о намерениях в хранилище'
+
+                },
                 input: 'StorageIntentions',
                 output: 'None',
                 onData: async (status, intention, interfaceObject) => {

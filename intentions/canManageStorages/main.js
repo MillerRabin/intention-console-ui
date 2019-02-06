@@ -18,7 +18,7 @@ const gTasks = [
             en: 'web address?'
         }],
         intensions: [{
-            title: 'Protocol create storage',
+            title: 'Add linked storage task',
             input: 'StorageOperationInfo',
             output: 'StorageInfo'
         }]
@@ -26,8 +26,10 @@ const gTasks = [
 ];
 
 IntensionStorage.create({
-    title: 'Can manage storages',
-    description: '<p>Manages storages</p>',
+    title: {
+        en: 'Can manage storages',
+        ru: 'Управляю хранилищами'
+    },
     input: 'StorageInfo',
     output: 'StorageOperationInfo',
     onData: async function onData(status, intension) {
@@ -54,8 +56,10 @@ IntensionStorage.create({
 });
 
 IntensionStorage.create({
-    title: 'Can send storage entities',
-    description: '<p>Storage entities</p>',
+    title: {
+        en: 'Types and Intensions to work with linked storages',
+        ru: 'Типы и Намерения для работы со связанными хранилищами'
+    },
     input: 'None',
     output: 'EntitiesInfo',
     onData: async function onData(status) {
@@ -64,8 +68,10 @@ IntensionStorage.create({
 });
 
 const iPost = IntensionStorage.create({
-    title: 'Need post data to console from Tasks',
-    description: '<p>Need post data to console from tasks</p>',
+    title: {
+        en: 'Need a possibility to post data to user console about storage changing',
+        ru: 'Нужна возможность отправлять данные в пользовательскую консколь об изменениях в хранилищах'
+    },
     input: 'None',
     output: 'ContextText',
     onData: async function (status, intension, value) {}

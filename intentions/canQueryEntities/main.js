@@ -63,8 +63,10 @@ function addEntities(entities) {
 }
 
 IntensionStorage.create({
-    title: 'Need entities',
-    description: '<p>Collects information about entities</p>',
+    title: {
+        en: 'Collects information about entities',
+        ru: 'Собираю информацию о сущностях'
+    },
     input: 'EntitiesInfo',
     output: 'None',
     onData: async (status, intension, value) => {
@@ -79,8 +81,10 @@ IntensionStorage.create({
 });
 
 IntensionStorage.create({
-    title: 'Can return Protocols by recognition',
-    description: '<p>Can return protocol by words</p>',
+    title: {
+        en: 'Can detect known entites from raw user input',
+        ru: 'Определяю известные сущности из пользовательского ввода'
+    },
     input: 'Recognition',
     output: 'Entities',
     onData: async function (status, intension, value) {

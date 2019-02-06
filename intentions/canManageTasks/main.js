@@ -5,8 +5,10 @@ import Task from './Task.js';
 const gTasks = new TaskList();
 
 IntensionStorage.create({
-    title: 'Can manage tasks',
-    description: '<p>Manages tasks</p>',
+    title: {
+        en: 'Can manage tasks',
+        ru: 'Управляю задачами'
+    },
     input: 'TaskInfo',
     output: 'TaskOperationInfo',
     onData: async function onData(status, intension, value) {
@@ -39,8 +41,10 @@ IntensionStorage.create({
 });
 
 IntensionStorage.create({
-    title: 'Can send storage tasks information',
-    description: '<p>Storage tasks information</p>',
+    title: {
+        en: 'Can send storage tasks information',
+        ru: 'Рассылаю информацию о задачах'
+    },
     input: 'None',
     output: 'TaskInfo',
     onData: async function onData(status) {
@@ -49,8 +53,10 @@ IntensionStorage.create({
 });
 
 const iPost = IntensionStorage.create({
-    title: 'Need post data to console',
-    description: '<p>Need post data to console</p>',
+    title: {
+        en: 'Sends task statuses to user console',
+        ru: 'Отправляю статусы по задачам в пользовательсую консоль'
+    },
     input: 'None',
     output: 'ContextText',
     onData: async function (status, intension, value) {}

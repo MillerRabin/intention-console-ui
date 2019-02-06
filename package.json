@@ -14,9 +14,9 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/intentionteam/intention-console-ui#readme",
   "dependencies": {
-    "intention-storage": "0.0.1",
+    "intention-storage": "0.0.2",
     "moment": "^2.24.0",
-    "vue": "^2.6.0",
+    "vue": "^2.6.2",
     "vue-router": "^3.0.2"
   },
   "devDependencies": {

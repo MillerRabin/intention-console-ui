@@ -104,8 +104,10 @@ export default class Task {
 }
 
 const iPost = IntensionStorage.create({
-    title: 'Need post data to console from Tasks',
-    description: '<p>Need post data to console from tasks</p>',
+    title: {
+        en: 'Sends task execution statuses into user console',
+        ru: 'Отправляет информацию о выполнении задач в пользовательскую консоль'
+    },
     input: 'None',
     output: 'ContextText',
     onData: async function (status, intension, value) {}

@@ -21,11 +21,13 @@ function build(structures) {
 }
 
 const iTask = IntensionStorage.create({
-        title: 'Need manage tasks',
-            description: '<p>Need create tasks</p>',
-            input: 'TaskOperationInfo',
-            output: 'TaskInfo',
-            onData: async function onData(status, intension, value) {
+        title: {
+            en: 'Need possibility to control tasks',
+            ru: 'Нужна возможноcть управления задачами'
+        },
+        input: 'TaskOperationInfo',
+        output: 'TaskInfo',
+        onData: async function onData(status, intension, value) {
         if (status != 'data') return;
         console.log(intension);
         console.log(value);

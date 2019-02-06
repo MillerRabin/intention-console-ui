@@ -49,7 +49,7 @@ loader.application('Main', ['router', 'listener', async (router) => {
 IntentionStorage.create({
     title: {
         en: 'Can change console localization',
-        ru: 'Могу сменить локализацию консоли'
+        ru: 'Меняю локализацию консоли'
     },
     input: 'Language',
     output: 'ChangeLanguageOperationInfo',
