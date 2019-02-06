@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 
 const gTasks = [
     {
@@ -33,7 +33,7 @@ IntensionStorage.create({
     onData: async function onData(status, intension) {
         if ((status != 'accept') && (status != 'data')) return;
         try {
-            const parameters = intension.getParameters();
+            const parameters = intension.parameters;
             const res = IntensionStorage.storage.addLink(parameters);
             intension.send('data', this, { success: true });
             iPost.accepted.send({

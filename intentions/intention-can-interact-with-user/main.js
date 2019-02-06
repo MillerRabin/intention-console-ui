@@ -1,6 +1,6 @@
 import speech from './speech.js';
 import keyboard from './keyboard.js';
-import intensionStorage from '/node_modules/intension-storage/browser/main.js';
+import intentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 let typeInterval = null;
 const typeTimeout = 1000;
@@ -35,12 +35,12 @@ function pauseSpeech() {
 
 function onKeyboardData(event) {
     const answer = getAnswer({ text: event.value, time: new Date() });
-    gIntension.accepted.send(answer);
+    gIntention.accepted.send(answer);
 }
 
 function onSpeechData(event) {
     const answer = formatSpeechAnswer({ results: event.results, time: new Date() });
-    gIntension.accepted.send(answer);
+    gIntention.accepted.send(answer);
 }
 
 function start(lang, input) {
@@ -65,23 +65,23 @@ function stop(input) {
     speech.disable();
 }
 
-const gIntension = intensionStorage.create({
+const gIntention = intentionStorage.create({
     title: 'Can listen user',
     input: 'HTMLTextAreaElement',
     output: 'Recognition',
-    onData: async function (status, intension) {
+    onData: async function (status, intention) {
         if (status == 'accept') {
-            const parameters = intension.getParameters();
+            const parameters = intention.parameters;
             const lang = parameters[0];
             const input = parameters[1];
-            gParamHash[intension.id] = input;
+            gParamHash[intention.id] = input;
             start(lang, input);
             return;
         }
         if (status == 'close') {
-            const input = gParamHash[intension.id];
+            const input = gParamHash[intention.id];
             stop(input);
-            delete gParamHash[intension.id];
+            delete gParamHash[intention.id];
         }
     }
 });

@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 import decision from './decision.js';
 
 IntensionStorage.create({

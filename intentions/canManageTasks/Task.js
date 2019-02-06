@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function resolveParameters(task) {
     const up = task.parameters.filter(p => (p.value === undefined));

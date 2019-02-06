@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intensionStorage from '/node_modules/intension-storage/browser/main.js';
+import intentionStorage from '/node_modules/intention-storage/browser/main.js';
 import '../tree/tree.js';
 import localization from '../../core/localization.js';
 
@@ -9,7 +9,7 @@ loader.application('browser', ['tree', async () => {
             loaded: false,
             sortMode: 'byOrigin',
             list: createTree('Root'),
-            intension: null,
+            intention: null,
             ilist: null,
             selected: null
         }
@@ -32,11 +32,11 @@ loader.application('browser', ['tree', async () => {
 
     function sortByOrigin(vm) {
         const hash = new Map();
-        for (let intension of vm.ilist) {
-            intension.mtime = window.moment(intension.time);
-            if (!hash.has(intension.origin)) hash.set(intension.origin, createTree(intension.origin));
-            const origin = hash.get(intension.origin);
-            origin.childs.push(createTree(intension.key, intension))
+        for (let intention of vm.ilist) {
+            intention.mtime = window.moment(intention.time);
+            if (!hash.has(intention.origin)) hash.set(intention.origin, createTree(intention.origin));
+            const origin = hash.get(intention.origin);
+            origin.childs.push(createTree(intention.key, intention))
         }
         for (let [,origin] of hash) {
             origin.childs.sort(byName);
@@ -46,11 +46,11 @@ loader.application('browser', ['tree', async () => {
 
     function sortByKey(vm) {
         const hash = new Map();
-        for (let intension of vm.ilist) {
-            intension.mtime = window.moment(intension.time);
-            if (!hash.has(intension.key)) hash.set(intension.key, createTree(intension.key));
-            const key = hash.get(intension.key);
-            key.childs.push(createTree(intension.origin, intension))
+        for (let intention of vm.ilist) {
+            intention.mtime = window.moment(intention.time);
+            if (!hash.has(intention.key)) hash.set(intention.key, createTree(intention.key));
+            const key = hash.get(intention.key);
+            key.childs.push(createTree(intention.origin, intention))
         }
         for (let [,key] of hash) {
             key.childs.sort(byName);
@@ -97,11 +97,11 @@ loader.application('browser', ['tree', async () => {
             }
         },
         mounted: function () {
-            this.intension = intensionStorage.create({
-                title: 'Need return intensions information',
-                input: 'StorageIntensions',
+            this.intention = intentionStorage.create({
+                title: 'Need return intentions information',
+                input: 'StorageIntentions',
                 output: 'None',
-                onData: async (status, intension, interfaceObject) => {
+                onData: async (status, intention, interfaceObject) => {
                     if (status != 'data') return;
                     this.ilist = interfaceObject.query();
                     sortHash(this);
@@ -110,7 +110,7 @@ loader.application('browser', ['tree', async () => {
             this.loaded = true;
         },
         destroyed: function () {
-            intensionStorage.delete(this.intension, 'client closed browser');
+            intentionStorage.delete(this.intention, 'client closed browser');
             this.loaded = false;
         }
     });

@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intensionStorage from '/node_modules/intension-storage/browser/main.js';
+import intentionStorage from '/node_modules/intention-storage/browser/main.js';
 import localization from '../../core/localization.js';
 
 function addAnswer(data, answer, ext = true) {
@@ -16,32 +16,32 @@ function addAnswer(data, answer, ext = true) {
         });
 }
 
-function createIntensions(vm, lang) {
-    vm.iInteract = intensionStorage.create({
+function createIntentions(vm, lang) {
+    vm.iInteract = intentionStorage.create({
         title: 'Need interact with user',
         input: 'Recognition',
         output: 'HTMLTextAreaElement',
-        onData: async (status, intension, data) => {
+        onData: async (status, intention, data) => {
             if (status == 'data')
                 await addAnswer(vm, data, false);
         },
         parameters: [lang.speechRecognizer, vm.input]
     });
 
-    vm.iPost = intensionStorage.create({
+    vm.iPost = intentionStorage.create({
         title: 'Can post data to console',
         input: 'ContextText',
         output: 'None',
-        onData: async (status, intension, value) => {
+        onData: async (status, intention, value) => {
             if (status == 'data')
                 await addAnswer(vm, value);
         }
     });
 }
 
-function deleteIntensions(vm) {
-    intensionStorage.delete(vm.iInteract, 'client closed listener');
-    intensionStorage.delete(vm.iPost, 'client closed listener');
+function deleteIntentions(vm) {
+    intentionStorage.delete(vm.iInteract, 'client closed listener');
+    intentionStorage.delete(vm.iPost, 'client closed listener');
 }
 
 loader.application('listener', [async () => {
@@ -74,11 +74,11 @@ loader.application('listener', [async () => {
         mounted: function () {
             this.output = this.$el.querySelector('.output');
             this.input = this.$el.querySelector('.content textarea');
-            createIntensions(this, lang);
+            createIntentions(this, lang);
             this.loaded = true;
         },
         destroyed: function () {
-            deleteIntensions(this);
+            deleteIntentions(this);
             this.loaded = false;
         }
     });

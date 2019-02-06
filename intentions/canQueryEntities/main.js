@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 import WordTree from './WordTree.js';
 import typeAutodetect from './typeAutodetect.js';
 

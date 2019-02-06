@@ -3,7 +3,7 @@ html(lang='en')
     head
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width, height=device-height, initial-scale=1')
-        meta(property='og:title' content='Internet intension console')
+        meta(property='og:title' content='Internet intention console')
         meta(name="author" content="Millerrabin")
 
         link(rel="icon", type="image/png", href="/favicon_s.png", sizes="64x64")
@@ -15,15 +15,15 @@ html(lang='en')
             meta(name="ROBOTS" content="INDEX, FOLLOW")
 
         block title
-            - var title = ( item.title == null) ? 'Internet Intension console' : item.title
+            - var title = ( item.title == null) ? 'Internet Intention console' : item.title
             title #{title}
 
         block description
-            - var description = ( item.description == null) ? 'Internet intension Console' : item.description;
+            - var description = ( item.description == null) ? 'Internet intention Console' : item.description;
             meta(name='description' content=description)
 
         block keywords
-            - var keywords = ( item.keywords == null) ? 'Internet Intension Console' : item.keywords;
+            - var keywords = ( item.keywords == null) ? 'Internet Intention Console' : item.keywords;
             meta(name='Keywords', content=keywords)
 
         each bundle in config.css.files
@@ -39,7 +39,7 @@ html(lang='en')
 
 
     body
-        #Intension
+        #Intention
             #Header_Container
                 include ../../header/en/header.html
             #Center

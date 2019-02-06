@@ -15,11 +15,11 @@
     flex-direction: column;
 }
 
-.Tree .title button.intension span:first-child {
+.Tree .title button.intention span:first-child {
     color: #00BFFF;
 }
 
-.Tree .title button.intension span:last-child {
+.Tree .title button.intention span:last-child {
     font-style: italic;
     font-size: 0.8rem;
     color: #cccccc;

@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function detectStructure(structures) {
     const ps = structures.filter(s => (s != null) && (s.value != null) && (s.value.type == 'task'));

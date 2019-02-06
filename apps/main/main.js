@@ -1,9 +1,9 @@
 import loader from '../../core/loader.js';
 import '../router/router.js';
-import '../../intensions/config.js';
+import '../../intentions/config.js';
 import '../listener/listener.js'
 import localization from '../../core/localization.js';
-import IntensionStorage from '/node_modules/intension-storage/browser/main.js';
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function changeLanguage(lang) {
     const loc = localization.set(lang);
@@ -21,7 +21,7 @@ loader.application('Main', ['router', 'listener', async (router) => {
     };
 
     data.application = new Vue({
-        el: '#Intension',
+        el: '#Intention',
         router: router,
         data: data,
         methods: {
@@ -46,21 +46,22 @@ loader.application('Main', ['router', 'listener', async (router) => {
     return data;
 }]);
 
-IntensionStorage.create({
+IntentionStorage.create({
     title: {
         en: 'Can change console localization',
         ru: 'Могу сменить локализацию консоли'
     },
     input: 'Language',
     output: 'ChangeLanguageOperationInfo',
-    onData: async function onData(status, intension) {
+    onData: async function onData(status, intention) {
         if ((status != 'accept') && (status != 'data')) return;
         try {
-            intension.send('data', this, { success: true });
-            const parameters = intension.getParameters();
+            intention.send('data', this, { success: true });
+            const parameters = intention.parameters;
             changeLanguage(parameters[0].value);
         } catch (e) {
-            intension.send('error', this, e);
+            console.log(e);
+            intention.send('error', this, e);
         }
     }
 });
