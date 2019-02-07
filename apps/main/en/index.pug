@@ -45,7 +45,10 @@ html(lang='en')
             #Center
                 #Router(is="router-view")
                     block content
-                #Listener(is="listener" inline-template)
-                    include ../../listener/en/listener.html
+                #Info
+                    #Tasks(is="tasks" inline-template)
+                        include ../../tasks/tasks.html
+                    #Listener(is="listener" inline-template)
+                        include ../../listener/en/listener.html
             #Footer_Container
                     include ../../footer/en/footer.html

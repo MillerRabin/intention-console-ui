@@ -1,0 +1,23 @@
+.Tasks .content {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.Tasks .content .task {
+    background-color: #24232390;
+    border: 1px solid #a0a0a0;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.Tasks .content .task h2 {
+    font-size: inherit;
+    color: inherit;
+}
+
+.Tasks .content .task p {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    color: #ff603d;
+}

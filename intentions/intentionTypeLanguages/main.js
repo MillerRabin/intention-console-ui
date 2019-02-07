@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 const ltName = {
     name: 'Language',
@@ -41,7 +41,7 @@ const gLanguages = [
             ru: 'Язык локализации?',
             en: 'Language?'
         }],
-        intensions: [{
+        intentions: [{
             title: 'Change language task',
             input: 'ChangeLanguageOperationInfo',
             output: 'Language'
@@ -49,9 +49,9 @@ const gLanguages = [
     }
 ];
 
-IntensionStorage.create({
+IntentionStorage.create({
     title: {
-        en: 'Localization Types and intensions for localization managing',
+        en: 'Localization Types and intentions for localization managing',
         ru: 'Типы и Намерения для управления локализацией'
     },
     description: {

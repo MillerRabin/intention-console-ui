@@ -342,25 +342,40 @@ dialog input[type="radio"] {
     display: block;
 }
 
-
 .content {
     padding: 0 8rem 0 8rem;
     height: 100%;
 }
 
-#Listener {
+#Info {
     position: absolute;
-    height: 40vh;
-    width: 30vw;
+    display: grid;
     right: 2rem;
     bottom: 2rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    height: 40vh;
+    grid-template-columns: 20vw 30vw;
+    grid-template-rows: auto;
+    overflow: hidden;
+}
+
+#Listener {
     border-radius: 0.5rem;
     background-color: #32323220;
     padding:0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 #Listener .content {
     padding: 0.5rem;
-    grid-template-rows: 1fr 3vw;
+    grid-template-rows: 15.5vw 3vw;
 }
+
+#Tasks {
+
+}
+
+#Tasks .content {
+    padding: 0.5rem;
+}
+
+

@@ -2,6 +2,7 @@ import loader from '../../core/loader.js';
 import '../router/router.js';
 import '../../intentions/config.js';
 import '../listener/listener.js'
+import '../tasks/tasks.js'
 import localization from '../../core/localization.js';
 import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 

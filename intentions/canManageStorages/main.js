@@ -1,4 +1,4 @@
-import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 const gTasks = [
     {
@@ -17,7 +17,7 @@ const gTasks = [
             ru: 'веб адрес?',
             en: 'web address?'
         }],
-        intensions: [{
+        intentions: [{
             title: 'Add linked storage task',
             input: 'StorageOperationInfo',
             output: 'StorageInfo'
@@ -25,19 +25,19 @@ const gTasks = [
     }
 ];
 
-IntensionStorage.create({
+IntentionStorage.create({
     title: {
         en: 'Can manage storages',
         ru: 'Управляю хранилищами'
     },
     input: 'StorageInfo',
     output: 'StorageOperationInfo',
-    onData: async function onData(status, intension) {
+    onData: async function onData(status, intention) {
         if ((status != 'accept') && (status != 'data')) return;
         try {
-            const parameters = intension.parameters;
-            const res = IntensionStorage.storage.addLink(parameters);
-            intension.send('data', this, { success: true });
+            const parameters = intention.parameters;
+            const res = IntentionStorage.storage.addLink(parameters);
+            intention.send('data', this, { success: true });
             iPost.accepted.send({
                 text: {
                     en: `Added linked storage ${ res }`,
@@ -50,14 +50,14 @@ IntensionStorage.create({
                 time: new Date()
             });
         } catch (e) {
-            intension.send('error', this, e);
+            intention.send('error', this, e);
         }
     }
 });
 
-IntensionStorage.create({
+IntentionStorage.create({
     title: {
-        en: 'Types and Intensions to work with linked storages',
+        en: 'Types and Intentions to work with linked storages',
         ru: 'Типы и Намерения для работы со связанными хранилищами'
     },
     input: 'None',
@@ -67,12 +67,12 @@ IntensionStorage.create({
     }
 });
 
-const iPost = IntensionStorage.create({
+const iPost = IntentionStorage.create({
     title: {
         en: 'Need a possibility to post data to user console about storage changing',
         ru: 'Нужна возможность отправлять данные в пользовательскую консколь об изменениях в хранилищах'
     },
     input: 'None',
     output: 'ContextText',
-    onData: async function (status, intension, value) {}
+    onData: async function (status, intention, value) {}
 });

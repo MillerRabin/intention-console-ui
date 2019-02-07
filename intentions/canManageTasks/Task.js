@@ -1,13 +1,17 @@
-import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function resolveParameters(task) {
-    const up = task.parameters.filter(p => (p.value === undefined));
+    const up = task._parameters.filter(p => (p.value === undefined));
     if (up.length == 0) return true;
     const parameter = up[0];
     task.list.waitTypes(parameter.context.name, task);
+    task._status = {
+        ru: `Ожидаю ${ parameter.context.name }`,
+        en: `Waiting ${ parameter.context.name }`
+    };
     iPost.accepted.send({
         text: parameter.context,
-        context: task.name,
+        context: task._name,
         time: new Date()
     });
     return false;
@@ -22,21 +26,26 @@ function searchParameter(name, structures) {
     return null;
 }
 
-function executeIntensions(task) {
-    if (task.intensions == null) return;
-    for (let intension of task.textIntensions) {
-        task.intensions.push(IntensionStorage.create({
-            title: intension.title,
-            description: intension.description,
-            input: intension.input,
-            output: intension.output,
-            parameters: task.parameters.map((p) => {
+function executeIntentions(task) {
+    if (task._intentions == null) return;
+    for (let intention of task._textIntentions) {
+        task._status = {
+            ru: 'Выполняю',
+            en: 'Executing'
+        };
+        task.list.update(task, 'executing');
+        task._intentions.push(IntentionStorage.create({
+            title: intention.title,
+            description: intention.description,
+            input: intention.input,
+            output: intention.output,
+            parameters: task._parameters.map((p) => {
                 return { value: p.value.value, type: p.value.name.name }
             }),
-            onData: async (status, intension, data) => {
-                task.log.push({
+            onData: async (status, intention, data) => {
+                task._log.push({
                     status: status,
-                    intension: intension,
+                    intention: intention,
                     data: data
                 });
                 if ((status == 'data') || (status == 'error')) {
@@ -64,51 +73,71 @@ function getParameters(parameters, structures) {
 export default class Task {
     constructor({
         name,
+        key,
         parameters = [],
         structures = [],
-        intensions
+        intentions
     }) {
-        this.id = IntensionStorage.generateUUID();
-        this.structures = structures;
-        this.parameters = getParameters(parameters, structures);
-        this.name = name;
-        this.dependencies = new Set();
+        if (key == null) throw new Error('Key is undefined;');
+        this._id = IntentionStorage.generateUUID();
+        this._structures = structures;
+        this._parameters = getParameters(parameters, structures);
+        this._name = name;
+        this._dependencies = new Set();
         this.onExecute = this.complete;
         this.list = null;
-        this.textIntensions = intensions;
-        this.intensions = [];
-        this.log = [];
+        this._textIntentions = intentions;
+        this._intentions = [];
+        this._log = [];
+        this._status = '';
+        this._key = key;
     }
     execute() {
         if (!resolveParameters(this)) return;
-        executeIntensions(this);
+        executeIntentions(this);
         this.onExecute();
     }
     addDependency(task) {
-        this.dependencies.add(task);
+        this._dependencies.add(task);
     }
     complete() {
-        if (this.intensions != null) {
-            for (let intension of this.intensions) {
-                IntensionStorage.delete(intension);
+        if (this._intentions != null) {
+            for (let intention of this._intentions) {
+                IntentionStorage.delete(intention);
             }
         }
         this.list.delete(this);
-        for (let dep of this.dependencies) {
+        for (let dep of this._dependencies) {
             this.list.delete(dep);
         }
     }
     searchParameterByType(type) {
-        return this.parameters.find(p => (p.context.name == type) && (p.value === undefined));
+        return this._parameters.find(p => (p.context.name == type) && (p.value === undefined));
+    }
+    get name() {
+        return this._name;
+    }
+    get id() {
+        return this._id;
+    }
+    get key() {
+        return this._key;
+    }
+    toObject() {
+        return {
+            id: this._id,
+            name: this._name,
+            status: this._status
+        }
     }
 }
 
-const iPost = IntensionStorage.create({
+const iPost = IntentionStorage.create({
     title: {
         en: 'Sends task execution statuses into user console',
         ru: 'Отправляет информацию о выполнении задач в пользовательскую консоль'
     },
     input: 'None',
     output: 'ContextText',
-    onData: async function (status, intension, value) {}
+    onData: async function (status, intention, value) {}
 });
