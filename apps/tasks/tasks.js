@@ -22,7 +22,6 @@ loader.application('tasks', [async () => {
             onData: async (status, intention, interfaceObject) => {
                 if (status == 'data')
                     Vue.set(vm, 'tasks', interfaceObject.query());
-                    console.log(vm.tasks);
             }
         });
     }

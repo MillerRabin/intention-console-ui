@@ -6,11 +6,11 @@
                 <h2>Управляющая консоль</h2>
             </a>
             <ul>
-                <li>
-                    <router-link to="/" v-bind:class="{ active: active == 1}">Намерения</router-link>
+                <li v-bind:class="{ show: loaded }">
+                    <router-link to="/ru/index.html" v-bind:class="{ active: active == 1}">Намерения</router-link>
                 </li>
-                <li class="create" v-bind:class="{ show: loaded }">
-                    <router-link to="/storages.html">Хранилища</router-link>
+                <li v-bind:class="{ show: loaded }">
+                    <router-link to="/storages.html" v-bind:class="{ active: active == 2}">Хранилища</router-link>
                 </li>
             </ul>
         </nav>

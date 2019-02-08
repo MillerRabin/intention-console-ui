@@ -1,19 +1,29 @@
 import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function detectStructure(structures) {
-    const ps = structures.filter(s => (s != null) && (s.type == 'task'));
-    if (ps.length == 0) {
-        iTask.accepted.send({
-            structures: structures
-        });
+    const ps = structures.reduce((acc, s) => {
+        if (s == null) return acc;
+        if (s.type == 'task') {
+            acc.task.push(s);
+            acc.currentTask = (acc.currentTask == null) || (s.level > acc.currentTask.level) ? s : acc.currentTask;
+            return acc;
+        }
+        acc.structures.push(s);
+        return acc;
+    }, { task: [], structures: [], currentTask: null });
+
+    if (ps.currentTask == null) {
+        if (ps.structures.length > 0)
+            iTask.accepted.send({
+                structures: ps.structures
+            });
         return;
     }
-    if (ps.length == 1) {
-        iTask.accepted.send({
-            task: ps[0],
-            structures: structures
-        });
-    }
+
+    iTask.accepted.send({
+        task: ps.currentTask,
+        structures: ps.structures
+    });
 }
 
 function build(structures) {

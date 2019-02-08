@@ -76,10 +76,6 @@
     font-size: 2rem;
 }
 
-#Header .top a.router-link-active {
-    color: rgb(255, 96, 61);
-}
-
 #Header .top a.active {
     color: rgb(255, 96, 61);
 }

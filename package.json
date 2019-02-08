@@ -14,11 +14,11 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/intentionteam/intention-console-ui#readme",
   "dependencies": {
-    "intention-can-manage-tasks": "0.0.7",
-    "intention-can-query-entities": "0.0.12",
-    "intention-storage": "0.0.2",
+    "intention-can-manage-tasks": "0.0.11",
+    "intention-can-query-entities": "0.0.14",
+    "intention-storage": "0.0.3",
     "moment": "^2.24.0",
-    "vue": "^2.6.3",
+    "vue": "^2.6.4",
     "vue-router": "^3.0.2"
   },
   "devDependencies": {

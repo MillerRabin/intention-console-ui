@@ -12,6 +12,23 @@ function changeLanguage(lang) {
 }
 
 loader.application('Main', ['router', 'listener', async (router) => {
+    function createIntentions(vm) {
+        IntentionStorage.create({
+            title: {
+                en: 'Console navigation',
+                ru: 'Навигация по консоли'
+            },
+            input: 'None',
+            output: 'NavigationResult',
+            onData: async function onData(status, intention, value) {
+                if (status == 'data') {
+                    router.push({ name: value, params: { language: vm.lang.interface } });
+                    intention.send('data', this, { success: true });
+                }
+            }
+        });
+    }
+
     const data = {
         loaded: false,
         disabled: false,
@@ -20,6 +37,10 @@ loader.application('Main', ['router', 'listener', async (router) => {
         lang: null,
         langRadio: null
     };
+
+    router.afterEach((to) => {
+        data.active = to.meta.active;
+    });
 
     data.application = new Vue({
         el: '#Intention',
@@ -40,7 +61,8 @@ loader.application('Main', ['router', 'listener', async (router) => {
             this.loaded = true;
             this.active = this.$route.meta.active;
             this.lang = localization.get();
-            this.langDlg = this.$el.querySelector('#Header dialog.lang')
+            this.langDlg = this.$el.querySelector('#Header dialog.lang');
+            createIntentions(this);
         }
     });
 

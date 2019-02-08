@@ -6,11 +6,11 @@
                 <h2>Management Console</h2>
             </a>
             <ul>
-                <li>
-                    <router-link to="/" v-bind:class="{ active: active == 1}">Browser</router-link>
+                <li v-bind:class="{ show: loaded }">
+                    <router-link to="/en/index.html" v-bind:class="{ active: active == 1}">Intentions</router-link>
                 </li>
-                <li class="create" v-bind:class="{ show: loaded }">
-                    <router-link to="/storages.html">Storages</router-link>
+                <li v-bind:class="{ show: loaded }">
+                    <router-link to="/storages.html" v-bind:class="{ active: active == 2}">Storages</router-link>
                 </li>
             </ul>
         </nav>
