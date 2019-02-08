@@ -1,7 +1,7 @@
 import IntensionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function detectStructure(structures) {
-    const ps = structures.filter(s => (s != null) && (s.value != null) && (s.value.type == 'task'));
+    const ps = structures.filter(s => (s != null) && (s.type == 'task'));
     if (ps.length == 0) {
         iTask.accepted.send({
             structures: structures
@@ -10,7 +10,7 @@ function detectStructure(structures) {
     }
     if (ps.length == 1) {
         iTask.accepted.send({
-            task: ps[0].value,
+            task: ps[0],
             structures: structures
         });
     }
