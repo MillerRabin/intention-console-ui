@@ -1,0 +1,52 @@
+import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
+
+const gTaskEntities = [
+    {
+        type: 'task',
+        name: {
+            name: 'Cancel task',
+            en: 'cancel',
+            ru: 'отменить'
+        },
+        words: {
+            ru: 'отменить',
+            en: 'cancel'
+        },
+        parameters: [{
+            name: 'Integer',
+            ru: 'Номер задачи?',
+            en: 'Task index?',
+            value: -2
+        }],
+        intentions: [{
+            title: 'Cancel the task',
+            input: 'TaskOperationInfo',
+            output: 'TaskInfo'
+        }],
+        value: {
+            operation: 'cancel'
+        }
+    }
+];
+
+IntentionStorage.create({
+    title: {
+        en: 'Types and intentions for managing tasks',
+        ru: 'Типы и Намерения для управления задачами'
+    },
+    description: {
+        ru: `<h2>Поддерживаемые команды</h2>
+            <ul>
+                <li>Отменить [номер задачи] по-умолчанию последняя</li>
+            </ul>`,
+        en: `<h2>Supported commands</h2>
+            <ul>
+                <li>Cancel [task index] by default last</li>
+            </ul>`
+    },
+    input: 'None',
+    output: 'EntitiesInfo',
+    onData: async function onData(status) {
+        if (status == 'accept') return gTaskEntities;
+    }
+});

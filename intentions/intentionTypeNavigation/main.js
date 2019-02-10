@@ -1,6 +1,6 @@
 import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
-const task = [{
+const taskIntention = [{
     title: 'Change interface',
     input: 'NavigationResult',
     output: 'None'
@@ -19,7 +19,7 @@ const gNavigation = [
             en: 'storages'
         },
         value: 'storages',
-        intentions: task
+        intentions: taskIntention
     },
     {
         type: 'task',
@@ -33,7 +33,7 @@ const gNavigation = [
             en: 'intentions'
         },
         value: 'intentions',
-        intentions: task
+        intentions: taskIntention
     }
 ];
 

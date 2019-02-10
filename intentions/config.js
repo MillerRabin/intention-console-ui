@@ -7,3 +7,4 @@ import '/node_modules/intention-can-manage-tasks/browser/main.js';
 import '/intentions/webAddresses/main.js';
 import '/intentions/intentionTypeLanguages/main.js';
 import '/intentions/intentionTypeNavigation/main.js';
+import '/intentions/intentionTypeTasks/main.js';
