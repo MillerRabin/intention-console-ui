@@ -13,7 +13,7 @@ loader.application('router', ['browser', 'storages', async (intentions, storages
 
     const routes = [
         { name: 'intentions', path: '/:language/index.html', component: intentions.Constructor, meta: { active: 1 } },
-        { name: 'storages', path: '/storages.html', component: storages.Constructor, meta: { active: 2 } }
+        { name: 'storages', path: '/:language/storages.html', component: storages.Constructor, meta: { active: 2 } }
     ];
 
     return new VueRouter({

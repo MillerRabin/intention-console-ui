@@ -100,15 +100,15 @@ loader.application('browser', ['tree', async () => {
             intentionStorage.enableStats();
             this.intention = intentionStorage.create({
                 title: {
-                    en: 'Need data about intentions at the storage',
-                    ru: 'Необходимы данные о намерениях в хранилище'
+                    en: 'Need data about intentions',
+                    ru: 'Необходимы данные о намерениях'
 
                 },
-                input: 'StorageIntentions',
+                input: 'StorageStats',
                 output: 'None',
                 onData: async (status, intention, interfaceObject) => {
                     if (status != 'data') return;
-                    this.ilist = interfaceObject.query();
+                    this.ilist = interfaceObject.queryIntentions();
                     sortHash(this);
                 }
             });

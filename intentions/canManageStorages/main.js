@@ -21,6 +21,11 @@ const gTasks = [
             title: 'Add linked storage task',
             input: 'StorageOperationInfo',
             output: 'StorageInfo'
+        }, {
+            title: 'Change interface',
+            input: 'NavigationResult',
+            output: 'None',
+            value: 'storages'
         }]
     }
 ];

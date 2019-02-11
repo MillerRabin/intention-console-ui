@@ -40,7 +40,7 @@ const gNavigation = [
 IntentionStorage.create({
     title: {
         en: 'Types and Intentions for console navigation',
-        ru: 'Типы и Намерени для навигации по консоли'
+        ru: 'Типы и Намерения для навигации по консоли'
     },
     description: {
         ru: `<h2>Поддерживаемая навигация</h2>

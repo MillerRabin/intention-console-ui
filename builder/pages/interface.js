@@ -30,13 +30,22 @@ exports.pages = [{
         body: fs.readFileSync(path.resolve(__dirname, '../../apps/browser/ru/browser.html'))
     }]
 }, {
-    template: 'apps/storages/storages.pug',
-    destination: 'storages.html',
+    template: 'apps/storages/en/storages.pug',
+    destination: 'en/storages.html',
     priority: 0.8,
     freq: 'weekly',
     templates: [{
         id: 'Storages-Template',
-        body: fs.readFileSync(path.resolve(__dirname, '../../apps/storages/storages.html'))
+        body: fs.readFileSync(path.resolve(__dirname, '../../apps/storages/en/storages.html'))
+    }]
+}, {
+    template: 'apps/storages/ru/storages.pug',
+    destination: 'ru/storages.html',
+    priority: 0.8,
+    freq: 'weekly',
+    templates: [{
+        id: 'Storages-Template',
+        body: fs.readFileSync(path.resolve(__dirname, '../../apps/storages/ru/storages.html'))
     }]
 }];
 

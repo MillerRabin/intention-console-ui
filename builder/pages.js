@@ -5,7 +5,7 @@ const interfacePages = require('./pages/interface.js').pages;
 
 let config = {
     directory: mainConfig.root,
-    domain: 'https://intension.tech',
+    domain: 'https://intention.tech',
     utils: {
         getModTime: sitemap.getModTime
     },

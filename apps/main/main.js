@@ -21,9 +21,10 @@ loader.application('Main', ['router', 'listener', async (router) => {
             input: 'None',
             output: 'NavigationResult',
             onData: async function onData(status, intention, value) {
-                if (status == 'data') {
-                    router.push({ name: value, params: { language: vm.lang.interface } });
+                const vl = (value == null) ? intention.value : value;
+                if (vl != null) {
                     intention.send('data', this, { success: true });
+                    router.push({ name: vl, params: { language: vm.lang.interface } });
                 }
             }
         });
