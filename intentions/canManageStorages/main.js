@@ -30,6 +30,33 @@ const gTasks = [
     }
 ];
 
+const storagesKey = 'storages';
+
+function loadStorages() {
+    try {
+        const ss = window.localStorage.getItem(storagesKey);
+        return (ss != null) ? JSON.parse(ss) : {};
+    } catch (e) {
+        return {};
+    }
+}
+function saveToStorage(link) {
+    const storages = loadStorages();
+    storages[link.key] = link.toObject();
+    window.localStorage.setItem(storagesKey, JSON.stringify(storages));
+}
+
+function addSavedStorages(intentionStorage) {
+    const storages = loadStorages();
+    for (let key in storages) {
+        if (!storages.hasOwnProperty(key)) continue;
+        const storage = storages[key];
+        intentionStorage.addLink([{type: 'WebAddress', value: storage.origin}, { type: 'Port', value: storage.port }])
+    }
+}
+
+addSavedStorages(IntentionStorage.storage);
+
 IntentionStorage.create({
     title: {
         en: 'Can manage storages',
@@ -39,24 +66,21 @@ IntentionStorage.create({
     output: 'StorageOperationInfo',
     onData: async function onData(status, intention) {
         if ((status != 'accept') && (status != 'data')) return;
-        try {
-            const parameters = intention.parameters;
-            const res = IntentionStorage.storage.addLink(parameters);
-            intention.send('data', this, { success: true });
-            iPost.accepted.send({
-                text: {
-                    en: `Added linked storage ${ res }`,
-                    ru: `Добавлено хранилище ${ res }`
-                },
-                context: {
-                    en: 'Linked storage manager',
-                    ru: 'Связанные хранилища'
-                },
-                time: new Date()
-            });
-        } catch (e) {
-            intention.send('error', this, e);
-        }
+        const parameters = intention.parameters;
+        const res = IntentionStorage.storage.addLink(parameters);
+        saveToStorage(res);
+        intention.send('data', this, { success: true });
+        iPost.accepted.send({
+            text: {
+                en: `Added linked storage ${ res.key }`,
+                ru: `Добавлено хранилище ${ res.key }`
+            },
+            context: {
+                en: 'Linked storage manager',
+                ru: 'Связанные хранилища'
+            },
+            time: new Date()
+        });
     }
 });
 

@@ -13,7 +13,7 @@ function createIntentions(vm) {
         output: 'None',
         onData: async (status, intention, interfaceObject) => {
             if (status != 'data') return;
-            vm.ilist = interfaceObject.query();
+            Vue.set(vm, 'ilist', interfaceObject.queryLinkedStorages());
         }
     });
 }
@@ -22,10 +22,10 @@ function deleteIntentions(vm) {
     intentionStorage.delete(vm.intention, 'client closed browser');
 }
 
-
 loader.application('storages', [async () => {
     function init() {
         return {
+            ilist: [],
             loaded: false
         }
     }
