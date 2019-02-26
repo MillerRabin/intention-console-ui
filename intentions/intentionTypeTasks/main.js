@@ -1,5 +1,3 @@
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
-
 const gTaskEntities = [
     {
         type: 'task',
@@ -29,24 +27,30 @@ const gTaskEntities = [
     }
 ];
 
-IntentionStorage.create({
-    title: {
-        en: 'Types and intentions for managing tasks',
-        ru: 'Типы и Намерения для управления задачами'
-    },
-    description: {
-        ru: `<h2>Поддерживаемые команды</h2>
+function init(intentionStorage) {
+    intentionStorage.createIntention({
+        title: {
+            en: 'Types and intentions for managing tasks',
+            ru: 'Типы и Намерения для управления задачами'
+        },
+        description: {
+            ru: `<h2>Поддерживаемые команды</h2>
             <ul>
                 <li>Отменить [номер задачи] по-умолчанию последняя</li>
             </ul>`,
-        en: `<h2>Supported commands</h2>
+            en: `<h2>Supported commands</h2>
             <ul>
                 <li>Cancel [task index] by default last</li>
             </ul>`
-    },
-    input: 'None',
-    output: 'EntitiesInfo',
-    onData: async function onData(status) {
-        if (status == 'accept') return gTaskEntities;
-    }
-});
+        },
+        input: 'None',
+        output: 'EntitiesInfo',
+        onData: async function onData(status) {
+            if (status == 'accept') return gTaskEntities;
+        }
+    });
+}
+
+export default {
+    init
+}

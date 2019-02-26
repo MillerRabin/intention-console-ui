@@ -1,5 +1,3 @@
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
-
 const taskIntention = [{
     title: 'Change interface',
     input: 'NavigationResult',
@@ -37,26 +35,32 @@ const gNavigation = [
     }
 ];
 
-IntentionStorage.create({
-    title: {
-        en: 'Types and Intentions for console navigation',
-        ru: 'Типы и Намерения для навигации по консоли'
-    },
-    description: {
-        ru: `<h2>Поддерживаемая навигация</h2>
+function init(intentionStorage) {
+    intentionStorage.createIntention({
+        title: {
+            en: 'Types and Intentions for console navigation',
+            ru: 'Типы и Намерения для навигации по консоли'
+        },
+        description: {
+            ru: `<h2>Поддерживаемая навигация</h2>
             <ul>
                 <li>Намерения</li>
                 <li>Хранилища</li>
             </ul>`,
-        en: `<h2>Supported navigation</h2>
+            en: `<h2>Supported navigation</h2>
             <ul>
                 <li>Intentions</li>
                 <li>Storages</li>
             </ul>`
-    },
-    input: 'None',
-    output: 'EntitiesInfo',
-    onData: async function onData(status) {
-        if (status == 'accept') return gNavigation;
-    }
-});
+        },
+        input: 'None',
+        output: 'EntitiesInfo',
+        onData: async function onData(status) {
+            if (status == 'accept') return gNavigation;
+        }
+    });
+}
+
+export default {
+    init
+}

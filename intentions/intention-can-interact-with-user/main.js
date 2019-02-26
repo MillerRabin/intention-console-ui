@@ -1,6 +1,5 @@
 import speech from './speech.js';
 import keyboard from './keyboard.js';
-import intentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 let typeInterval = null;
 const typeTimeout = 1000;
@@ -65,30 +64,34 @@ function stop(input) {
     speech.disable();
 }
 
-const gIntention = intentionStorage.create({
-    title: {
-        en: 'Can receive raw user input from microphone or keyboard',
-        ru: 'Забираю пользовательский ввод с микрофона или клавиатуры'
-    },
-    input: 'HTMLTextAreaElement',
-    output: 'Recognition',
-    onData: async function (status, intention) {
-        if (status == 'accept') {
-            const parameters = intention.parameters;
-            const lang = parameters[0];
-            const input = parameters[1];
-            gParamHash[intention.id] = input;
-            start(lang, input);
-            return;
+let gIntention = null;
+
+function init(intentionStorage) {
+    gIntention = intentionStorage.createIntention({
+        title: {
+            en: 'Can receive raw user input from microphone or keyboard',
+            ru: 'Забираю пользовательский ввод с микрофона или клавиатуры'
+        },
+        input: 'HTMLTextAreaElement',
+        output: 'Recognition',
+        onData: async function (status, intention) {
+            if (status == 'accept') {
+                const parameters = intention.parameters;
+                const lang = parameters[0];
+                const input = parameters[1];
+                gParamHash[intention.id] = input;
+                start(lang, input);
+                return;
+            }
+            if (status == 'close') {
+                const input = gParamHash[intention.id];
+                stop(input);
+                delete gParamHash[intention.id];
+            }
         }
-        if (status == 'close') {
-            const input = gParamHash[intention.id];
-            stop(input);
-            delete gParamHash[intention.id];
-        }
-    }
-});
+    });
+}
 
 export default {
-    start, stop
+    init, start, stop
 }

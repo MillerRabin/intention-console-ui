@@ -1,10 +1,9 @@
 import loader from '../../core/loader.js';
 import localization from '../../core/localization.js';
-import intentionStorage from '/node_modules/intention-storage/browser/main.js';
+import config from '../../intentions/config.js'
 
 function createIntentions(vm) {
-    intentionStorage.enableStats();
-    vm.intention = intentionStorage.create({
+    vm.intention = config.intentionStorage.createIntention({
         title: {
             en: 'Need data about linked storages',
             ru: 'Необходимы данные о связанных хранилищах'
@@ -19,7 +18,7 @@ function createIntentions(vm) {
 }
 
 function deleteIntentions(vm) {
-    intentionStorage.delete(vm.intention, 'client closed browser');
+    config.intentionStorage.deleteIntention(vm.intention, 'client closed browser');
 }
 
 loader.application('storages', [async () => {

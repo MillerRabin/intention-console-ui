@@ -1,5 +1,3 @@
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
-
 const gTasks = [
     {
         type: 'task',
@@ -55,53 +53,76 @@ function addSavedStorages(intentionStorage) {
     }
 }
 
-addSavedStorages(IntentionStorage.storage);
+let iPost = null;
+let iSendData = null;
 
-IntentionStorage.create({
-    title: {
-        en: 'Can manage storages',
-        ru: 'Управляю хранилищами'
-    },
-    input: 'StorageInfo',
-    output: 'StorageOperationInfo',
-    onData: async function onData(status, intention) {
-        if ((status != 'accept') && (status != 'data')) return;
-        const parameters = intention.parameters;
-        const res = IntentionStorage.storage.addLink(parameters);
-        saveToStorage(res);
-        intention.send('data', this, { success: true });
-        iPost.accepted.send({
-            text: {
-                en: `Added linked storage ${ res.key }`,
-                ru: `Добавлено хранилище ${ res.key }`
-            },
-            context: {
-                en: 'Linked storage manager',
-                ru: 'Связанные хранилища'
-            },
-            time: new Date()
-        });
-    }
-});
+function init(intentionStorage) {
+    addSavedStorages(intentionStorage);
 
-IntentionStorage.create({
-    title: {
-        en: 'Types and Intentions to work with linked storages',
-        ru: 'Типы и Намерения для работы со связанными хранилищами'
-    },
-    input: 'None',
-    output: 'EntitiesInfo',
-    onData: async function onData(status) {
-        if (status == 'accept') return gTasks;
-    }
-});
+    intentionStorage.createIntention({
+        title: {
+            en: 'Can manage storages',
+            ru: 'Управляю хранилищами'
+        },
+        input: 'StorageInfo',
+        output: 'StorageOperationInfo',
+        onData: async function onData(status, intention) {
+            if ((status != 'accept') && (status != 'data')) return;
+            const parameters = intention.parameters;
+            const res = intentionStorage.storage.addLink(parameters);
+            saveToStorage(res);
+            intention.send('data', this, { success: true });
+            iPost.accepted.send({
+                text: {
+                    en: `Added linked storage ${ res.key }`,
+                    ru: `Добавлено хранилище ${ res.key }`
+                },
+                context: {
+                    en: 'Linked storage manager',
+                    ru: 'Связанные хранилища'
+                },
+                time: new Date()
+            });
+        }
+    });
 
-const iPost = IntentionStorage.create({
-    title: {
-        en: 'Need a possibility to post data to user console about storage changing',
-        ru: 'Нужна возможность отправлять данные в пользовательскую консколь об изменениях в хранилищах'
-    },
-    input: 'None',
-    output: 'ContextText',
-    onData: async function (status, intention, value) {}
-});
+    intentionStorage.createIntention({
+        title: {
+            en: 'Types and Intentions to work with linked storages',
+            ru: 'Типы и Намерения для работы со связанными хранилищами'
+        },
+        input: 'None',
+        output: 'EntitiesInfo',
+        onData: async function onData(status) {
+            if (status == 'accept') return gTasks;
+        }
+    });
+
+    iPost = intentionStorage.createIntention({
+        title: {
+            en: 'Need a possibility to post data to user console about storage changing',
+            ru: 'Нужна возможность отправлять данные в пользовательскую консколь об изменениях в хранилищах'
+        },
+        input: 'None',
+        output: 'ContextText',
+        onData: async function (status, intention, value) {}
+    });
+
+    iSendData = intentionStorage.createIntention({
+        title: {
+            en: 'Need a possibility to send binary data to another storages',
+            ru: 'Нужна возможность отправлять данные в другие хранилища'
+        },
+        input: 'DataChannelOut',
+        output: 'DataChannelIn',
+        onData: async function (status, intention, value) {
+            console.log(status);
+            console.log(intention);
+            console.log(value);
+        }
+    });
+}
+
+export default {
+    init
+}

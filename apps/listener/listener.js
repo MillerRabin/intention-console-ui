@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import intentionStorage from '/node_modules/intention-storage/browser/main.js';
+import config from '../../intentions/config.js'
 import localization from '../../core/localization.js';
 
 function addAnswer(data, answer, ext = true) {
@@ -17,7 +17,7 @@ function addAnswer(data, answer, ext = true) {
 }
 
 function createIntentions(vm, lang) {
-    vm.iInteract = intentionStorage.create({
+    vm.iInteract = config.intentionStorage.createIntention({
         title: {
             en: 'Need possibility to interact with user',
             ru: 'Нужна возможность взаимодействия с пользователем'
@@ -31,7 +31,7 @@ function createIntentions(vm, lang) {
         parameters: [lang.speechRecognizer, vm.input]
     });
 
-    vm.iPost = intentionStorage.create({
+    vm.iPost = config.intentionStorage.createIntention({
         title: {
             en: 'Can post data to console',
             ru: 'Отправляю данные в пользовательскую консоль'
@@ -46,8 +46,8 @@ function createIntentions(vm, lang) {
 }
 
 function deleteIntentions(vm) {
-    intentionStorage.delete(vm.iInteract, 'client closed listener');
-    intentionStorage.delete(vm.iPost, 'client closed listener');
+    config.intentionStorage.deleteIntention(vm.iInteract, 'client closed listener');
+    config.intentionStorage.deleteIntention(vm.iPost, 'client closed listener');
 }
 
 loader.application('listener', [async () => {

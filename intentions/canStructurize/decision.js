@@ -1,5 +1,3 @@
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
-
 function detectStructure(structures) {
     const ps = structures.reduce((acc, s) => {
         if (s == null) return acc;
@@ -30,7 +28,9 @@ function build(structures) {
     return detectStructure([...structures.values()]);
 }
 
-const iTask = IntentionStorage.create({
+let iTask = null;
+function init(intentionStorage) {
+    iTask = intentionStorage.createIntention({
         title: {
             en: 'Need possibility to control tasks',
             ru: 'Нужна возможноcть управления задачами'
@@ -38,9 +38,9 @@ const iTask = IntentionStorage.create({
         input: 'TaskOperationInfo',
         output: 'TaskInfo',
         onData: async function onData(status, intention, value) {}
-});
-
+    });
+}
 
 export default {
-    build: build
+    init, build
 }

@@ -1,7 +1,6 @@
 import loader from '../../core/loader.js';
 import localization from '../../core/localization.js';
-import intentionStorage from '/node_modules/intention-storage/browser/main.js';
-
+import config from '../../intentions/config.js'
 
 loader.application('tasks', [async () => {
     function init() {
@@ -12,7 +11,7 @@ loader.application('tasks', [async () => {
     }
 
     function createIntentions(vm) {
-        vm.iTasks = intentionStorage.create({
+        vm.iTasks = config.intentionStorage.createIntention({
             title: {
                 en: 'Need access to tasks information',
                 ru: 'Нужен доступ к списку задач'
@@ -27,7 +26,7 @@ loader.application('tasks', [async () => {
     }
 
     function deleteIntentions(vm) {
-        intentionStorage.delete(vm.iTasks, 'client tasks');
+        config.intentionStorage.deleteIntention(vm.iTasks, 'client tasks');
     }
 
     const lang = localization.get();

@@ -1,7 +1,7 @@
 import loader from '../../core/loader.js';
-import intentionStorage from '/node_modules/intention-storage/browser/main.js';
 import '../tree/tree.js';
 import localization from '../../core/localization.js';
+import config from '../../intentions/config.js';
 
 loader.application('browser', ['tree', async () => {
     function init() {
@@ -97,8 +97,7 @@ loader.application('browser', ['tree', async () => {
             }
         },
         mounted: function () {
-            intentionStorage.enableStats();
-            this.intention = intentionStorage.create({
+            this.intention = config.intentionStorage.createIntention({
                 title: {
                     en: 'Need data about intentions',
                     ru: 'Необходимы данные о намерениях'
@@ -115,7 +114,7 @@ loader.application('browser', ['tree', async () => {
             this.loaded = true;
         },
         destroyed: function () {
-            intentionStorage.delete(this.intention, 'client closed browser');
+            config.intentionStorage.deleteIntention(this.intention, 'client closed browser');
             this.loaded = false;
         }
     });

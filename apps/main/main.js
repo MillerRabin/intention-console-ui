@@ -1,10 +1,9 @@
 import loader from '../../core/loader.js';
 import '../router/router.js';
-import '../../intentions/config.js';
+import config from '../../intentions/config.js';
 import '../listener/listener.js'
 import '../tasks/tasks.js'
 import localization from '../../core/localization.js';
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
 
 function changeLanguage(lang) {
     const loc = localization.set(lang);
@@ -13,10 +12,10 @@ function changeLanguage(lang) {
 
 loader.application('Main', ['router', 'listener', async (router) => {
     function createIntentions(vm) {
-        IntentionStorage.create({
+        config.intentionStorage.createIntention({
             title: {
                 en: 'Console navigation',
-                ru: 'Навигация по консоли'
+                ru: 'Осуществляю навигацию по консоли'
             },
             input: 'None',
             output: 'NavigationResult',
@@ -70,7 +69,8 @@ loader.application('Main', ['router', 'listener', async (router) => {
     return data;
 }]);
 
-IntentionStorage.create({
+
+config.intentionStorage.createIntention({
     title: {
         en: 'Can change console localization',
         ru: 'Меняю локализацию консоли'
