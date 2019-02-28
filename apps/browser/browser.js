@@ -34,8 +34,9 @@ loader.application('browser', ['tree', async () => {
         const hash = new Map();
         for (let intention of vm.ilist) {
             intention.mtime = window.moment(intention.time);
-            if (!hash.has(intention.origin)) hash.set(intention.origin, createTree(intention.origin));
-            const origin = hash.get(intention.origin);
+            const oname = intention.origin == null ? 'local' : intention.origin;
+            if (!hash.has(oname)) hash.set(oname, createTree(oname));
+            const origin = hash.get(oname);
             origin.childs.push(createTree(intention.key, intention))
         }
         for (let [,origin] of hash) {
@@ -50,7 +51,7 @@ loader.application('browser', ['tree', async () => {
             intention.mtime = window.moment(intention.time);
             if (!hash.has(intention.key)) hash.set(intention.key, createTree(intention.key));
             const key = hash.get(intention.key);
-            key.childs.push(createTree(intention.origin, intention))
+            key.childs.push(createTree(intention.origin == null ? 'local' : intention.origin, intention))
         }
         for (let [,key] of hash) {
             key.childs.sort(byName);

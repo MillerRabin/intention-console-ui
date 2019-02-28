@@ -41,7 +41,7 @@
                     <td>Output</td>
                     <td v-text="selected.output"></td>
                 </tr>
-                <tr v-if="selected.accepted.length > 0">
+                <tr v-if="(selected.accepted != null) && (selected.accepted.length > 0)">
                     <td class="accepted">Accepted</td>
                     <td>
                         <table class="props border-box" v-for="accepted of selected.accepted">

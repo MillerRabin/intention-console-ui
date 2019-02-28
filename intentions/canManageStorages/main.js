@@ -54,7 +54,6 @@ function addSavedStorages(intentionStorage) {
 }
 
 let iPost = null;
-let iSendData = null;
 
 function init(intentionStorage) {
     addSavedStorages(intentionStorage);
@@ -101,25 +100,11 @@ function init(intentionStorage) {
     iPost = intentionStorage.createIntention({
         title: {
             en: 'Need a possibility to post data to user console about storage changing',
-            ru: 'Нужна возможность отправлять данные в пользовательскую консколь об изменениях в хранилищах'
+            ru: 'Нужна возможность отправлять данные в пользовательскую консоль об изменениях в хранилищах'
         },
         input: 'None',
         output: 'ContextText',
         onData: async function (status, intention, value) {}
-    });
-
-    iSendData = intentionStorage.createIntention({
-        title: {
-            en: 'Need a possibility to send binary data to another storages',
-            ru: 'Нужна возможность отправлять данные в другие хранилища'
-        },
-        input: 'DataChannelOut',
-        output: 'DataChannelIn',
-        onData: async function (status, intention, value) {
-            console.log(status);
-            console.log(intention);
-            console.log(value);
-        }
     });
 }
 

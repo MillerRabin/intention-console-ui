@@ -17,8 +17,8 @@ function init(intentionStorage) {
 
     iQuery = intentionStorage.createIntention({
         title: {
-            en: 'Need possibility to return known entities by raw user input',
-            ru: 'Нужна возможность возвращать известные сущности из пользовательского ввода'
+            en: 'I return known entities by raw user input',
+            ru: 'Я возвращаю известные сущности из пользовательского ввода'
         },
         input: 'Entities',
         output: 'Recognition',
