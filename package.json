@@ -16,9 +16,9 @@
   "dependencies": {
     "intention-can-manage-tasks": "0.0.23",
     "intention-can-query-entities": "0.0.18",
-    "intention-storage": "0.0.24",
+    "intention-storage": "0.0.29",
     "moment": "^2.24.0",
-    "vue": "^2.6.7",
+    "vue": "^2.6.8",
     "vue-router": "^3.0.2"
   },
   "devDependencies": {
