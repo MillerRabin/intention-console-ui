@@ -1,8 +1,10 @@
 <div class="Storages dynamicPage" v-bind:class="{ show: loaded == true }">
     <div class="content">
         <div class="border-box">
-            <div class="storage" v-for="storage in ilist">
+            <div class="storage" v-for="storage in ilist" v-bind:class="{ error: storage.status != 1 }">
                 <h2 v-text="storage.key"></h2>
+                <span v-if="storage.status != 1">offline</span>
+                <span v-if="storage.status == 1">online</span>
             </div>
         </div>
     </div>

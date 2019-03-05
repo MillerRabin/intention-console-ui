@@ -6,7 +6,6 @@
     height: 100%;
 }
 
-
 .Storages .content {
     display: grid;
     grid-template-columns: auto;
@@ -19,7 +18,23 @@
     flex-direction: column;
 }
 
-.Storages .storage h2 {
-    color: #e0e0e0;
+.Storages .storage {
+    display: flex;
     font-size: 1.5rem;
+    color: aquamarine;
+    font-weight: bold;
 }
+
+.Storages .storage > span {
+    margin-left: 1rem;
+}
+
+.Storages .storage.error {
+    color: red;
+}
+
+.Storages .storage h2 {
+    font-size: inherit;
+    color: inherit;
+}
+
