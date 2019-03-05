@@ -68,7 +68,7 @@ function init(intentionStorage) {
         onData: async function onData(status, intention) {
             if ((status != 'accept') && (status != 'data')) return;
             const parameters = intention.parameters;
-            const res = intentionStorage.storage.addLink(parameters);
+            const res = intentionStorage.addLink(parameters);
             saveToStorage(res);
             intention.send('data', this, { success: true });
             iPost.accepted.send({
