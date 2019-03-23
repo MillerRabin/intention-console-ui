@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <td>Адрес</td>
-                    <td v-text="selected.origin"></td>
+                    <td v-text="(selected.origin == null) ? 'Локальное' : selected.origin"></td>
                 </tr>
                 <tr>
                     <td>Заголовок</td>
@@ -46,8 +46,8 @@
                     <td>
                         <table class="props border-box" v-for="accepted of selected.accepted">
                             <tr>
-                                <td>Адрес</td>
-                                <td v-text="accepted.origin"></td>
+                                <td >Адрес</td>
+                                <td v-text="(accepted.origin == null) ? 'Локальное' : accepted.origin"></td>
                             </tr>
                             <tr>
                                 <td>Заголовок</td>

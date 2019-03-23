@@ -32,8 +32,8 @@ let iTask = null;
 function init(intentionStorage) {
     iTask = intentionStorage.createIntention({
         title: {
-            en: 'Need possibility to control tasks',
-            ru: 'Нужна возможноcть управления задачами'
+            en: 'Execute tasks',
+            ru: 'Отправляю задачи на выполнение'
         },
         input: 'TaskOperationInfo',
         output: 'TaskInfo',
