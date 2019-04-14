@@ -70,7 +70,7 @@ function init(intentionStorage) {
             const parameters = intention.parameters;
             const res = intentionStorage.addLink(parameters);
             saveToStorage(res);
-            intention.send('data', this, { success: true });
+            intention.send('completed', this, { success: true });
             iPost.accepted.send({
                 text: {
                     en: `Added linked storage ${ res.key }`,

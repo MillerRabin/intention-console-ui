@@ -73,7 +73,12 @@
 
 #Header .top a.logo h2 {
     color: #e0e0e0;
-    font-size: 2rem;
+    font-size: 1.52rem;
+}
+
+#Header .top a.logo.ru h2 {
+    color: #e0e0e0;
+    font-size: 1.56rem;
 }
 
 #Header .top a.active {
