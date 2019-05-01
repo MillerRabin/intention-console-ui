@@ -96,5 +96,3 @@ function init(intentionStorage) {
 export default {
     init, start, stop
 }
-
-console.log('test');
