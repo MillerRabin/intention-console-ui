@@ -50,7 +50,8 @@ function start(lang, input) {
         speech.recognition.addEventListener('data', onSpeechData);
         keyboard.enable(input);
     }
-    speech.recognition.lang = lang;
+    if (lang != null)
+        speech.recognition.lang = lang;
     speech.enable();
 }
 
