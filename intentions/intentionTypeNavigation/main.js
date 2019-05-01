@@ -13,7 +13,7 @@ const gNavigation = [
             ru: 'Хранилища'
         },
         words: {
-            ru: 'хранилища',
+            ru: 'хранилище',
             en: 'storages'
         },
         value: 'storages',
@@ -27,7 +27,7 @@ const gNavigation = [
             ru: 'Намерения'
         },
         words: {
-            ru: 'намерения',
+            ru: 'намерение',
             en: 'intentions'
         },
         value: 'intentions',
@@ -55,8 +55,9 @@ function init(intentionStorage) {
         },
         input: 'None',
         output: 'EntitiesInfo',
-        onData: async function onData(status) {
-            if (status == 'accept') return gNavigation;
+        onData: async function onData(status, intention) {
+            if (status == 'accept')
+                intention.send('data', this, gNavigation);
         }
     });
 }

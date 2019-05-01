@@ -20,10 +20,11 @@ loader.application('Main', ['router', 'listener', async (router) => {
             input: 'None',
             output: 'NavigationResult',
             onData: async function onData(status, intention, value) {
-                const vl = (value == null) ? intention.value : value;
+                if (status != 'data') return;
+                let vl = (value == null) ? intention.value : value;
                 if (vl != null) {
                     intention.send('completed', this, { success: true });
-                    router.push({ name: vl, params: { language: vm.lang.interface } });
+                    router.push({ name: vl.value, params: { language: vm.lang.interface } });
                 }
             }
         });
@@ -78,7 +79,7 @@ config.intentionStorage.createIntention({
     input: 'Language',
     output: 'ChangeLanguageOperationInfo',
     onData: async function onData(status, intention) {
-        if ((status != 'accept') && (status != 'data')) return;
+        if (status != 'data') return;
         try {
             intention.send('completed', this, { success: true });
             const parameters = intention.parameters;

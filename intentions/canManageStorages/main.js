@@ -66,7 +66,7 @@ function init(intentionStorage) {
         input: 'StorageInfo',
         output: 'StorageOperationInfo',
         onData: async function onData(status, intention) {
-            if ((status != 'accept') && (status != 'data')) return;
+            if (status != 'data') return;
             const parameters = intention.parameters;
             const res = intentionStorage.addLink(parameters);
             saveToStorage(res);
