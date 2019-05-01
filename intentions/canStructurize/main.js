@@ -11,7 +11,8 @@ function init(intentionStorage) {
         input: 'Recognition',
         output: 'HTMLTextAreaElement',
         onData: async function (status, intention, value) {
-            iQuery.accepted.send(value);
+            if (value != null)
+                iQuery.accepted.send(value);
         }
     });
 
