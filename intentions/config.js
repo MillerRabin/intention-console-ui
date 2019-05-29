@@ -3,6 +3,7 @@ import structurize from '/intentions/canStructurize/main.js';
 import manageStorages from '/intentions/canManageStorages/main.js';
 import query from '/node_modules/intention-can-query-entities/browser/main.js';
 import TaskList from '/node_modules/intention-can-manage-tasks/browser/main.js';
+import basicTypes from '/intentions/basicTypes/main.js';
 import webAddress from '/intentions/webAddresses/main.js';
 import languages from '/intentions/intentionTypeLanguages/main.js';
 import navigation from '/intentions/intentionTypeNavigation/main.js';
@@ -17,6 +18,7 @@ function init(intentionStorage) {
     manageStorages.init(intentionStorage);
     query.init(intentionStorage);
     gTasks = new TaskList({ storage: intentionStorage });
+    basicTypes.init(intentionStorage);
     webAddress.init(intentionStorage);
     languages.init(intentionStorage);
     navigation.init(intentionStorage);
