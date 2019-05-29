@@ -1,4 +1,3 @@
-import loader from '../../core/loader.js';
 import config from '../../intentions/config.js'
 import localization from '../../core/localization.js';
 
@@ -50,43 +49,29 @@ function deleteIntentions(vm) {
     config.intentionStorage.deleteIntention(vm.iPost, 'client closed listener');
 }
 
-loader.application('listener', [async () => {
-    function init() {
-        return {
-            loaded: false,
-            answers: [],
-            showAlternatives: false,
-            output: null,
-            input: null
-        }
+class Listener {
+    constructor(mount) {
+        this.mount = mount;
+        this.output = this.$el.querySelector('.output');
+        this.input = this.$el.querySelector('.content textarea');
+        const lang = localization.get();
+        createIntentions(this, lang);
+        this.loaded = true;
+    }
+    unmount() {
+        deleteIntentions(this);
+        this.loaded = false;
     }
 
+    toggleAlternatives(answer) {
+        answer.showAlternatives = !answer.showAlternatives;
+        this.$forceUpdate();
+    }
 
-    const lang = localization.get();
-    await loader.createVueTemplate({ path: 'listener.html', id: 'Listener-Template', meta: import.meta, localization: { use: lang.interface } });
-    const res = {};
-    res.Constructor = Vue.component('listener', {
-        template: '#Listener-Template',
-        data: init,
-        methods: {
-            toggleAlternatives: function (answer) {
-                answer.showAlternatives = !answer.showAlternatives;
-                this.$forceUpdate();
-            },
-            getText(contextText) {
-                return localization.getText(lang, contextText);
-            }
-        },
-        mounted: function () {
-            this.output = this.$el.querySelector('.output');
-            this.input = this.$el.querySelector('.content textarea');
-            createIntentions(this, lang);
-            this.loaded = true;
-        },
-        destroyed: function () {
-            deleteIntentions(this);
-            this.loaded = false;
-        }
-    });
-    return res;
-}]);
+    getText(contextText) {
+        const lang = localization.get();
+        return localization.getText(lang, contextText);
+    }
+}
+
+export default Listener;
