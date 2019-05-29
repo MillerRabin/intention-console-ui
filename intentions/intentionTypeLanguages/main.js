@@ -1,5 +1,5 @@
 const ltName = {
-    name: 'Language',
+    general: 'Language',
     en: 'Language',
     ru: 'Язык'
 };
@@ -26,7 +26,7 @@ const gLanguages = [
     {
         type: 'task',
         name: {
-            name: 'Change language',
+            general: 'Change language',
             en: 'change language',
             ru: 'change language'
         },
@@ -35,7 +35,7 @@ const gLanguages = [
             en: 'change language'
         },
         parameters: [{
-            name: 'Language',
+            general: 'Language',
             ru: 'Язык локализации?',
             en: 'Language?'
         }],

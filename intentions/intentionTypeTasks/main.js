@@ -2,7 +2,7 @@ const gTaskEntities = [
     {
         type: 'task',
         name: {
-            name: 'Cancel task',
+            general: 'Cancel task',
             en: 'cancel',
             ru: 'отменить'
         },
@@ -11,7 +11,7 @@ const gTaskEntities = [
             en: 'cancel'
         },
         parameters: [{
-            name: 'Integer',
+            general: 'Integer',
             ru: 'Номер задачи?',
             en: 'Task index?',
             value: -2

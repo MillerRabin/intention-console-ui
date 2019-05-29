@@ -2,7 +2,7 @@ const gTasks = [
     {
         type: 'task',
         name: {
-            name: 'Add storage',
+            general: 'Add storage',
             en: 'Add storage',
             ru: 'Добавление хранилища'
         },
@@ -11,7 +11,7 @@ const gTasks = [
             en: 'Add storage'
         },
         parameters: [{
-            name: 'webAddress',
+            general: 'webAddress',
             ru: 'веб адрес?',
             en: 'web address?'
         }],

@@ -32,8 +32,6 @@ html(lang='ru')
             each link in bundle.mobileFiles
                 link(href='/' + link, rel='stylesheet', media='screen and (orientation: portrait), screen and (max-width: 640px)')
 
-        script(src="/node_modules/vue/dist/vue.min.js")
-        script(src="/node_modules/vue-router/dist/vue-router.min.js")
         script(src="/node_modules/moment/min/moment.min.js")
         script(src="/node_modules/az/dist/az.min.js")
         script(src="/apps/main/main.js" type="module")
@@ -47,9 +45,9 @@ html(lang='ru')
                 #Router(is="router-view")
                     block content
                 #Info
-                    #Tasks(is="tasks" inline-template)
+                    #Tasks(is="tasks")
                         include ../../tasks/tasks.html
-                    #Listener(is="listener" inline-template)
+                    #Listener(is="listener")
                         include ../../listener/en/listener.html
             #Footer_Container
                     include ../../footer/ru/footer.html
