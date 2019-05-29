@@ -1,5 +1,3 @@
-import loader from '../../core/loader.js';
-import localization from '../../core/localization.js';
 import config from '../../intentions/config.js'
 
 function createIntentions(vm) {
@@ -21,32 +19,13 @@ function deleteIntentions(vm) {
     config.intentionStorage.deleteIntention(vm.intention, 'client closed browser');
 }
 
-loader.application('storages', [async () => {
-    function init() {
-        return {
-            ilist: [],
-            loaded: false
-        }
+export default class Storages {
+    constructor(mount) {
+        this.mount = mount;
+        createIntentions(this);
     }
 
-    const lang = localization.get();
-    await loader.createVueTemplate({ path: 'storages.html', id: 'Storages-Template', meta: import.meta, localization: { use: lang.interface } });
-    const res = {};
-
-    res.Constructor = Vue.component('storages', {
-        template: '#Storages-Template',
-        data: init,
-        methods: {
-
-        },
-        mounted: function () {
-            this.loaded = true;
-            createIntentions(this);
-        },
-        destroyed: function () {
-            deleteIntentions(this);
-            this.loaded = false;
-        }
-    });
-    return res;
-}]);
+    unmount() {
+        deleteIntentions(this);
+    }
+}
