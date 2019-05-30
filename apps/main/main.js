@@ -10,66 +10,24 @@ function changeLanguage(lang) {
     window.location.assign(`/${loc.interface}/index.html`);
 }
 
-loader.application('Main', ['router', 'listener', async (router) => {
-    function createIntentions(vm) {
-        config.intentionStorage.createIntention({
-            title: {
-                en: 'Console navigation',
-                ru: 'Осуществляю навигацию по консоли'
-            },
-            input: 'None',
-            output: 'NavigationResult',
-            onData: async function onData(status, intention, value) {
-                if (status != 'data') return;
-                let vl = (value == null) ? intention.value : value;
-                if (vl != null) {
-                    intention.send('completed', this, { success: true });
-                    router.push({ name: vl.value, params: { language: vm.lang.interface } });
-                }
-            }
-        });
-    }
-
-    const data = {
-        loaded: false,
-        disabled: false,
-        active: 1,
-        langDlg: null,
-        lang: null,
-        langRadio: null
-    };
-
-    router.afterEach((to) => {
-        data.active = to.meta.active;
-    });
-
-    data.application = new Vue({
-        el: '#Intention',
-        router: router,
-        data: data,
-        methods: {
-            showLangDialog: function () {
-                this.langDlg.showModal();
-            },
-            selectLanguage: function () {
-                setTimeout(() => {
-                    changeLanguage(this.langRadio);
-                    this.langDlg.close();
-                });
-            }
+function createIntentions(vm) {
+    config.intentionStorage.createIntention({
+        title: {
+            en: 'Console navigation',
+            ru: 'Осуществляю навигацию по консоли'
         },
-        mounted: async function () {
-            this.loaded = true;
-            this.active = this.$route.meta.active;
-            this.lang = localization.get();
-            this.langDlg = this.$el.querySelector('#Header dialog.lang');
-            createIntentions(this);
+        input: 'None',
+        output: 'NavigationResult',
+        onData: async function onData(status, intention, value) {
+            if (status != 'data') return;
+            let vl = (value == null) ? intention.value : value;
+            if (vl != null) {
+                intention.send('completed', this, { success: true });
+                router.push({ name: vl.value, params: { language: vm.lang.interface } });
+            }
         }
     });
-
-    return data;
-}]);
-
+}
 
 config.intentionStorage.createIntention({
     title: {
@@ -89,4 +47,25 @@ config.intentionStorage.createIntention({
             intention.send('error', this, e);
         }
     }
+});
+
+class Main {
+    constructor(mount) {
+        this.mount = mount;
+        this.langDlg = mount.querySelector('#Header dialog.lang');
+        createIntentions(this);
+    }
+
+    showLangDialog() {
+        this.langDlg.showModal();
+    }
+    selectLanguage() {
+        changeLanguage(this.langRadio);
+        this.langDlg.close();
+    }
+}
+
+loader.globalContentLoaded.then(() => {
+    const mount = window.document.getElementById('Intention');
+    new Main(mount);
 });
