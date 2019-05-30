@@ -1,17 +1,17 @@
-<div class="Browser dynamicPage" v-bind:class="{ show: loaded == true }">
+<div class="Browser dynamicPage">
     <div class="content">
         <div class="sortButtons">
-            <button v-bind:class="{ active: sortMode == 'byOrigin' }" v-on:click="byOrigin">By origin</button>
-            <button v-bind:class="{ active: sortMode == 'byKey' }" v-on:click="byKey">By key</button>
+            <button>By origin</button>
+            <button>By key</button>
         </div>
         <div class="border-box">
-            <div is="tree" v-bind:tree="list" v-bind:onchecked="onchecked" keypath="name"></div>
+
         </div>
         <div class="border-box">
-            <table class="props" v-if="selected != null">
+            <table class="props">
                 <tr>
                     <td>Key</td>
-                    <td v-text="selected.key"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Origin</td>

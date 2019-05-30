@@ -1,9 +1,13 @@
 import loader from '../../core/loader.js';
-import '../router/router.js';
+import route from '../router/router.js';
 import config from '../../intentions/config.js';
 import '../listener/listener.js'
 import '../tasks/tasks.js'
 import localization from '../../core/localization.js';
+
+let mount =  null;
+let langDlg = null;
+let langBtn = null;
 
 function changeLanguage(lang) {
     const loc = localization.set(lang);
@@ -49,23 +53,27 @@ config.intentionStorage.createIntention({
     }
 });
 
-class Main {
-    constructor(mount) {
-        this.mount = mount;
-        this.langDlg = mount.querySelector('#Header dialog.lang');
-        createIntentions(this);
-    }
+function selectLanguage(event) {
+    const target = event.target;
+    changeLanguage(target.value);
+    langDlg.close();
+}
 
-    showLangDialog() {
-        this.langDlg.showModal();
-    }
-    selectLanguage() {
-        changeLanguage(this.langRadio);
-        this.langDlg.close();
-    }
+
+function enableLanguageSelection() {
+    langBtn.onclick = () => {
+        langDlg.showModal();
+    };
+
+    const langInputs = langDlg.querySelectorAll('input');
+    for (let lang of langInputs)
+        lang.onchange = selectLanguage;
 }
 
 loader.globalContentLoaded.then(() => {
-    const mount = window.document.getElementById('Intention');
-    new Main(mount);
+    mount = window.document.getElementById('Intention');
+    langDlg = mount.querySelector('#Header dialog.lang');
+    langBtn = mount.querySelector('#Header button.lang');
+    enableLanguageSelection();
+    createIntentions();
 });
