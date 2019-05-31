@@ -61,6 +61,10 @@ input {
     overflow: hidden;
 }
 
+#Router {
+    height: 100%;
+}
+
 h1 {
     font-weight: bold;
     font-size: 3rem;
@@ -335,7 +339,6 @@ dialog input[type="radio"] {
 .dynamicPage {
     height: 100%;
     padding-bottom: 1rem;
-    display: none;
 }
 
 .dynamicPage.show {

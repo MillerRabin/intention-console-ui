@@ -3,6 +3,8 @@ import '../tree/tree.js';
 import localization from '../../core/localization.js';
 import config from '../../intentions/config.js';
 
+const gLang = localization.get();
+const gTemplateP = loader.request(`/apps/browser/${gLang.interface}/browser.html`);
 
 function createTree(name, value) {
     return { name: name, childs: [], opened: true, path: name, single: true, showRoot: name != 'Root', value: value };
@@ -61,18 +63,7 @@ function sortHash(vm) {
     throw new Error(`Sort ${ vm.sortMode } is unsupported`);
 }
 
-
-function byOrigin() {
-    this.sortMode = 'byOrigin';
-    sortHash(this);
-}
-
-function byKey() {
-    this.sortMode = 'byKey';
-    sortHash(this);
-}
-
-function createIntention() {
+function createIntention(browser) {
     return config.intentionStorage.createIntention({
         title: {
             en: 'Need data about intentions',
@@ -83,8 +74,8 @@ function createIntention() {
         output: 'None',
         onData: async (status, intention, interfaceObject) => {
             if (status != 'data') return;
-            this.ilist = interfaceObject.queryIntentions();
-            sortHash(this);
+            browser.ilist = interfaceObject.queryIntentions();
+            sortHash(browser);
         }
     });
 }
@@ -96,27 +87,41 @@ function onchecked(selected) {
 }
 
 function getText(contextText) {
-    return localization.getText(lang, contextText);
+    return localization.getText(gLang, contextText);
 }
 
-const lang = localization.get();
-const templateP = loader.request(`apps/browser/${lang.interface}/browser.html`);
-
-async function mount(mount) {
-    const template = await templateP;
-    mount.innerHTML = template.text;
-}
-
-async function unmount(mount) {
-    config.intentionStorage.deleteIntention(this.intention, 'client closed browser');
+function enableSortButtons(browser) {
+    const sortBtn = browser.mount.querySelector('.sortButtons');
+    sortBtn.onclick = function (event) {
+        const activeBtn = browser.mount.querySelector('.sortButtons button.active');
+        const target = event.target;
+        if (target.name == null) return;
+        browser.sortMode = target.name;
+        activeBtn.classList.remove('active');
+        target.classList.add('active');
+        sortHash(browser);
+    }
 }
 
 export default class Browser {
     constructor(mount) {
         this._mount = mount;
+        this._intention = createIntention(this);
+        this.sortMode = 'byOrigin';
+        this.ilist = null;
+        this.render();
+    }
+
+    async render() {
+        this._mount.innerHTML = (await gTemplateP).text;
+        enableSortButtons(this);
     }
 
     unmount() {
+        config.intentionStorage.deleteIntention(this._intention, 'client closed browser');
+    }
 
+    get mount() {
+        return this._mount;
     }
 }

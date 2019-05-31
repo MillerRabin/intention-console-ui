@@ -1,16 +1,40 @@
 import Browser from '../browser/browser.js';
 import Storages from '../storages/storages.js';
 import localization from '../../core/localization.js';
+import messages from '../messages/messages.service.js';
+
 
 const lang = localization.get();
+let activeComponent = null;
+
+const gRouter = {
+    activeRoute: null,
+    on: {
+        change: onChangeRoute
+    },
+    off: {
+        change: offChangeRoute
+    }
+};
+
+const gMount = window.document.getElementById('Router');
+
 if (window.location.pathname == '/') {
     window.location.assign(`/${lang.interface}/index.html`);
 }
 
 const routes = [
-    { name: 'intentions', path: '/:language/index.html', component: Browser, active: 1 },
-    { name: 'storages', path: '/:language/storages.html', component: Storages, active: 2 }
+    { name: 'intentions', path: '/:language/index.html', Contructor: Browser, active: 0 },
+    { name: 'storages', path: '/:language/storages.html', Contructor: Storages, active: 1 }
 ];
+
+function onChangeRoute(callback) {
+    messages.on('router.change', callback)
+}
+
+function offChangeRoute(callback) {
+    messages.off('router.change', callback)
+}
 
 function splitPath(path) {
     const pathItems = path.split('/');
@@ -30,6 +54,14 @@ function splitPath(path) {
     return res;
 }
 
+function getLink(href) {
+    const origin = window.location.origin;
+    const larr = href.split(origin);
+    if (larr.length > 1)
+        return larr[1];
+    return href;
+}
+
 function buildPath(pathItems) {
     const reg = [];
     const params = [];
@@ -46,7 +78,6 @@ function buildPath(pathItems) {
         params: params
     }
 }
-
 
 function createRegPath(path) {
     const pathItems = splitPath(path);
@@ -73,24 +104,47 @@ function matchParameters(route, path) {
 }
 
 function matchRoute(routes, path) {
+    const link = getLink(path);
     for (let route of routes) {
-        const match = matchParameters(route, path);
+        const match = matchParameters(route, link);
         if (match == null) continue;
+        if (match.Contructor == null) continue;
         return match;
     }
     return null;
 }
 
+function pushState(route) {
+    window.history.pushState(route.state, route.state.title, route.link);
+}
+
+function changeRoute(event) {
+    applyRoute(routes, event.target.href);
+    return false;
+}
+
+window.onpopstate = async function (event) {
+
+};
+
+function reloadLinks() {
+    const links = window.document.querySelectorAll('.router-link');
+    for (let link of links) {
+        link.onclick = changeRoute;
+    }
+}
 
 async function applyRoute(routes, path) {
     const route = matchRoute(routes, path);
-    console.log(route);
+    if (activeComponent != null)
+        activeComponent.unmount();
+    gRouter.activeRoute = route;
+    activeComponent = new route.Contructor(gMount);
+    reloadLinks();
+    messages.send('router.change', { router: gRouter, route });
 }
-
 
 pathToReg(routes);
-applyRoute(routes, window.location.pathname);
+applyRoute(routes, window.location.href);
 
-export default {
-
-}
+export default gRouter;

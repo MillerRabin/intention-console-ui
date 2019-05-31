@@ -1,11 +1,11 @@
 import loader from '../../core/loader.js';
-import route from '../router/router.js';
+import router from '../router/router.js';
 import config from '../../intentions/config.js';
 import '../listener/listener.js'
 import '../tasks/tasks.js'
 import localization from '../../core/localization.js';
 
-let mount =  null;
+let gMount =  null;
 let langDlg = null;
 let langBtn = null;
 
@@ -70,10 +70,26 @@ function enableLanguageSelection() {
         lang.onchange = selectLanguage;
 }
 
+router.on.change(function () {
+    setActiveLink();
+});
+
+function setActiveLink() {
+    const links = window.document.querySelectorAll('#Header .top .router-link');
+    const activeLink = window.document.querySelector('#Header .top .router-link.active');
+    const active = router.activeRoute.active;
+    if (activeLink != null)
+        activeLink.classList.remove('active');
+    const aLink = links[active];
+    aLink.classList.add('active');
+}
+
+
 loader.globalContentLoaded.then(() => {
-    mount = window.document.getElementById('Intention');
-    langDlg = mount.querySelector('#Header dialog.lang');
-    langBtn = mount.querySelector('#Header button.lang');
+    gMount = window.document.getElementById('Intention');
+    langDlg = gMount.querySelector('#Header dialog.lang');
+    langBtn = gMount.querySelector('#Header button.lang');
+    setActiveLink();
     enableLanguageSelection();
     createIntentions();
 });
