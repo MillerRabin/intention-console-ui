@@ -10,9 +10,16 @@ function getText(contextText) {
     return localization.getText(lang, contextText);
 }
 
-function enableToggle(treeNode) {
+function call(tree, handler, data) {
+    if (handler == null) return;
+    handler.apply(tree, [data]);
+}
+
+function enableToggle(tree, treeNode) {
     function toggle() {
-        if (!hasChilds(treeNode.data)) return;
+        if (!hasChilds(treeNode.data)) {
+            return call(tree, tree.onclick, treeNode.data);
+        }
         treeNode.data.opened = !treeNode.data.opened;
         const aClass = treeNode.data.opened ? 'icon-minus-squared-alt' : 'icon-plus-squared-alt';
         plusBtn.classList.remove('icon-minus-squared-alt');
@@ -53,7 +60,7 @@ function buildHeader(node) {
     return title;
 }
 
-function buildChilds(node) {
+function buildChilds(tree, node) {
     if (!hasChilds(node)) return null;
     const ul = window.document.createElement('ul');
     if (!node.opened)
@@ -61,28 +68,28 @@ function buildChilds(node) {
 
     for (let child of node.childs) {
         const li = window.document.createElement('li');
-        appendTreeNode(li, child);
+        appendTreeNode(tree, li, child);
         ul.appendChild(li);
     }
     return ul;
 }
 
-function buildTreeNode(node) {
+function buildTreeNode(tree, node) {
     const tNode = window.document.createElement('div');
     tNode.className = 'Tree';
     tNode.data = node;
     const header = buildHeader(node);
     if (header != null) tNode.appendChild(header);
-    const childs = buildChilds(node);
+    const childs = buildChilds(tree, node);
     if (childs != null) tNode.appendChild(childs);
-    if (node.showRoot && hasChilds(node))
-        enableToggle(tNode);
+    if (node.showRoot)
+        enableToggle(tree, tNode);
     return tNode;
 }
 
-function appendTreeNode(mount, node) {
-    const tree = buildTreeNode(node);
-    mount.appendChild(tree);
+function appendTreeNode(tree, mount, node) {
+    const nodes = buildTreeNode(tree, node);
+    mount.appendChild(nodes);
 }
 
 class Tree {
@@ -90,6 +97,7 @@ class Tree {
         this._mount = mount;
         this._data = null;
         this._node = null;
+        this._onclick = null;
     }
 
     get data() {
@@ -101,6 +109,14 @@ class Tree {
         this.render()
     }
 
+    get onclick() {
+        return this._onclick;
+    }
+
+    set onclick(value) {
+        this._onclick = value;
+    }
+
     get mount() {
         return this._mount;
     }
@@ -108,55 +124,13 @@ class Tree {
     set mount(mount) {
         this._mount = mount;
         if (this._node == null) return;
-        this._mount.appendChild(this._node);
+        this._mount.appendChild(this, this._node);
     }
 
     render() {
         dom.clearChilds(this._mount);
         if (this._data == null) return;
-        appendTreeNode(this._mount, this._data);
-    }
-
-    clear(selected) {
-        for (let key in selected) {
-            if (!selected.hasOwnProperty(key)) continue;
-            delete selected[key]
-        }
-    }
-
-    selectItem(vm, node, selected, checked) {
-        const keyVal = (vm.keypath == null) ? 'path' : vm.keypath;
-        const key = node[keyVal];
-        if (vm.tree.single == true)
-            clear(selected);
-        if (!checked) {
-            Vue.delete(selected, key);
-            return;
-        }
-        Vue.set(selected, key, node);
-    }
-
-    setChecked(vm, node, selected, checked) {
-        node.checked = checked;
-        selectItem(vm, node, selected, checked);
-    }
-
-    context(e) {
-        if (this.oncontext != null) this.oncontext(this.tree, e);
-    }
-    setChecked() {
-        if (this.selected == null) this.selected = {};
-        setChecked(this, this.tree, this.selected, this.tree.checked);
-        if (this.onchecked != null) this.onchecked(this.selected, this.tree);
-    }
-    mover(event) {
-        if (this.mouseover != null) this.mouseover(this.tree);
-        event.stopPropagation();
-        event.preventDefault();
-    }
-    mounted() {
-        this.tree.checked = (this.tree.checked == undefined) ? false: this.tree.checked;
-        this.tree.opened = (this.tree.opened == undefined) ? false : this.tree.opened;
+        appendTreeNode(this, this._mount, this._data);
     }
 }
 

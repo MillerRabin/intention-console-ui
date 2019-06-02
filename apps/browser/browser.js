@@ -81,10 +81,12 @@ function createIntention(browser) {
     });
 }
 
-function onchecked(selected) {
-    const vals = Object.values(selected);
+function onclick(selected) {
+    console.log(this);
+    console.log(selected.value);
+    /*const vals = Object.values(selected);
     if (vals.length == 0) return;
-    this.selected = vals[0].value;
+    this.selected = vals[0].value;*/
 }
 
 function getText(contextText) {
@@ -113,6 +115,7 @@ export default class Browser {
         this.list = createTree('Root');
         const mtree = this._mount.querySelector('.Tree_Cont');
         this._tree = new Tree(mtree);
+        this._tree.onclick = onclick;
         this.render();
     }
 
