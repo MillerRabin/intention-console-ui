@@ -1,5 +1,5 @@
 import loader from '../../core/loader.js';
-import '../tree/tree.js';
+import Tree from '../tree/tree.js';
 import localization from '../../core/localization.js';
 import config from '../../intentions/config.js';
 
@@ -24,7 +24,7 @@ function byName(a, b) {
 function sortByOrigin(vm) {
     const hash = new Map();
     for (let intention of vm.ilist) {
-        intention.mtime = window.moment(intention.time);
+        intention.mtime = window.moment(intention.createTime);
         const oname = intention.origin == null ? 'local' : intention.origin;
         if (!hash.has(oname)) hash.set(oname, createTree(oname));
         const origin = hash.get(oname);
@@ -39,7 +39,7 @@ function sortByOrigin(vm) {
 function sortByKey(vm) {
     const hash = new Map();
     for (let intention of vm.ilist) {
-        intention.mtime = window.moment(intention.time);
+        intention.mtime = window.moment(intention.createTime);
         if (!hash.has(intention.key)) hash.set(intention.key, createTree(intention.key));
         const key = hash.get(intention.key);
         key.childs.push(createTree(intention.origin == null ? 'local' : intention.origin, intention))
@@ -76,6 +76,7 @@ function createIntention(browser) {
             if (status != 'data') return;
             browser.ilist = interfaceObject.queryIntentions();
             sortHash(browser);
+            browser._tree.data = browser.list;
         }
     });
 }
@@ -109,12 +110,16 @@ export default class Browser {
         this._intention = createIntention(this);
         this.sortMode = 'byOrigin';
         this.ilist = null;
+        this.list = createTree('Root');
+        const mtree = this._mount.querySelector('.Tree_Cont');
+        this._tree = new Tree(mtree);
         this.render();
     }
 
     async render() {
         this._mount.innerHTML = (await gTemplateP).text;
         enableSortButtons(this);
+        this._tree.mount = this._mount.querySelector('.Tree_Cont');
     }
 
     unmount() {
