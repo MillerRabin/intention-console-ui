@@ -33,7 +33,7 @@ loader.application('browser', ['tree', async () => {
     function sortByOrigin(vm) {
         const hash = new Map();
         for (let intention of vm.ilist) {
-            intention.mtime = window.moment(intention.time);
+            intention.mtime = window.moment(intention.createTime);
             const oname = intention.origin == null ? 'local' : intention.origin;
             if (!hash.has(oname)) hash.set(oname, createTree(oname));
             const origin = hash.get(oname);
@@ -48,7 +48,7 @@ loader.application('browser', ['tree', async () => {
     function sortByKey(vm) {
         const hash = new Map();
         for (let intention of vm.ilist) {
-            intention.mtime = window.moment(intention.time);
+            intention.mtime = window.moment(intention.createTime);
             if (!hash.has(intention.key)) hash.set(intention.key, createTree(intention.key));
             const key = hash.get(intention.key);
             key.childs.push(createTree(intention.origin == null ? 'local' : intention.origin, intention))
