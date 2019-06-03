@@ -26,12 +26,12 @@
     padding: 0;
 }
 
-.Browser .content .props > tr > td:first-child {
+.Browser .content .props > tbody > tr > td:first-child {
     text-align: right;
     color: #00BFFF;
 }
 
-.Browser .content .props > tr > td:last-child {
+.Browser .content .props > tbody > tr > td:last-child {
     padding-left: 0.5rem
 }
 
@@ -40,7 +40,7 @@
     margin-top: 0.5rem;
 }
 
-.Browser .content .props > tr > td.accepted {
+.Browser .content .props > tbody > tr > td.accepted {
     color: #ff603d;
 }
 

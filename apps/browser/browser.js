@@ -81,12 +81,8 @@ function createIntention(browser) {
     });
 }
 
-function onclick(selected) {
-    console.log(this);
-    console.log(selected.value);
-    /*const vals = Object.values(selected);
-    if (vals.length == 0) return;
-    this.selected = vals[0].value;*/
+function onclick(browser, selected) {
+    renderSelected(browser, selected.value);
 }
 
 function getText(contextText) {
@@ -106,6 +102,48 @@ function enableSortButtons(browser) {
     }
 }
 
+function getProps(browser) {
+    const props = browser.mount.querySelector('.props');
+    browser.props = {
+        node: props,
+        key: props.querySelector('.key'),
+        origin: props.querySelector('.origin'),
+        title: props.querySelector('.title'),
+        descCont: props.querySelector('.desc_cont'),
+        description: props.querySelector('.description'),
+        id: props.querySelector('.id'),
+        time: props.querySelector('.time'),
+        input: props.querySelector('.input'),
+        output: props.querySelector('.output'),
+        acceptedCont: props.querySelector('.accepted_cont'),
+    };
+}
+
+function renderSelected(browser, selected) {
+    const props = browser.props;
+    if (selected == null) {
+        props.node.classList.add('hide');
+        return;
+    }
+    props.node.classList.remove('hide');
+    props.key.innerHTML = selected.key;
+    props.origin.innerHTML = (selected.origin == null) ? 'Local' : selected.origin;
+    props.title.innerHTML = getText(selected.title);
+    props.descCont.classList.add('hide');
+    if (selected.description != null) {
+        props.descCont.classList.remove('hide');
+        props.description.innerHTML = getText(selected.description);
+    }
+    props.id.innerHTML = selected.id;
+    props.time.innerHTML = selected.mtime.format('DD MMM YYYY HH:MM');
+    props.input.innerHTML = selected.input;
+    props.output.innerHTML = selected.output;
+    props.acceptedCont.classList.add('hide');
+    if ((selected.accepted != null) && (selected.accepted.length > 0)) {
+        props.acceptedCont.classList.remove('hide');
+    }
+}
+
 export default class Browser {
     constructor(mount) {
         this._mount = mount;
@@ -115,7 +153,10 @@ export default class Browser {
         this.list = createTree('Root');
         const mtree = this._mount.querySelector('.Tree_Cont');
         this._tree = new Tree(mtree);
-        this._tree.onclick = onclick;
+        const browser = this;
+        this._tree.onclick = function (selected) {
+            onclick(browser, selected);
+        };
         this.render();
     }
 
@@ -123,6 +164,7 @@ export default class Browser {
         this._mount.innerHTML = (await gTemplateP).text;
         enableSortButtons(this);
         this._tree.mount = this._mount.querySelector('.Tree_Cont');
+        getProps(this);
     }
 
     unmount() {

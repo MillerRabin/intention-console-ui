@@ -8,40 +8,40 @@
             <div class="Tree_Cont"></div>
         </div>
         <div class="border-box">
-            <table class="props" v-if="selected != null">
+            <table class="props hide">
                 <tr>
                     <td>Ключ</td>
-                    <td v-text="selected.key"></td>
+                    <td class="key"></td>
                 </tr>
                 <tr>
                     <td>Адрес</td>
-                    <td v-text="(selected.origin == null) ? 'Локальное' : selected.origin"></td>
+                    <td class="origin"></td>
                 </tr>
                 <tr>
                     <td>Заголовок</td>
-                    <td v-text="getText(selected.title)"></td>
+                    <td class="title"></td>
                 </tr>
-                <tr class="description" v-if="selected.description != null">
+                <tr class="desc_cont hide">
                     <td>Описание</td>
-                    <td v-html="getText(selected.description)"></td>
+                    <td class="description"></td>
                 </tr>
                 <tr>
                     <td>Id</td>
-                    <td v-text="selected.id"></td>
+                    <td class="id"></td>
                 </tr>
                 <tr>
                     <td>Время</td>
-                    <td v-text="selected.mtime.format('DD MMM YYYY HH:MM')"></td>
+                    <td class="time"></td>
                 </tr>
                 <tr>
                     <td>Вход</td>
-                    <td v-text="selected.input"></td>
+                    <td class="input"></td>
                 </tr>
                 <tr>
                     <td>Выход</td>
-                    <td v-text="selected.output"></td>
+                    <td class="output"></td>
                 </tr>
-                <tr v-if="(selected.accepted != null) && (selected.accepted.length > 0)">
+                <tr class="accepted_cont hide">
                     <td class="accepted">Подключено</td>
                     <td>
                         <table class="props border-box" v-for="accepted of selected.accepted">
