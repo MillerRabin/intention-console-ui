@@ -116,8 +116,38 @@ function getProps(browser) {
         input: props.querySelector('.input'),
         output: props.querySelector('.output'),
         acceptedCont: props.querySelector('.accepted_cont'),
+        acceptedData: props.querySelector('.accepted_data'),
     };
 }
+
+function buildAccepted(browser, selected) {
+    const props = browser.props;
+    if ((selected.accepted == null) || (selected.accepted.length == 0)) {
+        props.acceptedCont.classList.add('hide');
+        return;
+    }
+    props.acceptedCont.classList.remove('hide');
+    const acc = [];
+    for (let accepted of selected.accepted) {
+        const template = `<table class="props border-box">
+                            <tr>
+                                <td>Origin</td>
+                                <td>${(accepted.origin == null) ? 'Local' : accepted.origin}</td>
+                            </tr>
+                            <tr>
+                                <td>Title</td>
+                                <td>${getText(accepted.title)}</td>
+                            </tr>
+                            <tr>
+                                <td>Id</td>
+                                <td>${accepted.id}</td>
+                            </tr>
+                        </table>`;
+        acc.push(template);
+    }
+    props.acceptedData.innerHTML = acc.join('');
+}
+
 
 function renderSelected(browser, selected) {
     const props = browser.props;
@@ -138,10 +168,7 @@ function renderSelected(browser, selected) {
     props.time.innerHTML = selected.mtime.format('DD MMM YYYY HH:MM');
     props.input.innerHTML = selected.input;
     props.output.innerHTML = selected.output;
-    props.acceptedCont.classList.add('hide');
-    if ((selected.accepted != null) && (selected.accepted.length > 0)) {
-        props.acceptedCont.classList.remove('hide');
-    }
+    buildAccepted(browser, selected);
 }
 
 export default class Browser {
