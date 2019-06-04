@@ -49,6 +49,10 @@ function appendAnswer(listener, answer, ext) {
                             </button>
                             ${ answer.showAlternatives ? buildAlternatives(answer): '' }
                         </div>` : '' }`;
+    const altBtn = ad.querySelector('.alternatives button');
+    altBtn.onclick = function () {
+        toggleAlternatives(listener, answer);
+    };
     listener._output.appendChild(ad);
 }
 
@@ -92,7 +96,7 @@ function getText(contextText) {
     return localization.getText(lang, contextText);
 }
 
-function toggleAlternatives(answer) {
+function toggleAlternatives(lister, answer) {
     answer.showAlternatives = !answer.showAlternatives;
 }
 
