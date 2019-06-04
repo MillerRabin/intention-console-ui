@@ -13,8 +13,11 @@ function createIntentions(tasks) {
         input: 'TaskInfo',
         output: 'None',
         onData: async (status, intention, interfaceObject) => {
-            if (status == 'data')
+            if (status == 'data') {
+                if (interfaceObject == null) return;
                 tasks.data = interfaceObject.query();
+            }
+
         }
     });
 }
@@ -41,7 +44,7 @@ function updateTasks(tasks) {
 async function render(tasks) {
     const template = await gTemplateP;
     tasks._mount.innerHTML = template.text;
-    tasks._content = this._mount.querySelector('.content');
+    tasks._content = tasks._mount.querySelector('.content');
 }
 
 function getText(contextText) {
@@ -54,7 +57,7 @@ export default class Task {
         this._mount = mount;
         this._data = null;
         createIntentions(this);
-        render();
+        render(this);
     }
 
     get data() {

@@ -72,7 +72,6 @@ function buildPath(pathItems) {
         params.push(item.paramName);
     }
 
-    reg.push();
     return {
         reg: new RegExp('^' + reg.join('/') + '$', 'i'),
         params: params
@@ -94,6 +93,7 @@ function matchParameters(route, path) {
     const match = pathReg.reg.exec(path);
     if (match == null) return null;
     const tRoute = Object.assign({ params: [] }, route);
+    tRoute.link = path;
     for (let i = 0; i < pathReg.params.length; i++) {
         const rObj = {};
         const name = pathReg.params[i];
@@ -115,16 +115,18 @@ function matchRoute(routes, path) {
 }
 
 function pushState(route) {
-    window.history.pushState(route.state, route.state.title, route.link);
+    window.history.pushState({ link: route.link }, route.name, route.link);
 }
 
 function changeRoute(event) {
-    applyRoute(routes, event.target.href);
+    const route = applyRoute(routes, event.target.href);
+    pushState(route);
     return false;
 }
 
 window.onpopstate = async function (event) {
-
+    const state = event.state;
+    applyRoute(routes, state.link);
 };
 
 function reloadLinks() {
@@ -134,7 +136,7 @@ function reloadLinks() {
     }
 }
 
-async function applyRoute(routes, path) {
+function applyRoute(routes, path) {
     const route = matchRoute(routes, path);
     if (activeComponent != null)
         activeComponent.unmount();
@@ -142,6 +144,7 @@ async function applyRoute(routes, path) {
     activeComponent = new route.Contructor(gMount);
     reloadLinks();
     messages.send('router.change', { router: gRouter, route });
+    return route;
 }
 
 pathToReg(routes);
