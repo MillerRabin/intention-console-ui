@@ -2,13 +2,14 @@ import loader from '../../core/loader.js';
 import router from '../router/router.js';
 import config from '../../intentions/config.js';
 import Listener from '../listener/listener.js';
-import '../tasks/tasks.js'
+import Tasks from '../tasks/tasks.js'
 import localization from '../../core/localization.js';
 
 let gMount =  null;
 let langDlg = null;
 let langBtn = null;
 let listener = null;
+let tasks = null;
 
 function changeLanguage(lang) {
     const loc = localization.set(lang);
@@ -92,6 +93,8 @@ loader.globalContentLoaded.then(() => {
     langBtn = gMount.querySelector('#Header button.lang');
     const listenerM = window.document.getElementById('Listener');
     listener = new Listener(listenerM);
+    const tasksM = window.document.getElementById('Tasks');
+    tasks = new Tasks(tasksM);
     setActiveLink();
     enableLanguageSelection();
     createIntentions();
