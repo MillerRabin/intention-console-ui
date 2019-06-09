@@ -19,7 +19,7 @@ function addAnswer(listener, answer, ext = true) {
 
 function buildAlternatives(answer) {
     const templates = [];
-    for (let alt in answer.alternatives) {
+    for (let alt of answer.alternatives) {
         templates.push(
             `<div>
                 <div class="text">
@@ -47,12 +47,18 @@ function appendAnswer(listener, answer, ext) {
                                 <span class="${ dom.class({'icon': true, 'icon-plus-squared-alt': !answer.showAlternatives, 'icon-minus-squared-alt': answer.showAlternatives})}"></span>
                                 <span>Alternatives</span>
                             </button>
-                            ${ answer.showAlternatives ? buildAlternatives(answer): '' }
+                            <div class="cont hide"></div>
                         </div>` : '' }`;
     const altBtn = ad.querySelector('.alternatives button');
-    altBtn.onclick = function () {
-        toggleAlternatives(listener, answer);
-    };
+    if (altBtn != null) {
+        altBtn.onclick = function () {
+            toggleAlternatives(listener, answer, ad);
+        };
+        const altCont = ad.querySelector('.cont');
+        if (answer.showAlternatives)
+            altCont.classList.remove('hide');
+        altCont.innerHTML = buildAlternatives(answer);
+    }
     listener._output.appendChild(ad);
 }
 
@@ -96,8 +102,13 @@ function getText(contextText) {
     return localization.getText(lang, contextText);
 }
 
-function toggleAlternatives(lister, answer) {
+function toggleAlternatives(lister, answer, container) {
     answer.showAlternatives = !answer.showAlternatives;
+    const altCont = container.querySelector('.cont');
+    if (answer.showAlternatives)
+        altCont.classList.remove('hide');
+    else
+        altCont.classList.add('hide');
 }
 
 async function render(listener) {
