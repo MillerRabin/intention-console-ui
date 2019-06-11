@@ -9,6 +9,7 @@ let activeComponent = null;
 
 const gRouter = {
     activeRoute: null,
+    push: changeState,
     on: {
         change: onChangeRoute
     },
@@ -136,14 +137,38 @@ function reloadLinks() {
     }
 }
 
-function applyRoute(routes, path) {
-    const route = matchRoute(routes, path);
+function buildLink(route) {
+    //const paths =
+}
+
+function changeState(routeParams) {
+    let route = null;
+    if (routeParams.name != null) {
+        route = routes.find(r => r.name == routeParams.name);
+        if (route == null) return null;
+        const tRoute = Object.assign({ params: routeParams.params }, route);
+        if (!routeParams.params.noMount)
+            setNewRoute(tRoute);
+        tRoute.link = buildLink(tRoute);
+        pushState(tRoute);
+        return tRoute;
+    }
+    return null;
+}
+
+function setNewRoute(route) {
     if (activeComponent != null)
         activeComponent.unmount();
+    if (route == null) return null;
     gRouter.activeRoute = route;
     activeComponent = new route.Contructor(gMount);
     reloadLinks();
     messages.send('router.change', { router: gRouter, route });
+}
+
+function applyRoute(routes, path) {
+    const route = matchRoute(routes, path);
+    setNewRoute(route);
     return route;
 }
 
