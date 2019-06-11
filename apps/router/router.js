@@ -10,6 +10,7 @@ let activeComponent = null;
 const gRouter = {
     activeRoute: null,
     push: changeState,
+    back: back,
     on: {
         change: onChangeRoute
     },
@@ -25,8 +26,8 @@ if (window.location.pathname == '/') {
 }
 
 const routes = [
-    { name: 'intentions', path: '/:language/index.html', Contructor: Browser, active: 0 },
-    { name: 'storages', path: '/:language/storages.html', Contructor: Storages, active: 1 }
+    { name: 'intentions', path: '/:language/index.html', Constructor: Browser, active: 0 },
+    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 1 }
 ];
 
 function onChangeRoute(callback) {
@@ -109,7 +110,7 @@ function matchRoute(routes, path) {
     for (let route of routes) {
         const match = matchParameters(route, link);
         if (match == null) continue;
-        if (match.Contructor == null) continue;
+        if (match.Constructor == null) continue;
         return match;
     }
     return null;
@@ -117,6 +118,10 @@ function matchRoute(routes, path) {
 
 function pushState(route) {
     window.history.pushState({ link: route.link }, route.name, route.link);
+}
+
+function back() {
+    return window.history.back();
 }
 
 function changeRoute(event) {
@@ -138,7 +143,19 @@ function reloadLinks() {
 }
 
 function buildLink(route) {
-    //const paths =
+    const npaths = [];
+    const paths = route.path.split('/');
+    for (let path of paths) {
+        const [,vname] = path.split(':');
+        if (vname == null) {
+            npaths.push(path);
+            continue;
+        }
+        const par = (route.params[vname] != null) ? route.params[vname] : path;
+        npaths.push(par);
+    }
+    return npaths.join('/');
+
 }
 
 function changeState(routeParams) {
@@ -161,7 +178,7 @@ function setNewRoute(route) {
         activeComponent.unmount();
     if (route == null) return null;
     gRouter.activeRoute = route;
-    activeComponent = new route.Contructor(gMount);
+    activeComponent = new route.Constructor(gMount);
     reloadLinks();
     messages.send('router.change', { router: gRouter, route });
 }
