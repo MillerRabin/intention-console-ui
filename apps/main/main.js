@@ -16,7 +16,8 @@ function changeLanguage(lang) {
     window.location.assign(`/${loc.interface}/index.html`);
 }
 
-function createIntentions(vm) {
+function createIntentions() {
+    const lang = localization.get();
     config.intentionStorage.createIntention({
         title: {
             en: 'Console navigation',
@@ -29,7 +30,7 @@ function createIntentions(vm) {
             let vl = (value == null) ? intention.value : value;
             if (vl != null) {
                 intention.send('completed', this, { success: true });
-                router.push({ name: vl.value, params: { language: vm.lang.interface } });
+                router.push({ name: vl.value, params: { language: lang.interface } });
             }
         }
     });

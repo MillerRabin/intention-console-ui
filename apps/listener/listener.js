@@ -7,7 +7,6 @@ const gLang = localization.get();
 const gTemplateP = loader.request(`/apps/listener/${gLang.interface}/listener.html`);
 
 function addAnswer(listener, answer, ext = true) {
-    appendAnswer(listener, answer, ext);
     const offset = listener.output.scrollTop + listener.output.clientHeight;
     const sh = listener.output.scrollHeight;
     const threshold = 10;
@@ -15,6 +14,7 @@ function addAnswer(listener, answer, ext = true) {
         setTimeout(() => {
             listener.output.scrollTop = listener.output.scrollHeight - listener.output.clientHeight;
         });
+    appendAnswer(listener, answer, ext);
 }
 
 function buildAlternatives(answer) {
@@ -130,6 +130,10 @@ class Listener {
 
     unmount() {
         deleteIntentions(this);
+    }
+
+    get output() {
+        return this._output;
     }
 }
 

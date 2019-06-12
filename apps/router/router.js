@@ -132,7 +132,8 @@ function changeRoute(event) {
 
 window.onpopstate = async function (event) {
     const state = event.state;
-    applyRoute(routes, state.link);
+    const link = ((state == null) || (state.link == null)) ? window.location.href : state.link;
+    applyRoute(routes, link);
 };
 
 function reloadLinks() {
