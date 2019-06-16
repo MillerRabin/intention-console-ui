@@ -10,6 +10,7 @@ function detectStructure(structures) {
         return acc;
     }, { task: [], structures: [], currentTask: null });
 
+
     if (ps.currentTask == null) {
         if (ps.structures.length > 0)
             iTask.accepted.send({
@@ -19,8 +20,7 @@ function detectStructure(structures) {
     }
 
     iTask.accepted.send({
-        task: ps.currentTask,
-        structures: ps.structures
+        task: ps.currentTask
     });
 }
 

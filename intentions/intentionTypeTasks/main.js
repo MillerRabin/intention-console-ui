@@ -40,7 +40,7 @@ function init(intentionStorage) {
             </ul>`,
             en: `<h2>Supported commands</h2>
             <ul>
-                <li>Cancel [task index] by default last</li>
+                <li>Cancel [task index] last by default</li>
             </ul>`
         },
         input: 'None',

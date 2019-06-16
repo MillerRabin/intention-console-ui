@@ -3,13 +3,31 @@
 <head>
     <meta charset="utf-8">
     <title>Tests</title>
+    <link href="testSuit.css" rel="stylesheet" />
+    <link href="/apps/main/fonts.css" rel="stylesheet" />
+    <link href="/apps/main/main.css" rel="stylesheet" />
+    <link href="/apps/tree/tree.css" rel="stylesheet" />
+    <link href="/apps/browser/browser.css" rel="stylesheet" />
     <link href="/node_modules/mocha/mocha.css" rel="stylesheet" />
+    <script src="/node_modules/moment/min/moment.min.js"></script>
     <script src="/node_modules/az/dist/az.min.js"></script>
     <script src="/node_modules/chai/chai.js"></script>
     <script src="/node_modules/mocha/mocha.js"></script>
 </head>
-<body>
-    <div id="mocha"></div>
+<body id="TestSuit">
+    <div id="mocha">
+    </div>
+    <div id="Intention">
+        <div id="Header_Container"></div>
+        <div id="Center">
+            <div id="Router"></div>
+            <div id="Info">
+                <div id="Tasks"></div>
+                <div id="Listener"></div>
+            </div>
+        </div>
+        <div id="Footer_Container"></div>
+    </div>
     <script>mocha.setup('bdd')</script>
     <script src="/test/index.js" type="module"></script>
 </body>

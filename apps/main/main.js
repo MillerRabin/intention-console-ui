@@ -94,6 +94,7 @@ loader.globalContentLoaded.then(() => {
     langBtn = gMount.querySelector('#Header button.lang');
     const listenerM = window.document.getElementById('Listener');
     listener = new Listener(listenerM);
+    listenerM.scope = listener;
     const tasksM = window.document.getElementById('Tasks');
     tasks = new Tasks(tasksM);
     setActiveLink();

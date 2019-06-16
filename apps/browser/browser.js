@@ -171,6 +171,14 @@ function renderSelected(browser, selected) {
     buildAccepted(browser, selected);
 }
 
+function createTreeComponent(browser) {
+    const mtree = browser.mount.querySelector('.Tree_Cont');
+    browser._tree = new Tree(mtree);
+    browser._tree.onclick = function (selected) {
+        onclick(browser, selected);
+    };
+}
+
 export default class Browser {
     constructor(mount) {
         this._mount = mount;
@@ -178,17 +186,12 @@ export default class Browser {
         this.sortMode = 'byOrigin';
         this.ilist = null;
         this.list = createTree('Root');
-        const mtree = this._mount.querySelector('.Tree_Cont');
-        this._tree = new Tree(mtree);
-        const browser = this;
-        this._tree.onclick = function (selected) {
-            onclick(browser, selected);
-        };
         this.render();
     }
 
     async render() {
         this._mount.innerHTML = (await gTemplateP).text;
+        createTreeComponent(this);
         enableSortButtons(this);
         this._tree.mount = this._mount.querySelector('.Tree_Cont');
         getProps(this);
