@@ -21,17 +21,17 @@
     grid-column: 1 / 3;
 }
 
-.Browser .content .border-box > .Tree > ul {
+.Browser .content .border-box > .Tree_Cont > .Tree > ul {
     margin: 0;
     padding: 0;
 }
 
-.Browser .content .props > tr > td:first-child {
+.Browser .content .props > tbody > tr > td:first-child {
     text-align: right;
     color: #00BFFF;
 }
 
-.Browser .content .props > tr > td:last-child {
+.Browser .content .props > tbody > tr > td:last-child {
     padding-left: 0.5rem
 }
 
@@ -40,11 +40,11 @@
     margin-top: 0.5rem;
 }
 
-.Browser .content .props > tr > td.accepted {
+.Browser .content .props > tbody > tr > td.accepted {
     color: #ff603d;
 }
 
-.Browser .content > .border-box > .Tree {
+.Browser .content > .border-box > .Tree_Cont {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;

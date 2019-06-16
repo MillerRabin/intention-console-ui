@@ -1,0 +1,20 @@
+#TestSuit {
+    display: flex;
+}
+
+#mocha {
+    background-color: white;
+}
+
+#mocha ul {
+    display: block;
+    position: static;
+}
+
+#mocha {
+    width: 15%;
+}
+
+#Intention {
+    width: 85%;
+}

@@ -2,52 +2,74 @@ import loader from '../../core/loader.js';
 import localization from '../../core/localization.js';
 import config from '../../intentions/config.js'
 
-loader.application('tasks', [async () => {
-    function init() {
-        return {
-            loaded: false,
-            tasks: []
-        }
-    }
+const gTemplateP = loader.request(`/apps/tasks/tasks.html`);
 
-    function createIntentions(vm) {
-        vm.iTasks = config.intentionStorage.createIntention({
-            title: {
-                en: 'Need access to tasks information',
-                ru: 'Нужен доступ к списку задач'
-            },
-            input: 'TaskInfo',
-            output: 'None',
-            onData: async (status, intention, interfaceObject) => {
-                if (status == 'data')
-                    Vue.set(vm, 'tasks', interfaceObject.query());
-            }
-        });
-    }
-
-    function deleteIntentions(vm) {
-        config.intentionStorage.deleteIntention(vm.iTasks, 'client tasks');
-    }
-
-    const lang = localization.get();
-    await loader.createVueTemplate({ path: 'tasks.html', id: 'Tasks-Template', meta: import.meta });
-    const res = {};
-    res.Constructor = Vue.component('tasks', {
-        template: '#Tasks-Template',
-        data: init,
-        methods: {
-            getText: function (contextText) {
-                return localization.getText(lang, contextText);
-            }
+function createIntentions(tasks) {
+    tasks.iTasks = config.intentionStorage.createIntention({
+        title: {
+            en: 'Need access to tasks information',
+            ru: 'Нужен доступ к списку задач'
         },
-        mounted: function () {
-            this.loaded = true;
-            createIntentions(this);
-        },
-        destroyed: function () {
-            this.loaded = false;
-            deleteIntentions(this);
+        input: 'TaskInfo',
+        output: 'None',
+        onData: async (status, intention, interfaceObject) => {
+            if (status == 'data') {
+                if (interfaceObject == null) return;
+                tasks.data = interfaceObject.query();
+            }
+
         }
     });
-    return res;
-}]);
+}
+
+function deleteIntentions(vm) {
+    config.intentionStorage.deleteIntention(vm.iTasks, 'client tasks');
+}
+
+function updateTasks(tasks) {
+    if (tasks._data == null) return '';
+    const templates = [];
+    for (let task of tasks._data)  {
+        const template =
+            `<div class="task"
+                <h2>${getText(task.name)}</h2>
+                <p>${getText(task.status)}</p>
+            </div>`;
+        templates.push(template);
+    }
+    tasks._content.innerHTML = templates.join('');
+}
+
+
+async function render(tasks) {
+    const template = await gTemplateP;
+    tasks._mount.innerHTML = template.text;
+    tasks._content = tasks._mount.querySelector('.content');
+}
+
+function getText(contextText) {
+    const lang = localization.get();
+    return localization.getText(lang, contextText);
+}
+
+export default class Task {
+    constructor(mount) {
+        this._mount = mount;
+        this._data = null;
+        createIntentions(this);
+        render(this);
+    }
+
+    get data() {
+        return this._data;
+    }
+
+    set data(value) {
+        this._data = value;
+        updateTasks(this);
+    }
+
+    unmount() {
+        deleteIntentions(this);
+    }
+}

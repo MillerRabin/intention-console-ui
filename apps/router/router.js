@@ -1,27 +1,196 @@
-import loader from '../../core/loader.js';
-import '../browser/browser.js';
-import '../storages/storages.js';
+import Browser from '../browser/browser.js';
+import Storages from '../storages/storages.js';
 import localization from '../../core/localization.js';
-import IntentionStorage from '/node_modules/intention-storage/browser/main.js';
+import messages from '../messages/messages.service.js';
 
-loader.application('router', ['browser', 'storages', async (intentions, storages) => {
-    const lang = localization.get();
-    if (window.location.pathname == '/') {
-        window.location.assign(`/${lang.interface}/index.html`);
-        return;
+
+const lang = localization.get();
+let activeComponent = null;
+
+const gRouter = {
+    activeRoute: null,
+    push: changeState,
+    back: back,
+    on: {
+        change: onChangeRoute
+    },
+    off: {
+        change: offChangeRoute
+    }
+};
+
+const gMount = window.document.getElementById('Router');
+
+if (window.location.pathname == '/') {
+    window.location.assign(`/${lang.interface}/index.html`);
+}
+
+const routes = [
+    { name: 'intentions', path: '/:language/index.html', Constructor: Browser, active: 0 },
+    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 1 }
+];
+
+function onChangeRoute(callback) {
+    messages.on('router.change', callback)
+}
+
+function offChangeRoute(callback) {
+    messages.off('router.change', callback)
+}
+
+function splitPath(path) {
+    const pathItems = path.split('/');
+    const res = [];
+    for (let item of pathItems) {
+        const iarr = item.split(':');
+        const rItem = { path: item };
+        if (iarr.length == 1) {
+            rItem.reg = item;
+            res.push(rItem);
+            continue;
+        }
+        rItem.paramName = iarr[1];
+        rItem.reg = '(.+)';
+        res.push(rItem);
+    }
+    return res;
+}
+
+function getLink(href) {
+    const origin = window.location.origin;
+    const larr = href.split(origin);
+    if (larr.length > 1)
+        return larr[1];
+    return href;
+}
+
+function buildPath(pathItems) {
+    const reg = [];
+    const params = [];
+
+    for (let item of pathItems) {
+        reg.push(item.reg);
+        if (item.paramName == null) continue;
+        params.push(item.paramName);
     }
 
-    const routes = [
-        { name: 'intentions', path: '/:language/index.html', component: intentions.Constructor, meta: { active: 1 } },
-        { name: 'storages', path: '/:language/storages.html', component: storages.Constructor, meta: { active: 2 } }
-    ];
+    return {
+        reg: new RegExp('^' + reg.join('/') + '$', 'i'),
+        params: params
+    }
+}
 
-    return new VueRouter({
-        mode: 'history',
-        routes: routes
-    });
+function createRegPath(path) {
+    const pathItems = splitPath(path);
+    return buildPath(pathItems);
+}
 
+function pathToReg(routes) {
+    for (let route of routes)
+        route.pathReg = createRegPath(route.path);
+}
 
+function matchParameters(route, path) {
+    const pathReg = route.pathReg;
+    const match = pathReg.reg.exec(path);
+    if (match == null) return null;
+    const tRoute = Object.assign({ params: [] }, route);
+    tRoute.link = path;
+    for (let i = 0; i < pathReg.params.length; i++) {
+        const rObj = {};
+        const name = pathReg.params[i];
+        rObj[name] = match[i + 1];
+        tRoute.params.push(rObj);
+    }
+    return tRoute;
+}
 
-}]);
+function matchRoute(routes, path) {
+    const link = getLink(path);
+    for (let route of routes) {
+        const match = matchParameters(route, link);
+        if (match == null) continue;
+        if (match.Constructor == null) continue;
+        return match;
+    }
+    return null;
+}
 
+function pushState(route) {
+    window.history.pushState({ link: route.link }, route.name, route.link);
+}
+
+function back() {
+    return window.history.back();
+}
+
+function changeRoute(event) {
+    const route = applyRoute(routes, event.target.href);
+    pushState(route);
+    return false;
+}
+
+window.onpopstate = async function (event) {
+    const state = event.state;
+    const link = ((state == null) || (state.link == null)) ? window.location.href : state.link;
+    applyRoute(routes, link);
+};
+
+function reloadLinks() {
+    const links = window.document.querySelectorAll('.router-link');
+    for (let link of links) {
+        link.onclick = changeRoute;
+    }
+}
+
+function buildLink(route) {
+    const npaths = [];
+    const paths = route.path.split('/');
+    for (let path of paths) {
+        const [,vname] = path.split(':');
+        if (vname == null) {
+            npaths.push(path);
+            continue;
+        }
+        const par = (route.params[vname] != null) ? route.params[vname] : path;
+        npaths.push(par);
+    }
+    return npaths.join('/');
+
+}
+
+function changeState(routeParams) {
+    let route = null;
+    if (routeParams.name != null) {
+        route = routes.find(r => r.name == routeParams.name);
+        if (route == null) return null;
+        const tRoute = Object.assign({ params: routeParams.params }, route);
+        if (!routeParams.params.noMount)
+            setNewRoute(tRoute);
+        tRoute.link = buildLink(tRoute);
+        pushState(tRoute);
+        return tRoute;
+    }
+    return null;
+}
+
+function setNewRoute(route) {
+    if (activeComponent != null)
+        activeComponent.unmount();
+    if (route == null) return null;
+    gRouter.activeRoute = route;
+    activeComponent = new route.Constructor(gMount);
+    reloadLinks();
+    messages.send('router.change', { router: gRouter, route });
+}
+
+function applyRoute(routes, path) {
+    const route = matchRoute(routes, path);
+    setNewRoute(route);
+    return route;
+}
+
+pathToReg(routes);
+applyRoute(routes, window.location.href);
+
+export default gRouter;

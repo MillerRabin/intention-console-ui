@@ -1,9 +1,14 @@
-import loader from '../../core/loader.js';
-import localization from '../../core/localization.js';
 import config from '../../intentions/config.js'
+import localization from "../../core/localization.js";
+import loader from "../../core/loader.js";
+import dom from "../../core/dom.js";
 
-function createIntentions(vm) {
-    vm.intention = config.intentionStorage.createIntention({
+const gLang = localization.get();
+const gTemplateP = loader.request(`/apps/storages/${gLang.interface}/storages.html`);
+
+
+function createIntentions(storages) {
+    storages.intention = config.intentionStorage.createIntention({
         title: {
             en: 'Need data about linked storages',
             ru: 'Необходимы данные о связанных хранилищах'
@@ -12,7 +17,7 @@ function createIntentions(vm) {
         output: 'None',
         onData: async (status, intention, interfaceObject) => {
             if (status != 'data') return;
-            Vue.set(vm, 'ilist', interfaceObject.queryLinkedStorages());
+            storages.data = interfaceObject.queryLinkedStorages();
         }
     });
 }
@@ -21,32 +26,42 @@ function deleteIntentions(vm) {
     config.intentionStorage.deleteIntention(vm.intention, 'client closed browser');
 }
 
-loader.application('storages', [async () => {
-    function init() {
-        return {
-            ilist: [],
-            loaded: false
-        }
+async function render(storages) {
+    storages._mount.innerHTML = (await gTemplateP).text;
+    storages._content = storages._mount.querySelector('.content > .border-box');
+}
+
+function updateStorages(storages) {
+    dom.clearChilds(storages._content);
+    for (let storage of storages._data) {
+        const sd = window.document.createElement('div');
+        sd.className = 'storage';
+        if (storage.status != 1)
+            sd.classList.add('error');
+        sd.innerHTML = `<h2>${storage.key}</h2>
+                        <span>${(storage.status != 1) ? 'offline' : 'online'}</span>`;
+        storages._content.appendChild(sd);
+    }
+}
+
+export default class Storages {
+    constructor(mount) {
+        this._mount = mount;
+        this._data = null;
+        createIntentions(this);
+        render(this);
     }
 
-    const lang = localization.get();
-    await loader.createVueTemplate({ path: 'storages.html', id: 'Storages-Template', meta: import.meta, localization: { use: lang.interface } });
-    const res = {};
+    get data() {
+        return this._data;
+    }
 
-    res.Constructor = Vue.component('storages', {
-        template: '#Storages-Template',
-        data: init,
-        methods: {
+    set data(value) {
+        this._data = value;
+        updateStorages(this);
+    }
 
-        },
-        mounted: function () {
-            this.loaded = true;
-            createIntentions(this);
-        },
-        destroyed: function () {
-            deleteIntentions(this);
-            this.loaded = false;
-        }
-    });
-    return res;
-}]);
+    unmount() {
+        deleteIntentions(this);
+    }
+}

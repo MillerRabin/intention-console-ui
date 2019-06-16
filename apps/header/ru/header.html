@@ -6,19 +6,19 @@
                 <h2>Управляющая консоль</h2>
             </a>
             <ul>
-                <li v-bind:class="{ show: loaded }">
-                    <router-link to="/ru/index.html" v-bind:class="{ active: active == 1}">Намерения</router-link>
+                <li>
+                    <a class="router-link" href="/ru/index.html">Намерения</a>
                 </li>
-                <li v-bind:class="{ show: loaded }">
-                    <router-link to="/ru/storages.html" v-bind:class="{ active: active == 2}">Хранилища</router-link>
+                <li>
+                    <a class="router-link" href="/ru/storages.html">Хранилища</a>
                 </li>
             </ul>
         </nav>
-        <button class="lang" v-on:click="showLangDialog">ru</button>
+        <button class="lang">ru</button>
     </div>
     <dialog class="lang">
         <label>
-            <input type="radio" name="lang" value="en-US" v-on:click="selectLanguage" v-model="langRadio"/>
+            <input type="radio" name="lang" value="en-US"/>
             <span>English USA</span>
         </label>
     </dialog>

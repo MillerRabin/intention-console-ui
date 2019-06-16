@@ -2,7 +2,7 @@ const gTaskEntities = [
     {
         type: 'task',
         name: {
-            name: 'Cancel task',
+            general: 'Cancel task',
             en: 'cancel',
             ru: 'отменить'
         },
@@ -11,7 +11,7 @@ const gTaskEntities = [
             en: 'cancel'
         },
         parameters: [{
-            name: 'Integer',
+            general: 'Integer',
             ru: 'Номер задачи?',
             en: 'Task index?',
             value: -2
@@ -40,7 +40,7 @@ function init(intentionStorage) {
             </ul>`,
             en: `<h2>Supported commands</h2>
             <ul>
-                <li>Cancel [task index] by default last</li>
+                <li>Cancel [task index] last by default</li>
             </ul>`
         },
         input: 'None',

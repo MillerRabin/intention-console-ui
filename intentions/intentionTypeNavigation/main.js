@@ -8,7 +8,7 @@ const gNavigation = [
     {
         type: 'task',
         name: {
-            name: 'Storages',
+            general: 'Storages',
             en: 'Storages',
             ru: 'Хранилища'
         },
@@ -22,7 +22,7 @@ const gNavigation = [
     {
         type: 'task',
         name: {
-            name: 'Intentions',
+            general: 'Intentions',
             en: 'Intentions',
             ru: 'Намерения'
         },

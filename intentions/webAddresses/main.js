@@ -2,7 +2,7 @@ const gAddresses = [
     {
         type: 'type',
         name: {
-            name: 'WebAddress',
+            general: 'WebAddress',
             en: 'Web address',
             ru: 'Веб адрес'
         },

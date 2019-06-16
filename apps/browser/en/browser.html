@@ -1,64 +1,49 @@
-<div class="Browser dynamicPage" v-bind:class="{ show: loaded == true }">
+<div class="Browser dynamicPage">
     <div class="content">
         <div class="sortButtons">
-            <button v-bind:class="{ active: sortMode == 'byOrigin' }" v-on:click="byOrigin">By origin</button>
-            <button v-bind:class="{ active: sortMode == 'byKey' }" v-on:click="byKey">By key</button>
+            <button class="active" name="byOrigin">By origin</button>
+            <button name="byKey">By key</button>
         </div>
         <div class="border-box">
-            <div is="tree" v-bind:tree="list" v-bind:onchecked="onchecked" keypath="name"></div>
+            <div class="Tree_Cont"></div>
         </div>
         <div class="border-box">
-            <table class="props" v-if="selected != null">
+            <table class="props hide">
                 <tr>
                     <td>Key</td>
-                    <td v-text="selected.key"></td>
+                    <td class="key"></td>
                 </tr>
                 <tr>
                     <td>Origin</td>
-                    <td v-text="(selected.origin == null) ? 'Local' : selected.origin"></td>
+                    <td class="origin"></td>
                 </tr>
                 <tr>
                     <td>Title</td>
-                    <td v-text="getText(selected.title)"></td>
+                    <td class="title"></td>
                 </tr>
-                <tr class="description" v-if="selected.description != null">
+                <tr class="desc_cont hide">
                     <td>Description</td>
-                    <td v-html="getText(selected.description)"></td>
+                    <td class="description"></td>
                 </tr>
                 <tr>
                     <td>Id</td>
-                    <td v-text="selected.id"></td>
+                    <td class="id"></td>
                 </tr>
                 <tr>
                     <td>Time</td>
-                    <td v-text="selected.mtime.format('MMM DD, YYYY HH:MM')"></td>
+                    <td class="time"></td>
                 </tr>
                 <tr>
                     <td>Input</td>
-                    <td v-text="selected.input"></td>
+                    <td class="input"></td>
                 </tr>
                 <tr>
                     <td>Output</td>
-                    <td v-text="selected.output"></td>
+                    <td class="output"></td>
                 </tr>
-                <tr v-if="(selected.accepted != null) && (selected.accepted.length > 0)">
+                <tr class="accepted_cont hide">
                     <td class="accepted">Accepted</td>
-                    <td>
-                        <table class="props border-box" v-for="accepted of selected.accepted">
-                            <tr>
-                                <td>Origin</td>
-                                <td v-text="(accepted.origin == null) ? 'Local' : accepted.origin"></td>
-                            </tr>
-                            <tr>
-                                <td>Title</td>
-                                <td v-text="getText(accepted.title)"></td>
-                            </tr>
-                            <tr>
-                                <td>Id</td>
-                                <td v-text="accepted.id"></td>
-                            </tr>
-                        </table>
-                    </td>
+                    <td class="accepted_data"></td>
                 </tr>
             </table>
         </div>

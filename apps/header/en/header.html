@@ -6,19 +6,19 @@
                 <h2>Management Console</h2>
             </a>
             <ul>
-                <li v-bind:class="{ show: loaded }">
-                    <router-link to="/en/index.html" v-bind:class="{ active: active == 1}">Intentions</router-link>
+                <li>
+                    <a class="router-link" href="/en/index.html">Intentions</a>
                 </li>
-                <li v-bind:class="{ show: loaded }">
-                    <router-link to="/en/storages.html" v-bind:class="{ active: active == 2}">Storages</router-link>
+                <li>
+                    <a class="router-link" href="/en/storages.html">Storages</a>
                 </li>
             </ul>
         </nav>
-        <button class="lang" v-on:click="showLangDialog">en</button>
+        <button class="lang">en</button>
     </div>
     <dialog class="lang">
         <label>
-            <input type="radio" name="lang" value="ru-RU" v-on:click="selectLanguage" v-model="langRadio"/>
+            <input type="radio" name="lang" value="ru-RU"/>
             <span>Русский</span>
         </label>
     </dialog>
