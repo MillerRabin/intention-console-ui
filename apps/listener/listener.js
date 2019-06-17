@@ -135,6 +135,15 @@ class Listener {
     get output() {
         return this._output;
     }
+
+    sendText(text) {
+        this.input.value = text;
+        const event = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            keyCode: 13
+        });
+        this.input.dispatchEvent(event);
+    }
 }
 
 export default Listener;
