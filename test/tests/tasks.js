@@ -50,8 +50,5 @@ describe('#Tasks', function () {
                 done();
             }, 5000);
         });
-
-
-
     });
 });

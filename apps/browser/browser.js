@@ -81,7 +81,7 @@ function createIntention(browser) {
     });
 }
 
-function onclick(browser, selected) {
+function treeClick(browser, selected) {
     renderSelected(browser, selected.value);
 }
 
@@ -99,6 +99,7 @@ function enableSortButtons(browser) {
         activeBtn.classList.remove('active');
         target.classList.add('active');
         sortHash(browser);
+        browser._tree.data = browser.list;
     }
 }
 
@@ -175,7 +176,7 @@ function createTreeComponent(browser) {
     const mtree = browser.mount.querySelector('.Tree_Cont');
     browser._tree = new Tree(mtree);
     browser._tree.onclick = function (selected) {
-        onclick(browser, selected);
+        treeClick(browser, selected);
     };
 }
 
