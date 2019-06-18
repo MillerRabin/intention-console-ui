@@ -11,7 +11,7 @@ const gTasks = [
             en: 'Add storage'
         },
         parameters: [{
-            general: 'webAddress, ipaddress',
+            general: ['webAddress', 'ipaddress'],
             ru: 'веб адрес?',
             en: 'web address?'
         }],

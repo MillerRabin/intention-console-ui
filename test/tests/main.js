@@ -9,4 +9,11 @@ describe('Main', function () {
         const listener = listenerM.scope;
         assert.ok(listener);
     });
+
+    it('Wait', function (done) {
+        this.timeout(11000);
+        setTimeout(function () {
+            done();
+        }, 5000);
+    });
 });
