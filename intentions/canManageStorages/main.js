@@ -11,9 +11,14 @@ const gTasks = [
             en: 'Add storage'
         },
         parameters: [{
-            general: ['webAddress', 'ipaddress'],
+            general: ['webaddress', 'ipaddress'],
             ru: 'веб адрес?',
             en: 'web address?'
+        }, {
+            general: 'ipport',
+            ru: 'порт?',
+            en: 'port?',
+            value: 10010
         }],
         intentions: [{
             title: 'Add linked storage task',
@@ -67,7 +72,14 @@ function init(intentionStorage) {
         output: 'StorageOperationInfo',
         onData: async function onData(status, intention) {
             if (status != 'data') return;
-            const parameters = intention.parameters;
+            const parameters = intention.parameters.map((p) => {
+                if (p.type == 'ipaddress') {
+                    const t = Object.assign({}, p);
+                    t.value = t.value.replace(/\s/g, '.');
+                    return t
+                }
+                return p;
+            });
             const res = intentionStorage.addLink(parameters);
             saveToStorage(res);
             intention.send('completed', this, { success: true });
