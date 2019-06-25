@@ -38,7 +38,7 @@ function appendAnswer(listener, answer, ext) {
         ad.classList.add('ext');
     ad.innerHTML = `<div class="top">
                         <span class="time">${ time.format('DD-MMM-YYYY HH:mm:ss.SSS') }</span>
-                        ${(answer.context != null) ? `<span class="contex">[${getText(answer.context)}]</span>` : '' }
+                        ${(answer.context != null) ? `<span class="context">[${getText(answer.context)}]</span>` : '' }
                     </div>
                     <pre>${getText(answer.text)}</pre>
                     ${ ((answer.alternatives != null) && (answer.alternatives.length > 0)) ?

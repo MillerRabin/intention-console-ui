@@ -15,8 +15,8 @@
   "homepage": "https://bitbucket.org/intentionteam/intention-console-ui#readme",
   "dependencies": {
     "az": "^0.2.3",
-    "intention-can-manage-tasks": "0.0.36",
-    "intention-can-query-entities": "0.0.28",
+    "intention-can-manage-tasks": "0.0.39",
+    "intention-can-query-entities": "0.0.30",
     "intention-storage": "0.0.38",
     "moment": "^2.24.0"
   },
