@@ -1,7 +1,7 @@
 const assert = window.chai.assert;
 import router from '/apps/router/router.js';
 
-describe('#Storages', function () {
+describe.only('#Storages', function () {
     let listener = null;
     let tasks = null;
 
@@ -29,7 +29,7 @@ describe('#Storages', function () {
         });
     });
 
-    describe('Remove test storage', function () {
+    describe('Remove test storage by ip address', function () {
         it('Create waiting task', function () {
             listener.sendText('Удалить хранилище');
         });
@@ -46,14 +46,38 @@ describe('#Storages', function () {
         });
 
         it('Wait', function (done) {
-            this.timeout(6000);
+            this.timeout(11000);
             setTimeout(function () {
                 done();
             }, 5000);
         });
     });
 
-    describe('Add storages by waiting parameters', function () {
+    describe('Remove test storage by localhost', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Удалить хранилище');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('localhost 1516');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+    });
+
+    describe('Add storages by waiting parameters ip address', function () {
         it('Create waiting task', function () {
             listener.sendText('Добавить хранилище');
         });
@@ -70,7 +94,31 @@ describe('#Storages', function () {
         });
 
         it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+    });
+
+    describe('Add storages by waiting parameters localhost', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Добавить хранилище');
+        });
+
+        it('Wait', function (done) {
             this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('localhost 1516');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
             setTimeout(function () {
                 done();
             }, 5000);
@@ -81,12 +129,11 @@ describe('#Storages', function () {
             const lastAnswer = listener.output.children[li];
             const textElem = lastAnswer.querySelector('pre');
             const text = textElem.innerText;
-            assert.strictEqual(text, 'Добавлено хранилище ws://192.168.0.110:1515');
+            assert.strictEqual(text, 'Добавлено хранилище ws://localhost:1516');
         });
-
     });
 
-    describe('Remove test storage', function () {
+    describe('Remove test storage by ip address', function () {
         it('Create waiting task', function () {
             listener.sendText('Удалить хранилище');
         });
@@ -100,6 +147,30 @@ describe('#Storages', function () {
 
         it('send ip', function () {
             listener.sendText('192 168 0 110 1515');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 6000);
+        });
+    });
+
+    describe('Remove test storage by localhost', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Удалить хранилище');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('localhost 1516');
         });
 
         it('Wait', function (done) {

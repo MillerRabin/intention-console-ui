@@ -16,7 +16,7 @@
   "dependencies": {
     "az": "^0.2.3",
     "intention-can-manage-tasks": "0.0.40",
-    "intention-can-query-entities": "0.0.31",
+    "intention-can-query-entities": "0.0.32",
     "intention-storage": "0.0.43",
     "moment": "^2.24.0"
   },

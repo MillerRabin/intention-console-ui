@@ -13,11 +13,13 @@ import IS from '/node_modules/intention-storage/browser/main.js';
 let gTasks = null;
 
 function init(intentionStorage) {
+    intentionStorage.dispatchInterval = 2000;
     interact.init(intentionStorage);
     structurize.init(intentionStorage);
     manageStorages.init(intentionStorage);
     query.init(intentionStorage);
     gTasks = new TaskList({ storage: intentionStorage });
+    gTasks.statsInterval = 2000;
     basicTypes.init(intentionStorage);
     webAddress.init(intentionStorage);
     languages.init(intentionStorage);
