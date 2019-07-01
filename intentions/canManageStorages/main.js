@@ -87,24 +87,44 @@ function addSavedStorages(intentionStorage) {
     for (let key in storages) {
         if (!storages.hasOwnProperty(key)) continue;
         const storage = storages[key];
-        intentionStorage.addLink([{type: 'WebAddress', value: storage.origin}, { type: 'Port', value: storage.port }])
+        intentionStorage.addLink([{type: 'WebAddress', value: storage.origin}, { type: 'IPPort', value: storage.port }])
     }
 }
 
 function addStorage(intentionStorage, parameters) {
-    const res = intentionStorage.addLink(parameters);
-    saveToStorage(res);
-    iPost.accepted.send({
-        text: {
-            en: `Added linked storage ${ res.key }`,
-            ru: `Добавлено хранилище ${ res.key }`
-        },
-        context: {
-            en: 'Linked storage manager',
-            ru: 'Связанные хранилища'
-        },
-        time: new Date()
-    });
+    try {
+        const res = intentionStorage.addLink(parameters);
+        saveToStorage(res);
+        iPost.accepted.send({
+            text: {
+                en: `Added linked storage ${ res.key }`,
+                ru: `Добавлено хранилище ${ res.key }`
+            },
+            context: {
+                en: 'Linked storage manager',
+                ru: 'Связанные хранилища'
+            },
+            time: new Date()
+        });
+    } catch (e) {
+        if (e.code == 'LNK-0001') {
+            const link = e.detail.link;
+            iPost.accepted.send({
+                text: {
+                    en: `Storage already exists ${ link.key }`,
+                    ru: `Хранилище уже существует ${ link.key }`
+                },
+                context: {
+                    en: 'Linked storage manager',
+                    ru: 'Связанные хранилища'
+                },
+                time: new Date()
+            });
+            return;
+        }
+        console.log(e);
+    }
+
 }
 
 function removeStorage(intentionStorage, parameters) {

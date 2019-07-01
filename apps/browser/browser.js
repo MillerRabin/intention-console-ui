@@ -199,7 +199,9 @@ export default class Browser {
     }
 
     unmount() {
+        if (this._intention == null) return;
         config.intentionStorage.deleteIntention(this._intention, 'client closed browser');
+        this._intention = null;
     }
 
     get mount() {

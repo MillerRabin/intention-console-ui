@@ -3,7 +3,6 @@ import Storages from '../storages/storages.js';
 import localization from '../../core/localization.js';
 import messages from '../messages/messages.service.js';
 
-
 const lang = localization.get();
 let activeComponent = null;
 
@@ -171,17 +170,29 @@ function changeState(routeParams) {
         pushState(tRoute);
         return tRoute;
     }
+
+    if (routeParams.path != null) {
+        const route = matchRoute(routes, routeParams.path);
+        setNewRoute(route);
+        const tRoute = Object.assign({ params: routeParams.params, path: routeParams.path }, (route == null) ? {} : route) ;
+        tRoute.link = buildLink(tRoute);
+        pushState(tRoute);
+        return tRoute;
+    }
+
     return null;
 }
 
 function setNewRoute(route) {
     if (activeComponent != null)
         activeComponent.unmount();
-    if (route == null) return null;
     gRouter.activeRoute = route;
-    activeComponent = new route.Constructor(gMount);
+    if (route != null) {
+        activeComponent = new route.Constructor(gMount);
+    }
     reloadLinks();
     messages.send('router.change', { router: gRouter, route });
+    return true;
 }
 
 function applyRoute(routes, path) {
