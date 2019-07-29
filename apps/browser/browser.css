@@ -47,7 +47,7 @@
 .Browser .content > .border-box > .Tree_Cont {
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .Browser .content .props .description p {

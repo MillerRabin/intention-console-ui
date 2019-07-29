@@ -82,6 +82,12 @@ function saveToStorage(link) {
     window.localStorage.setItem(storagesKey, JSON.stringify(storages));
 }
 
+function removeFromStorage(link) {
+    const storages = loadStorages();
+    delete storages[link.key];
+    window.localStorage.setItem(storagesKey, JSON.stringify(storages));
+}
+
 function addSavedStorages(intentionStorage) {
     const storages = loadStorages();
     for (let key in storages) {
@@ -129,7 +135,7 @@ function addStorage(intentionStorage, parameters) {
 
 function removeStorage(intentionStorage, parameters) {
     const res = intentionStorage.deleteLink(parameters);
-    saveToStorage(res);
+    removeFromStorage(res);
     iPost.accepted.send({
         text: {
             en: `Removed linked storage ${ res.key }`,
@@ -208,5 +214,6 @@ function init(intentionStorage) {
 }
 
 export default {
-    init
+    init,
+    getSavedStorages: loadStorages
 }

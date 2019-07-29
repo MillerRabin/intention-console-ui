@@ -153,7 +153,13 @@ describe.only('#Storages', function () {
             this.timeout(11000);
             setTimeout(function () {
                 done();
-            }, 6000);
+            }, 5000);
+        });
+
+        it.skip('Check', function () {
+            const st = storages.getSavedStorages();
+            const link = st['ws://192.168.0.110:1515'];
+            assert.strictEqual(link, undefined);
         });
     });
 
@@ -179,5 +185,12 @@ describe.only('#Storages', function () {
                 done();
             }, 5000);
         });
+
+        it.skip('Check', function () {
+            const st = storages.getSavedStorages();
+            const link = st['ws://localhost:1516'];
+            assert.strictEqual(link, undefined);
+        });
+
     });
 });
