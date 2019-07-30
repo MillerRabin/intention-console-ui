@@ -8,10 +8,6 @@ function createRecognition(lang) {
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
     recognition.continuous = true;
-    return recognition;
-}
-
-function startRecognition(recognition) {
     recognition.onresult = (event) => {
         try {
             const last = event.results[event.results.length - 1];
@@ -36,6 +32,10 @@ function startRecognition(recognition) {
         }, 100);
     };
 
+    return recognition;
+}
+
+function startRecognition(recognition) {
     stopRecognition(recognition);
     if (!enableListener) throw new Error('Sound listening is disabled');
     setTimeout(function () {
