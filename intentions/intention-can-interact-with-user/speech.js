@@ -10,7 +10,7 @@ function dispatchSpeechResult(event) {
             const last = event.results[event.results.length - 1];
             const dataEvent = new Event('data');
             dataEvent.results = last;
-            this.dispatchEvent(dataEvent);
+            event.currentTarget.dispatchEvent(dataEvent);
         } catch(e) {
             console.log(e);
         }
