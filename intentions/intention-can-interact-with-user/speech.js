@@ -37,12 +37,15 @@ function startRecognition(recognition) {
     };
 
     stopRecognition(recognition);
-    try {
-        if (!enableListener) throw new Error('Sound listening is disabled');
-        recognition.start();
-    } catch (e) {
-        console.log(e);
-    }
+    if (!enableListener) throw new Error('Sound listening is disabled');
+    setTimeout(function () {
+        try {
+            recognition.start();
+        } catch (e) {
+            console.log(e);
+        }
+
+    }, 1000)
 }
 
 function enableRecognition(recognition) {
