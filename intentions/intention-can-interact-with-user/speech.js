@@ -1,5 +1,22 @@
 let enableListener = false;
 
+let dTimer = null;
+function dispatchSpeechResult(event) {
+    if (dTimer != null)
+        clearTimeout(dTimer);
+    dTimer = setTimeout(function () {
+        dTimer = null;
+        try {
+            const last = event.results[event.results.length - 1];
+            const dataEvent = new Event('data');
+            dataEvent.results = last;
+            this.dispatchEvent(dataEvent);
+        } catch(e) {
+            console.log(e);
+        }
+    }, 100);
+}
+
 function createRecognition(lang) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition == null) throw new Error('Speech recognition is not supported');
@@ -8,16 +25,7 @@ function createRecognition(lang) {
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
     recognition.continuous = true;
-    recognition.onresult = (event) => {
-        try {
-            const last = event.results[event.results.length - 1];
-            const dataEvent = new Event('data');
-            dataEvent.results = last;
-            recognition.dispatchEvent(dataEvent);
-        } catch(e) {
-            console.log(e);
-        }
-    };
+    recognition.onresult = dispatchSpeechResult;
 
     recognition.onerror = function(event) {
         console.log('Error occurred in recognition: ' + event.error);
