@@ -41,6 +41,11 @@ function startRecognition(recognition) {
         if (!enableListener) throw new Error('Sound listening is disabled');
         recognition.start();
     } catch (e) {
+        if (e.name == 'InvalidStateError') {
+            setTimeout(() => {
+                startRecognition(recognition)
+            }, 1000);
+        }
         console.log(e);
     }
 }
