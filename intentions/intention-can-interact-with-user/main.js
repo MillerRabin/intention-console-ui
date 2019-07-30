@@ -80,7 +80,8 @@ function init(intentionStorage) {
                 const parameters = intention.parameters;
                 const lang = parameters[0];
                 const input = parameters[1];
-                gParamHash[intention.id] = input;
+                if (input != null)
+                    gParamHash[intention.id] = input;
                 start(lang, input);
                 return;
             }
