@@ -5,14 +5,13 @@
 .Browser .border-box {
     height: 100%;
     overflow: hidden;
-    padding-right: 0;
 }
 
 
 .Browser .content {
     display: grid;
     grid-template-columns: auto 30%;
-    grid-template-rows: 5% 95%;
+    grid-template-rows: min-content auto;
     grid-gap: 0.5rem;
 }
 

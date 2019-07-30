@@ -5,3 +5,9 @@ html {
 .content {
     padding: 0 4rem 0 4rem;
 }
+
+#Info {
+    grid-template-columns: 50% 50%;
+    width: calc(100vw - 4rem);
+    box-sizing: border-box;
+}

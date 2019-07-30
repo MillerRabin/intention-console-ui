@@ -9,7 +9,7 @@
     border: none;
     background-color: transparent;
     color: inherit;
-    font-size: 1.3em;
+    font-size: 1.4rem;
     margin: 0;
     padding: 0;
     display: flex;
@@ -18,6 +18,13 @@
 
 .Tree .title button.intention span:first-child {
     color: #00BFFF;
+}
+
+.Tree .title button.intention span {
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #cccccc;
+    text-align: left;
 }
 
 .Tree .title button.intention span:last-child {
