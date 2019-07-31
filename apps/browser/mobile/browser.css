@@ -1,0 +1,21 @@
+.Browser .content .props > div {
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+
+.Browser .content .props > div > div:first-child {
+    text-align: left;
+    width: 100%;
+    margin: 0.5rem 0 0 0;
+}
+
+.Browser .content .props > div > div:last-child {
+    padding-left: 0;
+    width: 100%;
+    margin-left: 0.5rem;
+}
+
+.Browser .content .props > div > div.accepted {
+    margin-top: 2rem;
+    text-align: center;
+}
