@@ -45,8 +45,9 @@ function init(intentionStorage) {
         },
         input: 'None',
         output: 'EntitiesInfo',
-        onData: async function onData(status) {
-            if (status == 'accept') return gTaskEntities;
+        onData: async function onData(status, intention) {
+            if (status == 'accept')
+                intention.send('data', this, gTaskEntities);
         }
     });
 }

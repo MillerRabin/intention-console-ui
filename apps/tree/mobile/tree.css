@@ -5,3 +5,8 @@
 .Tree .title button.intention span {
     font-size: 2rem;
 }
+
+.Tree .title button.intention span:last-child {
+    font-size: 1.5rem;
+    color: #cccccc;
+}

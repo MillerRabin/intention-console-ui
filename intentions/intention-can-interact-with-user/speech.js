@@ -45,7 +45,7 @@ function createRecognition(lang) {
 
 function startRecognition(recognition) {
     stopRecognition(recognition);
-    if (!enableListener) throw new Error('Sound listening is disabled');
+    if (!enableListener) return;
     setTimeout(function () {
         try {
             recognition.start();

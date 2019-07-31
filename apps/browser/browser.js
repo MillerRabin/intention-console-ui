@@ -130,20 +130,20 @@ function buildAccepted(browser, selected) {
     props.acceptedCont.classList.remove('hide');
     const acc = [];
     for (let accepted of selected.accepted) {
-        const template = `<table class="props border-box">
-                            <tr>
-                                <td>Origin</td>
-                                <td>${(accepted.origin == null) ? 'Local' : accepted.origin}</td>
-                            </tr>
-                            <tr>
-                                <td>Title</td>
-                                <td>${getText(accepted.title)}</td>
-                            </tr>
-                            <tr>
-                                <td>Id</td>
-                                <td>${accepted.id}</td>
-                            </tr>
-                        </table>`;
+        const template = `<div class="props border-box">
+                            <div>
+                                <div>Origin</div>
+                                <div>${(accepted.origin == null) ? 'Local' : accepted.origin}</div>
+                            </div>
+                            <div>
+                                <div>Title</div>
+                                <div>${getText(accepted.title)}</div>
+                            </div>
+                            <div>
+                                <div>Id</div>
+                                <div>${accepted.id}</div>
+                            </div>
+                        </div>`;
         acc.push(template);
     }
     props.acceptedData.innerHTML = acc.join('');

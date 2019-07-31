@@ -4,7 +4,7 @@
 
 .Browser .border-box {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 
@@ -25,22 +25,50 @@
     padding: 0;
 }
 
-.Browser .content .props > tbody > tr > td:first-child {
-    text-align: right;
-    color: #00BFFF;
+.Browser .content .props > div {
+    display: flex;
+    justify-content: stretch;
 }
 
-.Browser .content .props > tbody > tr > td:last-child {
-    padding-left: 0.5rem
+.Browser .content .props > div.hide {
+    display: none;
+}
+
+.Browser .content .props > div > div:first-child {
+    text-align: right;
+    color: #00BFFF;
+    margin-right: 0.5rem;
+    width: 20%;
+    flex-shrink: 0;
+}
+
+.Browser .content .props > div > div:last-child {
+    padding-left: 0.5rem;
+    width: 80%;
+    flex-shrink: 0;
 }
 
 .Browser .content .props.border-box {
-    padding: 0;
+    padding: 0.5rem 0 0.5rem 0;
     margin-top: 0.5rem;
 }
 
-.Browser .content .props > tbody > tr > td.accepted {
+.Browser .content .props > div > div.accepted {
     color: #ff603d;
+}
+
+.Browser .content .props > div.accepted_cont {
+    display: flex;
+    align-items: center;
+}
+
+.Browser .content .props > div > div.accepted_data {
+    display: flex;
+    flex-direction: column;
+}
+
+.Browser .content .props > div > div.accepted_data > .props {
+    padding: 0.5rem;
 }
 
 .Browser .content > .border-box > .Tree_Cont {
