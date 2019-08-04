@@ -15,8 +15,13 @@ function getAnswer(params) {
 function formatSpeechAnswer({ time, results}) {
     const text = results[0].transcript.trim();
     const alt = [];
-    for (let i = 1; i < results.length; i++)
-        alt.push(results[i]);
+    for (let i = 1; i < results.length; i++) {
+        alt.push({
+            confidence: results[i].confidence,
+            transcript: results[i].transcript
+        });
+    }
+
     return getAnswer({
         alternatives: alt,
         text,
