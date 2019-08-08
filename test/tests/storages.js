@@ -1,7 +1,7 @@
 const assert = window.chai.assert;
 import router from '/apps/router/router.js';
 
-describe.only('#Storages', function () {
+describe('#Storages', function () {
     let listener = null;
     let tasks = null;
 
@@ -53,6 +53,30 @@ describe.only('#Storages', function () {
         });
     });
 
+    describe('Remove test storage by ip address with duplicate words', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Удалить хранилище');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('192 168 0 110 192');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+    });
+
     describe('Remove test storage by localhost', function () {
         it('Create waiting task', function () {
             listener.sendText('Удалить хранилище');
@@ -91,6 +115,30 @@ describe.only('#Storages', function () {
 
         it('send ip', function () {
             listener.sendText('192 168 0 110 1515');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+    });
+
+    describe('Add storages by waiting parameters ip address with duplicate words', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Добавить хранилище');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('192 168 0 110 192');
         });
 
         it('Wait', function (done) {
@@ -155,11 +203,29 @@ describe.only('#Storages', function () {
                 done();
             }, 5000);
         });
+    });
 
-        it.skip('Check', function () {
-            const st = storages.getSavedStorages();
-            const link = st['ws://192.168.0.110:1515'];
-            assert.strictEqual(link, undefined);
+    describe('Remove test storage by ip address with duplicate words', function () {
+        it('Create waiting task', function () {
+            listener.sendText('Удалить хранилище');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(6000);
+            setTimeout(function () {
+                done();
+            }, 5000);
+        });
+
+        it('send ip', function () {
+            listener.sendText('192 168 0 110 192');
+        });
+
+        it('Wait', function (done) {
+            this.timeout(11000);
+            setTimeout(function () {
+                done();
+            }, 5000);
         });
     });
 
@@ -185,12 +251,5 @@ describe.only('#Storages', function () {
                 done();
             }, 5000);
         });
-
-        it.skip('Check', function () {
-            const st = storages.getSavedStorages();
-            const link = st['ws://localhost:1516'];
-            assert.strictEqual(link, undefined);
-        });
-
     });
 });
