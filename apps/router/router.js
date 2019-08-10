@@ -1,3 +1,4 @@
+import Documentation from '../documentation/documentation.js';
 import Browser from '../browser/browser.js';
 import Storages from '../storages/storages.js';
 import localization from '../../core/localization.js';
@@ -25,8 +26,9 @@ if (window.location.pathname == '/') {
 }
 
 const routes = [
-    { name: 'intentions', path: '/:language/index.html', Constructor: Browser, active: 0 },
-    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 1 }
+    { name: 'documentation', path: '/:language/index.html', Constructor: Documentation, active: 0 },
+    { name: 'documentation', path: '/:language/browser.html', Constructor: Browser, active: 1 },
+    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 2 }
 ];
 
 function onChangeRoute(callback) {

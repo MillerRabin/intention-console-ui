@@ -1,0 +1,7 @@
+.Documentation {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 15% auto;
+    padding: 0 8rem 0 8rem;
+    grid-column-gap: 2rem;
+}
