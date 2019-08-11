@@ -2,7 +2,7 @@ import loader from '../../core/loader.js';
 import localization from '../../core/localization.js';
 
 const gLang = localization.get();
-const gTemplateP = loader.request(`/apps/documentation/${gLang.interface}/documentation.html`);
+const gTemplateP = loader.request(`/apps/documentation/${gLang.interface}/material.html`);
 
 export default class Documentation {
     constructor(mount) {

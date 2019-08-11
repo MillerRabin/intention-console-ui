@@ -10,4 +10,10 @@ block keywords
     meta(name='Keywords', content='Internet intention console documentation')
 
 block content
-    include documentation.html
+    .Documentation.dynamicPage
+        nav.border-box
+            ul
+                li Introduction
+                li.level
+                    a(class=(item.materialActive == 1) ? 'active' : '', href='/en/documentation/what-is-what.html') Intention Network what is it?
+        .border-box.material !{item.content}

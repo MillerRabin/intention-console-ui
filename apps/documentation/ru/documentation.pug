@@ -10,4 +10,10 @@ block keywords
     meta(name='Keywords', content='документация сети намерений')
 
 block content
-    include documentation.html
+    .Documentation.dynamicPage
+        nav.border-box
+            ul
+                li Введение
+                li.level
+                    a(class=(item.materialActive == 1) ? 'active' : '', href='/ru/documentation/what-is-what.html') Что такое Сеть Намерений?
+        .border-box.material !{item.content}
