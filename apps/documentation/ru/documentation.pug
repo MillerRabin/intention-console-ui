@@ -12,8 +12,5 @@ block keywords
 block content
     .Documentation.dynamicPage
         nav.border-box
-            ul
-                li Введение
-                li.level
-                    a(class=(item.materialActive == 1) ? 'active' : '', href='/ru/documentation/what-is-what.html') Что такое Сеть Намерений?
+            include menu.html
         .border-box.material !{item.content}

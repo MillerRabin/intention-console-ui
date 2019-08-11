@@ -37,8 +37,8 @@ config.intentionStorage.createIntention({
 
 
 function setActiveLink() {
-    const links = window.document.querySelectorAll('#Header .top .router-link');
-    const activeLink = window.document.querySelector('#Header .top .router-link.active');
+    const links = window.document.querySelectorAll('#Header .top .route-link');
+    const activeLink = window.document.querySelector('#Header .top .route-link.active');
     if (router.activeRoute == null) return;
     const active = router.activeRoute.active;
     if (activeLink != null)

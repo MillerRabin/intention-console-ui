@@ -19,7 +19,7 @@ exports.pages = [{
     destination: 'ru/index.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/en/what-is-what.html'),
+    content: fs.readFileSync('../apps/documentation/ru/what-is-what.html'),
     materialActive: 1
 }, {
     template: 'apps/browser/en/browser.pug',

@@ -27,7 +27,7 @@ if (window.location.pathname == '/') {
 
 const routes = [
     { name: 'documentation', path: '/:language/index.html', Constructor: Documentation, active: 0 },
-    { name: 'documentation', path: '/:language/browser.html', Constructor: Browser, active: 1 },
+    { name: 'browser', path: '/:language/browser.html', Constructor: Browser, active: 1 },
     { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 2 }
 ];
 
@@ -137,13 +137,6 @@ window.onpopstate = async function (event) {
     applyRoute(routes, link);
 };
 
-function reloadLinks() {
-    const links = window.document.querySelectorAll('.router-link');
-    for (let link of links) {
-        link.onclick = changeRoute;
-    }
-}
-
 function buildLink(route) {
     const npaths = [];
     const paths = route.path.split('/');
@@ -157,7 +150,6 @@ function buildLink(route) {
         npaths.push(par);
     }
     return npaths.join('/');
-
 }
 
 function changeState(routeParams) {
@@ -192,7 +184,6 @@ function setNewRoute(route) {
     if (route != null) {
         activeComponent = new route.Constructor(gMount);
     }
-    reloadLinks();
     messages.send('router.change', { router: gRouter, route });
     return true;
 }
@@ -202,6 +193,15 @@ function applyRoute(routes, path) {
     setNewRoute(route);
     return route;
 }
+
+class RouteLink extends HTMLAnchorElement {
+    connectedCallback() {
+        this.classList.add('route-link');
+        this.onclick = changeRoute;
+    }
+}
+
+customElements.define('route-link', RouteLink, { extends: 'a' });
 
 pathToReg(routes);
 applyRoute(routes, window.location.href);
