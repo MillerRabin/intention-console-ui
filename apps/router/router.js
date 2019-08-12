@@ -27,7 +27,7 @@ if (window.location.pathname == '/') {
 
 const routes = [
     { name: 'documentation', path: '/:language/index.html', Constructor: Documentation, active: 0, materialActive: 0 },
-    { name: 'browser', path: '/:language/browser.html', Constructor: Browser, active: 1 },
+    { name: 'intentions', path: '/:language/browser.html', Constructor: Browser, active: 1 },
     { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 2 },
     { name: 'material', path: '/:language/documentation/:name', Constructor: Documentation, active: 0 }
 ];

@@ -8,7 +8,7 @@ describe('router', function () {
         const route = router.push({ name: 'intentions', params: { language: 'ru' }});
         assert.equal(route.Constructor, Browser);
         const location = window.location.pathname;
-        assert.equal(location, '/ru/index.html');
+        assert.equal(location, '/ru/browser.html');
     });
     it('#back', function (done) {
         router.back();
