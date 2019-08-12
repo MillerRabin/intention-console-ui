@@ -12,8 +12,16 @@
     padding: 0;
 }
 
+.Documentation nav ul li {
+    margin-top: 0.5rem;
+}
+
+.Documentation nav ul li:first-child {
+    margin-top: 0;
+}
+
 .Documentation nav ul li.level {
-    margin: 0.5rem 0 0 1rem;
+    margin-left: 1rem;
 }
 
 .Documentation nav ul li a {
@@ -37,4 +45,26 @@
 .Documentation h4 {
     color: white;
     margin: 0;
+}
+
+.Documentation .material ul {
+    margin: 1rem 0 1rem 1rem;
+    padding: 0 0 0 1rem;
+}
+
+.Documentation .material a {
+    color: #00BFFF;
+}
+
+.Documentation .material b {
+    color: #d6fcff;
+}
+.Documentation .material code {
+    display: block;
+    margin: 0.5rem 0 0.5rem 1rem;
+    padding: 0;
+}
+
+.Documentation .material code .green {
+    color: limegreen;
 }

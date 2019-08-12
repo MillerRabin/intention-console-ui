@@ -345,6 +345,7 @@ dialog input[type="radio"] {
     grid-template-columns: 20vw 30vw;
     grid-template-rows: auto;
     overflow: hidden;
+    pointer-events: none;
 }
 
 #Listener {

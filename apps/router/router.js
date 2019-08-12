@@ -26,9 +26,10 @@ if (window.location.pathname == '/') {
 }
 
 const routes = [
-    { name: 'documentation', path: '/:language/index.html', Constructor: Documentation, active: 0 },
+    { name: 'documentation', path: '/:language/index.html', Constructor: Documentation, active: 0, materialActive: 0 },
     { name: 'browser', path: '/:language/browser.html', Constructor: Browser, active: 1 },
-    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 2 }
+    { name: 'storages', path: '/:language/storages.html', Constructor: Storages, active: 2 },
+    { name: 'material', path: '/:language/documentation/:name', Constructor: Documentation, active: 0 }
 ];
 
 function onChangeRoute(callback) {
@@ -182,7 +183,7 @@ function setNewRoute(route) {
         activeComponent.unmount();
     gRouter.activeRoute = route;
     if (route != null) {
-        activeComponent = new route.Constructor(gMount);
+        activeComponent = new route.Constructor(gMount, route);
     }
     messages.send('router.change', { router: gRouter, route });
     return true;

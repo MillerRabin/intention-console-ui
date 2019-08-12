@@ -62,6 +62,10 @@
     align-items: center;
 }
 
+.Browser .content .props > div.accepted_cont.hide {
+    display: none;
+}
+
 .Browser .content .props > div > div.accepted_data {
     display: flex;
     flex-direction: column;

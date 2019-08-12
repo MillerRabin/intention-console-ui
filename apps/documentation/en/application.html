@@ -1,0 +1,62 @@
+<section>
+    <h3>Creating application</h3>
+    <ul>
+        <li>
+            You need NodeJS <a href="https://nodejs.org">https://nodejs.org</a>
+        </li>
+        <li>
+            Create a project in your favorite IDE with one file main.js
+        </li>
+        <li>
+            Run npm init in project directory to create package.json
+            <code>npm init</code>
+        </li>
+        <li>
+            Run npm i intention-storage to install intention-storage package
+            <code>npm i intention-storage</code>
+        </li>
+    </ul>
+    <p>
+        Add the following code into main.js
+    </p>
+    <code>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+        const storageServer = intentionStorage.createServer({ address: 'localhost' });<br/>
+        console.log(`Server listens on port ${storageServer.port}`);<br/>
+    </code>
+    <p>
+        Run project for execution
+    </p>
+    <code>
+        node main.js
+    </code>
+    <p>
+        If all works fine, you should see a record in console "Server listens on port 10010"<br/>
+        10010 - it's default port for all intention storages.
+    </p>
+    <p>
+        The console need to know at least one server from your infrastructure.
+    </p>
+    <ul>
+        <li>
+            Enable your microphone for the console domain <a href="https://intention.tech">https://intention.tech</a>
+        </li>
+        <li>
+            <p>Speak into the microphone</p>
+            <code>
+                Add storage localhost
+            </code>
+            <p>
+                If all works fine, you will move to the Storage tab and see the record
+            </p>
+            <code>
+                <line class="green">localhost:10010 online</line>
+            </code>
+        </li>
+    </ul>
+    <p>
+        Now you can create intention in your project and console will see it in
+        <a is="route-link" href="/en/browser.html">Intention</a> tab
+    </p>
+</section>

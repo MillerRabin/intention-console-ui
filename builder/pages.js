@@ -2,6 +2,7 @@ const path = require('path');
 const sitemap = require('./sitemap.js');
 const mainConfig = require('./config.js');
 const interfacePages = require('./pages/interface.js').pages;
+const documentPages = require('./pages/documentation.js').pages;
 
 let config = {
     directory: mainConfig.root,
@@ -58,5 +59,7 @@ exports.addFileToBundle = (fPath, bundle) => {
 exports.build = async () => {
     config.pages = config.pages.concat(
         interfacePages);
+    config.pages = config.pages.concat(
+        documentPages);
     return config;
 };

@@ -1,0 +1,60 @@
+<section>
+    <h3>Создание приложения</h3>
+    <ul>
+        <li>
+            Понадобится nodejs <a href="https://nodejs.org">https://nodejs.org</a>
+        </li>
+        <li>
+            Создайте проект в вашей любимой IDE c одним пустым файлом main.js
+        </li>
+        <li>
+            В рабочей папке проекта, в консоле выполните npm init, чтобы создать package.json
+            <code>npm init</code>
+        </li>
+        <li>
+            Установите npm пакет intention-storage
+            <code>npm i intention-storage</code>
+        </li>
+    </ul>
+    <p>
+        В файл main.js добавьте следующий код
+    </p>
+    <code>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+        const storageServer = intentionStorage.createServer({ address: 'localhost' });<br/>
+        console.log(`Server listens on port ${storageServer.port}`);<br/>
+    </code>
+    <p>
+        В рабочей папке проекта запустите проект на выполнение
+    </p>
+    <code>
+        node main.js
+    </code>
+    <p>
+        Если все прошло без ошибок вы должны увидеть запись "Server listens on port 10010"<br/>
+        10010 - это порт по-умолчанию для всех хранилищ намерений.
+    </p>
+    <p>
+        Чтобы консоль могла работать с вашей сетью намерений - она должна знать хотя бы один сервер из вашей инфраструктуры
+    </p>
+    <ul>
+        <li>
+            Разрешите консоли работать с вашим микрофоном.
+        </li>
+        <li>
+            <p>Скажите в микрофон</p>
+            <code>
+                Добавить хранилище localhost
+            </code>
+            <p>Если все прошло успешно, то вы переключитесь на вкладку Хранилища и увидите запись</p>
+            <code>
+                <line class="green">localhost:10010 online</line>
+            </code>
+        </li>
+    </ul>
+    <p>
+        Теперь в вашем проекте можно создавать намерения, эти намерения будут видны во вкладе
+        <a is="route-link" href="/ru/browser.html">Намерения</a>
+    </p>
+</section>
