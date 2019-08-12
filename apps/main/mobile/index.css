@@ -11,3 +11,8 @@ html {
     width: calc(100vw - 4rem);
     box-sizing: border-box;
 }
+
+#Router {
+    overflow-x: auto;
+    overflow-y: hidden;
+}

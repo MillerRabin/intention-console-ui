@@ -1,0 +1,5 @@
+.Documentation {
+    grid-template-columns: 30% auto;
+    padding: 0 4rem 1rem 4rem;
+    width: 130%;
+}
