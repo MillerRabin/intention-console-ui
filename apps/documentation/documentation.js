@@ -1,5 +1,6 @@
 import loader from '../../core/loader.js';
 import localization from '../../core/localization.js';
+import '../highlight/javascript.js';
 
 const gLang = localization.get();
 const gTemplateP = loader.request(`/apps/documentation/${gLang.interface}/material.html`);

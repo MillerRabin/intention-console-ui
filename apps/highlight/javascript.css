@@ -1,0 +1,10 @@
+highlight-javascript {
+    font-family: monospace;
+    display: block;
+    margin: 0.5rem 0 0.5rem 1rem;
+    padding: 0;
+}
+
+highlight-javascript .directives{
+    color: #86ffec;
+}

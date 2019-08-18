@@ -19,12 +19,12 @@
     <p>
         В файл main.js добавьте следующий код
     </p>
-    <code>
+    <highlight-javascript>
         const { IntentionStorage } = require('intention-storage');<br/>
         const intentionStorage = new IntentionStorage();<br/>
         const storageServer = intentionStorage.createServer({ address: 'localhost' });<br/>
         console.log(`Server listens on port ${storageServer.port}`);<br/>
-    </code>
+    </highlight-javascript>
     <p>
         В рабочей папке проекта запустите проект на выполнение
     </p>
