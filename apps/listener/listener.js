@@ -30,6 +30,17 @@ function buildAlternatives(answer) {
     return templates.join('');
 }
 
+function toggleButton(btn, toggled) {
+    const span = btn.querySelector('span');
+    if (toggled) {
+        span.classList.remove('icon-plus-squared-alt');
+        span.classList.add('icon-minus-squared-alt');
+        return
+    }
+    span.classList.remove('icon-minus-squared-alt');
+    span.classList.add('icon-plus-squared-alt');
+}
+
 function appendAnswer(listener, answer, ext) {
     const time = window.moment(answer.time);
     const ad = window.document.createElement('div');
@@ -52,8 +63,11 @@ function appendAnswer(listener, answer, ext) {
     const altBtn = ad.querySelector('.alternatives button');
     if (altBtn != null) {
         altBtn.onclick = function () {
+            answer.showAlternatives = !answer.showAlternatives;
             toggleAlternatives(listener, answer, ad);
+            toggleButton(altBtn, answer.showAlternatives);
         };
+
         const altCont = ad.querySelector('.cont');
         if (answer.showAlternatives)
             altCont.classList.remove('hide');
@@ -103,7 +117,6 @@ function getText(contextText) {
 }
 
 function toggleAlternatives(lister, answer, container) {
-    answer.showAlternatives = !answer.showAlternatives;
     const altCont = container.querySelector('.cont');
     if (answer.showAlternatives)
         altCont.classList.remove('hide');
