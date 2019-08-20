@@ -5,6 +5,25 @@ highlight-javascript {
     padding: 0;
 }
 
-highlight-javascript .directives{
-    color: #86ffec;
+highlight-javascript .constant {
+    color: #a8d6d5;
 }
+
+highlight-javascript .string{
+    color: #bbffbb;
+}
+
+highlight-javascript .word.constant{
+    font-weight: bold;
+    color: unset;
+}
+
+highlight-javascript .constant.usage {
+    color: #a8d6d5;
+    font-weight: unset;
+}
+
+highlight-javascript .word.new{
+    font-weight: bold;
+}
+
