@@ -59,11 +59,18 @@
 .Documentation .material b {
     color: #d6fcff;
 }
+
 .Documentation .material code {
     display: block;
     margin: 0.5rem 0 0.5rem 1rem;
     padding: 0;
 }
+
+.Documentation .material code.name {
+    color: #7aadb9;
+    font-weight: bold;
+}
+
 
 .Documentation .material code .green {
     color: limegreen;

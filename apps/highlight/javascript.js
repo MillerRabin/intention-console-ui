@@ -17,10 +17,9 @@ const gWordsSpaces = {
     ')': false,
     ']': false,
     '[': false,
-    ';': false,
     '\'': false,
     '"': false,
-    '`': false
+    '`': false,
 };
 
 class Scope {
@@ -115,6 +114,24 @@ class StringScope extends Scope {
         }
     }
 }
+class SingleLineCommentScope extends Scope {
+    constructor({ text, index }) {
+        super({ type: 'singleLineComment', text, index });
+        const quote = text[index];
+        for (let i = index + 1; i < text.length; i++) {
+            const b = text[i];
+            if (b == '\n') {
+                this.outerText = text.substr(index, i - index);
+                this.text = text.substr(index + 2, i - index - 2);
+                this.name = {
+                    text: this.outerText
+                };
+                this.closeIndex = i;
+                return;
+            }
+        }
+    }
+}
 
 function parseCode({ scope, wordScope, text}) {
     const TokenClass = gCommands[wordScope.text];
@@ -136,7 +153,7 @@ function parseCode({ scope, wordScope, text}) {
     return wordScope;
 }
 
-function parseString({ scope, wordScope}) {
+function addScope({ scope, wordScope}) {
     scope.scopes.push(wordScope);
     return wordScope;
 }
@@ -149,9 +166,12 @@ class CodeScope extends Scope {
         this.strings = [];
         for (let i = index; i < text.length; i++) {
             const ws = createScope({ text, index: i });
+            console.log(ws);
             let ns = null;
             if (ws.type == 'string') {
-                ns = parseString({ scope: this, wordScope: ws});
+                ns = addScope({scope: this, wordScope: ws});
+            } else if (ws.type == 'singleLineComment') {
+                ns = addScope({scope: this, wordScope: ws});
             } else {
                 ns = parseCode({ scope: this, wordScope: ws, text, index});
             }
@@ -199,6 +219,8 @@ function hightlightText(rootScope) {
 function getScopeType(wordScope) {
     const sb = wordScope.outerText[0];
     const type = gQuotes[sb];
+    const comment = wordScope.outerText.substr(0, 2);
+    if (comment == '//') return 'singleLineComment';
     if (type == null) return 'code';
     return type;
 }
@@ -213,6 +235,8 @@ function createScope(params) {
     if (type == 'string') {
         return new StringScope(params);
     }
+    if (type == 'singleLineComment')
+        return new SingleLineCommentScope(params);
     return ws;
 }
 

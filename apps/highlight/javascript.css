@@ -1,8 +1,10 @@
 highlight-javascript {
     font-family: monospace;
     display: block;
-    margin: 0.5rem 0 0.5rem 1rem;
-    padding: 0;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #888888;
+    border-radius: 0.5rem;
 }
 
 highlight-javascript .constant {
@@ -27,3 +29,7 @@ highlight-javascript .word.new{
     font-weight: bold;
 }
 
+highlight-javascript .singleLineComment {
+    color: #b3b3b9;
+    font-style: italic;
+}

@@ -1,0 +1,68 @@
+<section>
+    <p>
+        Представьте, что в вашем доме каждое устройство имеет свое имя. У вас есть робот-помощник Виктор, способный выполнять
+        ваши поручения. А на кухне стоит холодильник Добрый Боцман. Он хранит охлажденный лимонад.<br/>
+        Вы даете поручение роботу "Принеси мне лимонад"<br/>
+        Давайте выразим это в коде.
+    </p>
+    <h3>Создание приложения</h3>
+    <ul>
+        <li>
+            Понадобится nodejs <a href="https://nodejs.org">https://nodejs.org</a>
+        </li>
+        <li>
+            Создайте проект в вашей любимой IDE c двумя пустыми файлами victor.js и freezer.js
+        </li>
+        <li>
+            В рабочей папке проекта, в консоле выполните npm init, чтобы создать package.json
+            <code>npm init</code>
+        </li>
+        <li>
+            Установите npm пакет intention-storage
+            <code>npm i intention-storage</code>
+        </li>
+    </ul>
+    <p>
+        Каждое устройство является хранилищем намерений. Создадим хранилище намерений для Виктора
+    </p>
+    <code class="name">
+        victor.js
+    </code>
+    <highlight-javascript>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        // создаем хранилище намерений<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+    </highlight-javascript>
+    <p>
+        Теперь создадим хранилище намерений для холодильника
+    </p>
+    <highlight-javascript>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+        // каждое хранилище может устанавливать соединения с другими известными хранилищами, но не к каждому можно подключиться напрямую.<br/>
+        // Чтобы к хранилищу можно было подключиться, нужно создать сервер.<br/>
+        // В доме может быть локальный сервер намерений, который знают все устройства<br/>
+        // Но каждое устройство может может само быть сервером<br/>
+        const storageServer = intentionStorage.createServer({ address: 'localhost' });<br/>
+        // По-умолчанию сервер хранилища намерений создается на порту 10010<br/>
+        console.log(`Server listens on port ${storageServer.port}`);<br/>
+    </highlight-javascript>    <ul>
+    <li>
+        Разрешите консоли работать с вашим микрофоном.
+    </li>
+    <li>
+        <p>Скажите в микрофон</p>
+        <code>
+            Добавить хранилище localhost
+        </code>
+        <p>Если все прошло успешно, то вы переключитесь на вкладку Хранилища и увидите запись</p>
+        <code>
+            <line class="green">localhost:10010 online</line>
+        </code>
+    </li>
+</ul>
+    <p>
+        Теперь в вашем проекте можно создавать намерения, эти намерения будут видны во вкладе
+        <a is="route-link" href="/ru/browser.html">Намерения</a>
+    </p>
+</section>

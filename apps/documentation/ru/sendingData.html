@@ -1,0 +1,109 @@
+<section>
+    <p>
+        Представьте, что в вашем доме каждое устройство имеет свое имя. У вас есть робот-помощник Виктор, способный выполнять
+        ваши поручения. А на кухне стоит холодильник Добрый Боцман. Он хранит охлажденный лимонад.<br/>
+        Вы даете поручение роботу "Принеси мне лимонад"<br/>
+        Давайте выразим это в коде.
+    </p>
+    <h3>Создание приложения</h3>
+    <ul>
+        <li>
+            Понадобится nodejs <a href="https://nodejs.org">https://nodejs.org</a>
+        </li>
+        <li>
+            Создайте проект в вашей любимой IDE c двумя пустыми файлами victor.js и freezer.js
+        </li>
+        <li>
+            В рабочей папке проекта, в консоле выполните npm init, чтобы создать package.json
+            <code>npm init</code>
+        </li>
+        <li>
+            Установите npm пакет intention-storage
+            <code>npm i intention-storage</code>
+        </li>
+    </ul>
+    <p>
+        Каждое устройство является хранилищем намерений. Создадим хранилище намерений для Холодильника
+    </p>
+    <code class="name">
+        freezer.js
+    </code>
+    <highlight-javascript>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        // создаем хранилище намерений<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+        // каждое хранилище может устанавливать соединения с другими известными хранилищами, но не к каждому можно подключиться напрямую.<br/>
+        // Чтобы к хранилищу можно было подключиться, нужно создать сервер.<br/>
+        // В доме может быть локальный сервер намерений, который знают все устройства<br/>
+        // Но каждое устройство может может само быть сервером<br/>
+        const storageServer = intentionStorage.createServer({ address: 'localhost' });<br/>
+        // По-умолчанию сервер хранилища намерений создается на порту 10010<br/>
+    </highlight-javascript>
+    <p>
+        Теперь создадим хранилище намерений для Виктора и даем задание Виктору принести нам лимонду.<br/>
+        Но у Виктора нет лимонада, поэтому он создает намерение.<br/>
+        Намерение имеет входной и выходной ключи. Это могут быть любые строки.<br/>
+        В данном случае входным параметром будет 'Limonade', а выходным наша благодарность 'ThankYou'
+        Как только намерение будет создано будет произведен поиск встречного намерения<br/>
+        Встречное намерение - это намерение с противоположным ключем<br/>
+        Встречным намерением будет являться ThankYou - Limonade<br/>
+        Сначала будет произведен поиск хранилище намерений устройства.<br/>Если устройство не будет найдено, намерение будет транслироваться в известные хранилища намерений.<br/>
+        В нашем случае это будет Холодильник<br/>
+    </p>
+    <code class="name">
+        victor.js
+    </code>
+    <highlight-javascript>
+        const { IntentionStorage } = require('intention-storage');<br/>
+        const intentionStorage = new IntentionStorage();<br/>
+        // Для простоты предположим, что Виктор знаком холодильником<br/>
+        const link = intentionStorage.addStorage({ origin: 'localhost', port: 10010 });<br/>
+        // Обычно Виктор связывается с домашним сервером намерений, но если их нет, то и Холодильник подойдет<br/>
+        link.connect();<br/>
+        // Виктор создает намерение "Нужен лимонад"<br/>
+        intentionStorage.createIntention({<br/>
+            &nbsp;&nbsp;title: {<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;en: 'Need limonade',<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;ru: 'Нужен лимонад'<br/>
+            &nbsp;&nbsp;},<br/>
+            &nbsp;&nbsp;input: 'Limonade',<br/>
+            &nbsp;&nbsp;output: 'ThankYou',<br/>
+            &nbsp;&nbsp;onData: async function onData(status, intention, value) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(status);<br/>
+            &nbsp;&nbsp;}<br/>
+        });
+    </highlight-javascript>
+    <p>
+        В холодильнике есть лимонад и он может нам его отдать.<br/>
+        Добавьте в конец файла freezer.js следующий код
+    </p>
+    <code class="name">
+        freezer.js
+    </code>
+    <highlight-javascript>
+        intentionStorage.createIntention({<br/>
+        &nbsp;&nbsp;title: {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;en: 'Has limonade',<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;ru: 'Есть лимонад'<br/>
+        &nbsp;&nbsp;},<br/>
+        &nbsp;&nbsp;input: 'ThankYou',<br/>
+        &nbsp;&nbsp;output: 'Limonade',<br/>
+        &nbsp;&nbsp;onData: async function onData(status, intention, value) {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log(status);<br/>
+        &nbsp;&nbsp;}<br/>
+        });
+    </highlight-javascript>
+    <p>
+        Запустите оба файла на выполнение в разных консолях
+    </p>
+    <code>
+        node freezer.js<br/>
+        node victor.js<br/>
+    </code>
+    <p>
+        Как только встречное намерение для Виктора будет найден, будет запущена процедура согласования.<br/>
+        Каждому устройству будет отправлено сообщение со статусом <b>accept</b><br/>
+        Если в этот момент в обработчике одного из устройств onData выбросить исключение, то согласование будет отвергнуто,
+        а второе устройство получит сообщение со статусом <b>error</b>
+    </p>
+</section>
