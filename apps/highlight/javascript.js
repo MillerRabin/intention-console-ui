@@ -7,6 +7,7 @@ class Scope {
         this.closeIndex = scope.closeIndex;
         this.scopes = scopes;
         this.type = type;
+        this.next = index + 1;
     }
 }
 
@@ -31,8 +32,7 @@ class CodeScope extends Scope {
                     this.variables[scope.text] = cs;
                 this.codeScopes.push(scope);
                 this.codeScopes.push(cs);
-                if (cs.next != null)
-                    i = cs.next - 1;
+                i = cs.next - 1;
             } else {
                 const ns = this.variables[scope.text];
                 if (ns != null) {
@@ -64,6 +64,7 @@ class ConstantScope extends Scope {
         this.closeIndex = this.name.closeIndex;
         this.initializer = true;
         this.scopes = scopes.slice(index, nIndex + 1);
+        this.next = nIndex + 1;
     }
 }
 
@@ -77,6 +78,7 @@ class NewScope extends Scope {
         this.openIndex = this.name.openIndex;
         this.closeIndex = this.name.closeIndex;
         this.scopes = scopes.slice(index, nIndex + 1);
+        this.next = nIndex + 1;
     }
 }
 
@@ -120,8 +122,6 @@ function highlightText(rootScope, text) {
     let offset = 0;
     let rText = text;
     for (const scope of scopes) {
-        if (scope.text == '"Нужен лимонад"')
-            console.log('gotcha');
         const start = scope.openIndex + offset;
         const end = scope.closeIndex + offset;
         const stext = rText.substr(0, start);
