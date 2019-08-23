@@ -29,16 +29,17 @@ class CodeScope extends Scope {
                 const cs = new TokenClass({ scopes, index: i});
                 scope.for = cs.type;
                 if (cs.initializer)
-                    this.variables[scope.text] = cs;
+                    this.variables[cs.name.text] = cs;
                 this.codeScopes.push(scope);
-                this.codeScopes.push(cs);
+                if (cs.scopes.length > 0)
+                    this.codeScopes.push(cs);
                 i = cs.next - 1;
             } else {
                 const ns = this.variables[scope.text];
                 if (ns != null) {
                     scope.for = ns.type;
                     scope.is = 'usage';
-                    scope.codeScopes.push(scope);
+                    this.codeScopes.push(scope);
                 }
             }
 
@@ -82,6 +83,28 @@ class NewScope extends Scope {
     }
 }
 
+class FunctionScope extends Scope {
+    constructor({ scopes, index }) {
+        super({type: 'function', scopes, index});
+        let nIndex = getNextWordScopeInLineIndex(scopes, index + 1);
+        if (nIndex == -1) {
+            this.scopes = [];
+            return;
+        }
+        this.name = scopes[nIndex];
+        this.openIndex = this.name.openIndex;
+        this.closeIndex = this.name.closeIndex;
+        this.scopes = scopes.slice(index, nIndex + 1);
+        this.next = nIndex + 1;
+    }
+}
+
+class AsyncScope extends Scope {
+    constructor({ scopes, index }) {
+        super({type: 'async', scopes, index});
+        this.scopes = [];
+    }
+}
 class SingleLineCommentScope extends Scope {
     constructor({ scopes, index }) {
         super({ type: 'singleLineComment', scopes, index });
@@ -152,7 +175,9 @@ function buildText(scopes, from, to) {
 const gCommands = {
     'const': ConstantScope,
     'new': NewScope,
-    '//': SingleLineCommentScope
+    '//': SingleLineCommentScope,
+    'async': AsyncScope,
+    'function': FunctionScope
 };
 
 class JavaScript extends HTMLElement {
