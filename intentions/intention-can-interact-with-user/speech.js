@@ -73,7 +73,13 @@ function stopRecognition(recognition) {
     recognition.abort();
 }
 
-const recognition = createRecognition('en-US');
+let recognition = null;
+try {
+    recognition = createRecognition('en-US');
+} catch (e) {
+    console.log(e);
+}
+
 
 function enable() {
     enableRecognition(recognition);

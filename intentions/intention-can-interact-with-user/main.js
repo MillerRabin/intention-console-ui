@@ -52,7 +52,8 @@ function start(lang, input) {
         stop(input);
         input.addEventListener('keydown', pauseSpeech);
         input.addEventListener('data', onKeyboardData);
-        speech.recognition.addEventListener('data', onSpeechData);
+        if (speech.recognition != null)
+            speech.recognition.addEventListener('data', onSpeechData);
         keyboard.enable(input);
     }
     if (lang != null)
@@ -64,7 +65,8 @@ function stop(input) {
     if (input != null) {
         input.removeEventListener('keydown', pauseSpeech);
         input.removeEventListener('data', onKeyboardData);
-        speech.recognition.removeEventListener('data', onSpeechData);
+        if (speech.recognition != null)
+            speech.recognition.removeEventListener('data', onSpeechData);
         keyboard.disable(input);
     }
     speech.disable();

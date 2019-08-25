@@ -57,7 +57,12 @@ function enableLanguageSelection(header) {
 
     const langBtn = header.mount.querySelector('#Header button.lang');
     langBtn.onclick = () => {
-        header._langDlg.showModal();
+        try {
+            header._langDlg.showModal();
+        } catch (e) {
+            console.log(e);
+        }
+
     };
 
     const langInputs = header._langDlg.querySelectorAll('input');
