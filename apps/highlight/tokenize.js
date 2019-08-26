@@ -94,14 +94,6 @@ class StringScope extends Scope {
     }
 }
 
-function getNextWordScope(params) {
-    let ws = new WordScope(params);
-    while ((ws.type != 'word') && (ws.type != 'endFile')) {
-        ws = new WordScope({ text: params.text, index: ws.closeIndex });
-    }
-    return ws;
-}
-
 function getWhiteSpaceSymbol(letter) {
     const wb = gWordBreaks[letter];
     if (wb != null) return wb;
