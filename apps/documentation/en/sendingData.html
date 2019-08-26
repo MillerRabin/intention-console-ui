@@ -1,6 +1,6 @@
 <section>
     <p>
-        Let's imagine what all devices in your house has it`s own name. You have robot assistant, who is able to carry out your orders.
+        Let's imagine what all devices in your house has it`s own name. You have a robot assistant, who is able to carry out your orders.
         His name is Victor. The kitchen has a fridge. His name is Good Boatswain. He keeps cold lemonade.<br/>
         You ask Victor "Bring me lemonade"<br/>
         Let's Express it in code.
@@ -40,14 +40,14 @@
         // By default server will be create on port 10010<br/>
     </highlight-javascript>
     <p>
-        Now we create intention storage for Victor and ask him for lemonade<br/>
-        Victor doesn`t have lemonade, that`s why he creates the intention<br/>
-        Intention has input and output keys. It can be a any strings. For example: <b>"Lemonade - ThankYou"</b>.<br/>
+        Now we create intention storage for Victor and ask him for lemonade.<br/>
+        Victor doesn`t have lemonade, that`s why he creates the intention.<br/>
+        Intention has input and output keys. It can be any strings. For example: <b>"Lemonade - ThankYou"</b>.<br/>
         Then input key is <b>"Lemonade"</b>, and output key is our gratitude <b>"ThankYou"</b>.
         When intention is created, the search of counter intention will starts<br/>
         Counter intention is a intention with opposite order of input and output keys <b>"ThankYou - Lemonade"</b><br/>
-        First will be search in the device`s intention storage. If it has no results, then intention will be broadcasts to known storages.
-        In our case it will be a fridge<br/>
+        First will be search in the device`s local intention storage. If it has no results, then intention will be broadcasts to known storages.
+        In our case it will be the fridge<br/>
     </p>
     <code class="name">
         victor.js

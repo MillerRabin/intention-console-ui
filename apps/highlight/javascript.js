@@ -122,6 +122,7 @@ class SingleLineCommentScope extends Scope {
         }
         const lScope = scopes[scopes.length - 1];
         this.closeIndex = lScope.closeIndex;
+        this.text = buildText(scopes, index, scopes.length);
     }
 }
 

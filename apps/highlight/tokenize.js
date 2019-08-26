@@ -1,7 +1,6 @@
 const gQuotes = {
     '\'': 'quote',
-    '"': 'quote',
-    '\`': 'quote'
+    '"': 'quote'
 };
 
 const gWordBreaks = {
