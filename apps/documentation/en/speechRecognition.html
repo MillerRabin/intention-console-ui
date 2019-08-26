@@ -1,0 +1,40 @@
+<h3>Using web recognition in your projects</h3>
+<p>
+    You can use the console to provide voice recognition in your projects
+</p>
+<p>
+    Open the tab <a href="/en/browser.html" target="_blank">Intentions</a>.<br/>
+    Find the intention "Can receive raw user input from microphone or keyboard" with key HTMLTextAreaElement - Recognition.
+    Output key Recognition means, what the intention gives voice input as text<br/>
+    HTMLTextAreaElement - means, what the link to the textarea element can be present for receiving keyboard input.
+    But it is not necessary.<br/>
+    That intention was implemented for transferring data in console internally. But we can use it in external projects easy.<br/>
+    To connect with that intention we need to create counter intention with opposite key<br/>
+    Take template main.js create in <a is="route-link" href="/en/documentation/application.html">Creating application</a><br/>
+    Add the following code to the end of main.js
+</p>
+<code class="name">
+    main.js
+</code>
+<highlight-javascript>
+    intentionStorage.createIntention({<br/>
+    &nbsp;&nbsp;title: {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;en: 'Recognition test',<br/>
+    &nbsp;&nbsp;},<br/>
+    &nbsp;&nbsp;input: 'Recognition',<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;output: 'HTMLTextAreaElement',<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;onData: async function onData(status, intention, value) {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (status != 'data') return;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.log(value);<br/>
+    &nbsp;&nbsp;}<br/>
+    });
+</highlight-javascript>
+<p>
+    Launch the project
+</p>
+<code>
+    node main.js
+</code>
+<p>
+    When your storage will change status to <span class="green">online</span>, all what you say in microphone or write in user input window will be written in your project console.
+</p>

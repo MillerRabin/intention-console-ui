@@ -41,5 +41,19 @@ exports.pages = [{
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/ru/sendingData.html'),
     materialActive: 2
+}, {
+    template: 'apps/documentation/en/documentation.pug',
+    destination: 'en/documentation/speechRecognition.html',
+    priority: 0.8,
+    freq: 'weekly',
+    content: fs.readFileSync('../apps/documentation/en/speechRecognition.html'),
+    materialActive: 2
+}, {
+    template: 'apps/documentation/ru/documentation.pug',
+    destination: 'ru/documentation/speechRecognition.html',
+    priority: 0.8,
+    freq: 'weekly',
+    content: fs.readFileSync('../apps/documentation/ru/speechRecognition.html'),
+    materialActive: 2
 }];
 

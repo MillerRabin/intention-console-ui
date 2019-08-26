@@ -1,0 +1,41 @@
+<h3>Распознавание голоса в ваших проектах</h3>
+<p>
+    Вы можете использовать консоль для того, чтобы обеспечить распознавание голоса в ваших проектах
+</p>
+<p>
+    Откройте вкладку <a href="/ru/browser.html" target="_blank">Намерения</a>.
+    Найдите намерение "Забираю пользовательский ввод с микрофона или клавиатуры" с ключем HTMLTextAreaElement - Recognition.
+    Выходной ключ Recognition означает, что намерение выдает голосовой ввод в виде текста.<br/>
+    HTMLTextAreaElement - означает, что также передается ссылка на HTML элемент textarea, чтобы принимать ввод с клавиатура,
+    но ее можно не передавать<br/>
+    Это намерение было разработано, чтобы обеспечить передачу данных внутри консоли, но мы без труда можем использовать его из внешних проектов.<br/>
+    Чтобы подключиться к этому намерению - нам нужно создать встречное намерение с противоположным ключем в нашем проекте.<br/>
+    Возьмите шаблон main.js созданный в разделе <a is="route-link" href="/ru/documentation/application.html">Создание приложения</a><br/>
+    Допишите в конец файла следующий код
+</p>
+<code class="name">
+    main.js
+</code>
+<highlight-javascript>
+    intentionStorage.createIntention({<br/>
+    &nbsp;&nbsp;title: {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;en: 'Recognition test',<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;ru: 'Тест распознавания'<br/>
+    &nbsp;&nbsp;},<br/>
+    &nbsp;&nbsp;input: 'Recognition',<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;output: 'HTMLTextAreaElement',<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;onData: async function onData(status, intention, value) {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (status != 'data') return;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.log(value);<br/>
+    &nbsp;&nbsp;}<br/>
+    });
+</highlight-javascript>
+<p>
+    Запустите проект
+</p>
+<code>
+    node main.js
+</code>
+<p>
+    Как только ваше хранилище снова окажется в статусе <span class="green">online</span> все, что вы говорите в микрофон или пишете в окне пользовательского ввода, выведется в консоль вашего проекта.
+</p>
