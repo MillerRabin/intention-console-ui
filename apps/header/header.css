@@ -69,6 +69,7 @@
 #Header .top a.logo.ru h1 {
     color: #e0e0e0;
     font-size: 2.2rem;
+    white-space: nowrap;
 }
 
 #Header .top a.logo h2 {
