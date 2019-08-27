@@ -1,3 +1,15 @@
 .Listener .content .answer .top .time {
     font-size: 1.5rem;
 }
+
+.Listener .container {
+    height: 20vh;
+}
+
+.browser-body #Listener {
+    padding-top: 4.82rem;
+}
+
+.Listener .container span {
+    font-size: 1.5rem;
+}

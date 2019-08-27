@@ -58,8 +58,15 @@ input {
     height: 100%;
 }
 
-#Center {
+#Center_Container {
     overflow: hidden;
+    margin: 0 8rem 0 8rem;
+}
+
+#Center {
+    width: 100%;
+    display: flex;
+    height: 100%;
 }
 
 #Router {
@@ -335,37 +342,29 @@ dialog input[type="radio"] {
 }
 
 .content {
-    padding: 0 8rem 0 8rem;
     height: 100%;
 }
 
 #Info {
-    position: absolute;
-    display: grid;
-    right: 2rem;
-    bottom: 2rem;
-    height: 40vh;
-    grid-template-columns: 20vw 30vw;
-    grid-template-rows: auto;
-    overflow: hidden;
-    pointer-events: none;
+    width: 22%;
+    margin-left: 2rem;
+    position: relative;
 }
 
 #Listener {
     border-radius: 0.5rem;
-    background-color: #32323220;
-    padding:0;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    pointer-events: all;
+    padding:0 0 1rem 0;
+    height: 100%;
 }
 
 #Listener .content {
-    padding: 0.5rem;
     grid-template-rows: 32vh auto;
 }
 
 #Tasks {
-
+    position: absolute;
+    right: 31rem;
+    bottom: 8.8rem;
 }
 
 #Tasks .content {

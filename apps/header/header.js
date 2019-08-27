@@ -6,7 +6,11 @@ import config from "../../intentions/config.js";
 const gLang = localization.get();
 const gTemplateP = loader.request(`/apps/header/${gLang.interface}/header.html`);
 
-router.on.change(function () {
+router.on.change(function (event) {
+    const params = event.detail;
+    const route = params.route;
+    window.document.body.className = '';
+    window.document.body.classList.add(route.bodyClass);
     setActiveLink();
 });
 
@@ -35,7 +39,6 @@ config.intentionStorage.createIntention({
     }
 });
 
-
 function setActiveLink() {
     const links = window.document.querySelectorAll('#Header .top .route-link');
     const activeLink = window.document.querySelector('#Header .top .route-link.active');
@@ -49,25 +52,15 @@ function setActiveLink() {
 }
 
 function enableLanguageSelection(header) {
-    function selectLanguage(event) {
-        const target = event.target;
-        changeLanguage(target.value);
-        header._langDlg.close();
-    }
-
+    const langs = ['en-US', 'ru-RU'];
     const langBtn = header.mount.querySelector('#Header button.lang');
+    const lang = localization.get();
+    let langIndex = langs.indexOf(lang.speechRecognizer);
+    if (langIndex == -1) langIndex = 0;
     langBtn.onclick = () => {
-        try {
-            header._langDlg.showModal();
-        } catch (e) {
-            console.log(e);
-        }
-
+        langIndex = (langIndex == langs.length - 1) ? 0 : ++langIndex;
+        changeLanguage(langs[langIndex]);
     };
-
-    const langInputs = header._langDlg.querySelectorAll('input');
-    for (let lang of langInputs)
-        lang.onchange = selectLanguage;
 }
 
 export default class Header {
@@ -78,7 +71,6 @@ export default class Header {
 
     async render() {
         this._mount.innerHTML = (await gTemplateP).text;
-        this._langDlg = this._mount.querySelector('#Header dialog.lang');
         setActiveLink();
         enableLanguageSelection(this);
     }

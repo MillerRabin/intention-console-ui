@@ -1,42 +1,54 @@
 .Listener {
-
-}
-
-.Listener .content {
-    display: grid;
-    grid-template-areas: 'output'
-                          'input';
-    grid-template-columns: auto;
-    grid-template-rows: 1fr 5vw;
-    grid-gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
-.Listener .content .output {
-    border: 1px solid #a0a0a0;
+.Listener .container {
+    height: 5vw;
+    display: flex;
+    flex-direction: column;
     border-radius: 0.5rem;
-    grid-area: output;
+    border: 1px solid #a0a0a0;
+}
+
+.Listener .container:first-child {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.Listener .container .output {
     padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     overflow-x: hidden;
     overflow-y: auto;
+    height: 100%;
 }
 
-.Listener .content textarea {
-    height: 100%;
+.Listener .container textarea {
+    border-radius: 0.5rem 0.5rem 0 0;
     display: block;
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #a0a0a0;
-    border-radius: 0.5rem;
-    grid-area: input;
     resize: none;
-    background-color: #ffffff90;
+    height: 100%;
+    background-color: #dddddd;
 }
 
-.Listener .content .answer {
+.Listener .container span {
+    color: #888888;
+    padding-left: 0.5rem;
+    font-size: 0.8rem;
+    background-color: #373636;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.Listener .answer {
     background-color: #373636;
     padding: 0.5rem 1rem;
     border: 1px solid #a0a0a0;
@@ -46,7 +58,7 @@
     align-self: flex-end;
 }
 
-.Listener .content .answer.ext {
+.Listener .answer.ext {
     background-color: #242323;
     padding: 1rem 1rem;
     border-radius: 1rem;
@@ -54,36 +66,36 @@
     align-self: unset;
 }
 
-.Listener .content .answer p, .Listener .content .answer pre {
+.Listener .answer p, .Listener .answer pre {
     margin: 0;
     padding: 0;
     white-space: normal;
 }
 
-.Listener .content .answer .top {
+.Listener .answer .top {
     font-size: 0.8rem;
     display: flex;
 }
 
-.Listener .content .answer .top .time {
+.Listener .answer .top .time {
     font-style: italic;
     color: #a0a0a0;
 }
 
-.Listener .content .answer .top .context {
+.Listener .answer .top .context {
     color: #ff603d;
     margin-left: 0.5rem;
 }
 
-.Listener .content .alternatives {
+.Listener .alternatives {
     margin-top: 0.2rem;
 }
 
-.Listener .content .alternatives .text{
+.Listener .alternatives .text{
     margin-left: 0.5rem;
 }
 
-.Listener .content .alternatives button {
+.Listener .alternatives button {
     display: flex;
     align-items: center;
     padding: 0.2rem 0.5rem 0.2rem 0;
@@ -91,12 +103,14 @@
     background-color: transparent;
 }
 
-.Listener .content .alternatives button:hover {
+.Listener .alternatives button:hover {
     text-decoration: underline;
 }
 
-.Listener .content .alternatives button .icon {
+.Listener .alternatives button .icon {
     margin-right: 0.2rem;
 }
 
-
+.browser-body #Listener {
+    padding-top: 2.8rem;
+}

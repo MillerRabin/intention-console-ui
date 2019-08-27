@@ -19,41 +19,47 @@ exports.pages = [{
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/en/application.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/application.html',
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/ru/application.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/sendingData.html',
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/en/sendingData.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/sendingData.html',
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/ru/sendingData.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/speechRecognition.html',
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/en/speechRecognition.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/speechRecognition.html',
     priority: 0.8,
     freq: 'weekly',
     content: fs.readFileSync('../apps/documentation/ru/speechRecognition.html'),
-    materialActive: 2
+    materialActive: 2,
+    bodyClass: 'documentation-body'
 }];
 

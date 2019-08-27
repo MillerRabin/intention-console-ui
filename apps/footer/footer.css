@@ -12,14 +12,17 @@ footer .copyrights {
     flex-wrap: wrap;
     justify-content: space-between;
     color: #fff;
-    font-size: 1.5rem;
 }
 
 footer .copyrights p {
     padding: 0;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
+    color: #cccccc;
 }
 
+footer .copyrights p:last-child {
+    margin-bottom: 0;
+}
 footer .copyrights .item.copy a {
     color: #999;
 }

@@ -128,7 +128,7 @@ async function render(listener) {
     const template = await gTemplateP;
     listener._mount.innerHTML = template.text;
     listener._output = listener._mount.querySelector('.output');
-    listener.input = listener._mount.querySelector('.content textarea');
+    listener.input = listener._mount.querySelector('textarea');
     const lang = localization.get();
     createIntentions(listener, lang);
 }

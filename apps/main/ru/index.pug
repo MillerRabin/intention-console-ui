@@ -37,17 +37,18 @@ html(lang='ru')
         script(src="/apps/main/main.js" type="module")
 
 
-    body
+    body(class=item.bodyClass)
         #Intention
             #Header_Container
                 include ../../header/ru/header.html
-            #Center
-                #Router
-                    block content
-                #Info
-                    #Tasks
-                        include ../../tasks/tasks.html
-                    #Listener
-                        include ../../listener/en/listener.html
+            #Center_Container
+                #Center
+                    #Router
+                        block content
+                    #Info
+                        #Tasks
+                            include ../../tasks/tasks.html
+                        #Listener
+                            include ../../listener/ru/listener.html
             #Footer_Container
                     include ../../footer/ru/footer.html

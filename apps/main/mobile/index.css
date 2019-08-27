@@ -2,17 +2,22 @@ html {
     font-size: 1.1vw;
 }
 
-.content {
-    padding: 0 4rem 0 4rem;
+#Center_Container {
+    margin: 0 4rem 0 4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#Center {
+    width: calc(100% + 50vw - 12rem);
 }
 
 #Info {
-    grid-template-columns: 50% 50%;
-    width: calc(100vw - 4rem);
-    box-sizing: border-box;
+    width: 50vw;
 }
 
-#Router {
-    overflow-x: auto;
-    overflow-y: hidden;
+#Tasks {
+    right: 33rem;
+    bottom: 6.8rem;
+    pointer-events: none;
 }

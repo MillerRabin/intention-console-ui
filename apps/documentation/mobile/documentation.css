@@ -1,7 +1,5 @@
 .Documentation {
     grid-template-columns: 30% auto;
-    padding: 0 4rem 1rem 4rem;
-    width: 130%;
 }
 
 .Documentation h3 {
@@ -22,3 +20,6 @@
     font-size: 1.8rem;
 }
 
+.Documentation nav ul {
+    font-size: 1.8rem;
+}
