@@ -1,7 +1,5 @@
 const loader = {};
 
-loader.enableDynamicContent = window.location.hostname == 'localhost';
-
 loader.globalContentLoaded = new Promise((resolve) => {
     document.addEventListener("DOMContentLoaded", () => {
         resolve();

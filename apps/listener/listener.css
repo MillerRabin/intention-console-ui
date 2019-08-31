@@ -40,7 +40,7 @@
     background-color: #dddddd;
 }
 
-.Listener .container span {
+.Listener .container > span {
     color: #888888;
     padding-left: 0.5rem;
     font-size: 0.8rem;
@@ -50,17 +50,17 @@
 
 .Listener .answer {
     background-color: #373636;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     border: 1px solid #a0a0a0;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
-    width: 70%;
+    width: 80%;
     align-self: flex-end;
 }
 
 .Listener .answer.ext {
     background-color: #242323;
-    padding: 1rem 1rem;
+    padding: 0.5rem 0.5rem;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
     align-self: unset;

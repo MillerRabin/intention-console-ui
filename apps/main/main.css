@@ -363,8 +363,9 @@ dialog input[type="radio"] {
 
 #Tasks {
     position: absolute;
-    right: 31rem;
-    bottom: 8.8rem;
+    right: 22.6rem;
+    bottom: 0;
+    width: 100%;
 }
 
 #Tasks .content {

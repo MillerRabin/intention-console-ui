@@ -10,7 +10,8 @@ router.on.change(function (event) {
     const params = event.detail;
     const route = params.route;
     window.document.body.className = '';
-    window.document.body.classList.add(route.bodyClass);
+    if (route != null)
+        window.document.body.classList.add(route.bodyClass);
     setActiveLink();
 });
 
