@@ -8,6 +8,7 @@ import webAddress from '/intentions/webAddresses/main.js';
 import languages from '/intentions/intentionTypeLanguages/main.js';
 import navigation from '/intentions/intentionTypeNavigation/main.js';
 import typeTasks from '/intentions/intentionTypeTasks/main.js';
+import canPlayMusic from '/intentions/canPlayMusic/main.js';
 import IS from '/node_modules/intention-storage/browser/main.js';
 
 let gTasks = null;
@@ -25,6 +26,7 @@ function init(intentionStorage) {
     languages.init(intentionStorage);
     navigation.init(intentionStorage);
     typeTasks.init(intentionStorage);
+    canPlayMusic.init(intentionStorage);
 }
 
 
