@@ -43,10 +43,6 @@ const loaded = loader.globalContentLoaded.then(() => {
     createIntentions();
 });
 
-loader.request('http://192.168.0.3:8080/test').then(function (data) {
-   console.log(data);
-});
-
 export default {
     loaded
 }

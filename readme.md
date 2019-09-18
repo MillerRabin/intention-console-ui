@@ -1,8 +1,7 @@
 **Intension Console UI**
 
 ## Structure
-    The builder folder contains builder for the project. It creates html files from pug templates.
-
+    The builder folder contains builder for the project. It creates html files from pug templates.    
 ---
 
 ## Dependencies
@@ -10,17 +9,21 @@
 
 ## How to install
 
+First, You need to install dependencies for the project and builder 
+
 ```sh
 npm install
 cd ./builder
 npm install
 ```
 
-Before the first run you need to build html files.
+Next, you need to build static html files from pug templates
 
 ```sh
 node ./builder/main.js
 ```
+
+Finally, map your favorite web server to the project folder and open it in browser
 
 ## Build in development mode
 
