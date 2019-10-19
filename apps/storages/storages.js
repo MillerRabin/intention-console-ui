@@ -31,15 +31,21 @@ async function render(storages) {
     storages._content = storages._mount.querySelector('.content > .border-box');
 }
 
+function getStorageStatus(storage) {
+    if (storage.status == 'open') return 1;
+    return storage.status;
+}
+
+
 function updateStorages(storages) {
     dom.clearChilds(storages._content);
     for (let storage of storages._data) {
         const sd = window.document.createElement('div');
         sd.className = 'storage';
-        if (storage.status != 1)
-            sd.classList.add('error');
+        const status = getStorageStatus(storage);
+        if (status != 1) sd.classList.add('error');
         sd.innerHTML = `<h2>${storage.key}</h2>
-                        <span>${(storage.status != 1) ? 'offline' : 'online'}</span>`;
+                        <span>${(status != 1) ? 'offline' : 'online'}</span>`;
         storages._content.appendChild(sd);
     }
 }
