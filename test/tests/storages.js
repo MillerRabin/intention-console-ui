@@ -177,7 +177,7 @@ describe('#Storages', function () {
             const lastAnswer = listener.output.children[li];
             const textElem = lastAnswer.querySelector('pre');
             const text = textElem.innerText;
-            assert.strictEqual(text, 'Добавлено хранилище ws://localhost:1516');
+            assert.strictEqual(text, 'Добавлено хранилище localhost:1516');
         });
     });
 

@@ -68,7 +68,7 @@ function init(intentionStorage) {
         input: 'None',
         output: 'EntitiesInfo',
         onData: async function onData(status) {
-            if (status == 'accept') return gLanguages;
+            if (status == 'accepted') return gLanguages;
         }
     });
 }

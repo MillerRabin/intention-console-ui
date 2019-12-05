@@ -83,7 +83,7 @@ function init(intentionStorage) {
         input: 'HTMLTextAreaElement',
         output: 'Recognition',
         onData: async function (status, intention) {
-            if (status == 'accept') {
+            if (status == 'accepted') {
                 const parameters = intention.parameters;
                 const lang = parameters[0];
                 const input = parameters[1];

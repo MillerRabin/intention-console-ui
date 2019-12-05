@@ -56,7 +56,7 @@ function init(intentionStorage) {
         input: 'None',
         output: 'EntitiesInfo',
         onData: async function onData(status, intention) {
-            if (status == 'accept')
+            if (status == 'accepted')
                 intention.send('data', this, gAddresses);
         }
     });

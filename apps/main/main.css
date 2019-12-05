@@ -343,6 +343,7 @@ dialog input[type="radio"] {
 
 .content {
     height: 100%;
+    overflow: hidden;
 }
 
 #Info {

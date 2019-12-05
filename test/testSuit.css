@@ -16,6 +16,11 @@
     overflow-y: auto;
 }
 
-#Intention {
-    width: 85%;
+#TestSuit #Intention {
+    width: 78%;
+}
+
+
+#TestSuit #Intention #Center {
+    height: 85vh;
 }

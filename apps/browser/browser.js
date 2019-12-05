@@ -123,13 +123,13 @@ function getProps(browser) {
 
 function buildAccepted(browser, selected) {
     const props = browser.props;
-    if ((selected.accepted == null) || (selected.accepted.length == 0)) {
+    if ((selected.accepted == null) || (selected.accepted.accepted.length == 0)) {
         props.acceptedCont.classList.add('hide');
         return;
     }
     props.acceptedCont.classList.remove('hide');
     const acc = [];
-    for (let accepted of selected.accepted) {
+    for (const [,accepted] of selected.accepted.accepted) {
         const template = `<div class="props border-box">
                             <div>
                                 <div>Origin</div>
