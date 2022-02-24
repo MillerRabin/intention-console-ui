@@ -3,3 +3,6 @@ node_modules/
 /*.html
 *.xml
 *.txt
+styles-min
+en
+ru

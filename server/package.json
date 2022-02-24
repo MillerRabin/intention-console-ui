@@ -1,16 +1,16 @@
 {
-  "name": "intension-console-ui-builder",
+  "name": "intention-ui-server",
   "version": "1.0.0",
-  "description": "Builder of Intension console ui",
+  "description": "static server for intention console ui used debug only",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "millerrabin",
   "license": "ISC",
   "dependencies": {
-    "pug": "^3.0.2",
-    "recursive-readdir": "^2.2.2",
-    "uglifycss": "0.0.29"
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0"
   }
 }

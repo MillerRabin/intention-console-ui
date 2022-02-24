@@ -5,7 +5,7 @@
 ---
 
 ## Dependencies
-    NodeJS 11.x or above
+    NodeJS 14
 
 ## How to install
 
