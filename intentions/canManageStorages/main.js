@@ -93,7 +93,7 @@ function addSavedStorages(intentionStorage) {
     for (let key in storages) {
         if (!storages.hasOwnProperty(key)) continue;
         const storage = storages[key];
-        intentionStorage.addLink([{name: 'WebAddress', type: 'WebAddress', value: storage.origin}, {name: 'IPPort', type: 'IPPort', value: storage.port }])
+        intentionStorage.addLink([{name: 'WebAddress', type: 'WebAddress', value: storage.origin }, {name: 'IPPort', type: 'IPPort', value: storage.port }])
     }
 }
 
