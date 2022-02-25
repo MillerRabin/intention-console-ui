@@ -13,7 +13,7 @@
 }
 
 .Listener .container:first-child {
-    height: 100%;
+    height: 84%;
     display: flex;
     flex-direction: column;
     border-radius: 0.5rem;
@@ -70,6 +70,7 @@
     margin: 0;
     padding: 0;
     white-space: normal;
+    overflow: hidden;
 }
 
 .Listener .answer .top {
