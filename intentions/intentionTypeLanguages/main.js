@@ -67,8 +67,9 @@ function init(intentionStorage) {
         },
         input: 'None',
         output: 'EntitiesInfo',
-        onData: async function onData(status) {
-            if (status == 'accepted') return gLanguages;
+        onData: async function onData(status, intention) {            
+            if (status == 'accepted') 
+                intention.send('data', this, gLanguages);
         }
     });
 }
