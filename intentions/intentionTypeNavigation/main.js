@@ -13,8 +13,8 @@ const gNavigation = [
             ru: 'Хранилища'
         },
         words: {
-            ru: 'хранилище',
-            en: 'storages'
+            ru: 'перейти в хранилище',
+            en: 'go to storages'
         },
         value: 'storages',
         intentions: taskIntention
@@ -27,10 +27,24 @@ const gNavigation = [
             ru: 'Намерения'
         },
         words: {
-            ru: 'намерение',
-            en: 'intentions'
+            ru: 'перейти в намерение',
+            en: 'go to intentions'
         },
         value: 'intentions',
+        intentions: taskIntention
+    },
+    {
+        type: 'task',
+        name: {
+            general: 'Home',
+            en: 'Home',
+            ru: 'Главная'
+        },
+        words: {
+            ru: 'Вернуться на главный',
+            en: 'go to home'
+        },
+        value: 'home',
         intentions: taskIntention
     }
 ];
