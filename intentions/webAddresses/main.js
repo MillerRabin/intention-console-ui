@@ -15,6 +15,18 @@ const gAddresses = [
         }],
         value: 'localhost'
     }, {
+        type: 'type',
+        name: {
+            general: 'WebAddress',
+            en: 'Web address',
+            ru: 'Веб адрес'
+        },
+        words: [{
+            ru: 'Красный октябрь',
+            en: 'Hacker House'
+        }],
+        value: '10.91.5.4'
+    }, {
         type: 'class',
         path: 'int16',
         name: {
