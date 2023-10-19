@@ -1,65 +1,93 @@
-const fs = require('fs');
-exports.pages = [{
+
+export const pages = [{
+    template: 'apps/documentation/en/documentation.pug',
+    alias: '/',
+    destination: 'index.html',
+    priority: 0.8,
+    freq: 'weekly',
+    filename: 'apps/documentation/en/what-is-what.html',
+    materialActive: 1,
+    bodyClass: 'documentation-body'
+  }, {
+    template: 'apps/documentation/en/documentation.pug',
+    destination: 'en/index.html',
+    priority: 0.8,
+    freq: 'weekly',
+    filename: 'apps/documentation/en/what-is-what.html',
+    materialActive: 1,
+    bodyClass: 'documentation-body'
+  }, {
+    template: 'apps/documentation/ru/documentation.pug',
+    destination: 'ru/index.html',
+    priority: 0.8,
+    freq: 'weekly',
+    filename: 'apps/documentation/ru/what-is-what.html',
+    materialActive: 1,
+    bodyClass: 'documentation-body'
+  }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/what-is-what.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/en/what-is-what.html'),
+    filename: 'apps/documentation/en/what-is-what.html',
     materialActive: 1
-}, {
+  }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/what-is-what.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/ru/what-is-what.html'),
+    filename: 'apps/documentation/ru/what-is-what.html',
     materialActive: 1
-}, {
+  }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/application.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/en/application.html'),
+    filename: 'apps/documentation/en/application.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}, {
+  }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/application.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/ru/application.html'),
+    filename: 'apps/documentation/ru/application.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}, {
+  }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/sendingData.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/en/sendingData.html'),
+    filename: 'apps/documentation/en/sendingData.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}, {
+  }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/sendingData.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/ru/sendingData.html'),
+    filename: 'apps/documentation/ru/sendingData.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}, {
+  }, {
     template: 'apps/documentation/en/documentation.pug',
     destination: 'en/documentation/speechRecognition.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/en/speechRecognition.html'),
+    filename: 'apps/documentation/en/speechRecognition.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}, {
+  }, {
     template: 'apps/documentation/ru/documentation.pug',
     destination: 'ru/documentation/speechRecognition.html',
     priority: 0.8,
     freq: 'weekly',
-    content: fs.readFileSync('../apps/documentation/ru/speechRecognition.html'),
+    filename: 'apps/documentation/ru/speechRecognition.html',
     materialActive: 2,
     bodyClass: 'documentation-body'
-}];
+  }];
 
+export default {
+  pages
+}

@@ -1,8 +1,9 @@
 {
-  "name": "intension-console-ui-builder",
+  "name": "intention-console-ui-builder",
   "version": "1.0.0",
   "description": "Builder of Intension console ui",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "pug": "^3.0.2",
-    "recursive-readdir": "^2.2.2",
-    "uglifycss": "0.0.29"
+    "recursive-readdir": "^2.2.3",
+    "uglifycss": "^0.0.29"
   }
 }

@@ -1,0 +1,25 @@
+{
+  "name": "intention-console-ui-static",
+  "version": "0.1.0",
+  "description": "Ui part of Internet intention console static",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://millerrabin@bitbucket.org/intentionteam/intention-console-ui.git"
+  },
+  "author": "millerrabin",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/intentionteam/intention-console-ui#readme",
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.11",
+    "az": "^0.2.3",
+    "intention-can-manage-tasks": "^0.1.4",
+    "intention-can-query-entities": "^0.1.2",
+    "intention-storage": "^0.2.1",
+    "wrtc": "^0.4.7"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.1"
+  }
+}

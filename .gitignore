@@ -4,5 +4,5 @@ node_modules/
 *.xml
 *.txt
 styles-min
-en
-ru
+static/en
+static/ru
