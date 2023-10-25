@@ -18,7 +18,7 @@ function modTime(config, item) {
 
 export function getModTime(directory, item) {
   const mt = modTime({ directory: directory }, item);
-  return mt;
+  return mt.toISOString();
 }
 
 export default {

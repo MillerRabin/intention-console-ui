@@ -1,7 +1,3 @@
-import moment from "moment";
-moment.locale('ru');
-const PG_TIME = 1184;
-
 export function getData(data, index, column) {
   const lc = column.toLowerCase();
   const cIndex = data.fields.findIndex((v) => v.name == lc);
@@ -16,12 +12,6 @@ function getFields(response) {
     arr.push({ name: field.name, type: field.dataTypeID });
   }
   return arr;
-}
-
-function convert(field, data) {
-  if (field.type == PG_TIME)
-    return moment(data);
-  return data;
 }
 
 export async function toArray (response, onItem) {

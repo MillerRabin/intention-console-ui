@@ -6,6 +6,7 @@ import recursive from 'recursive-readdir';
 
 
 const config = {
+  domain: 'https://int-nt-tech.com',
   utils: {
     getModTime: sitemap.getModTime
   },

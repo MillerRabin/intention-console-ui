@@ -42,7 +42,7 @@ function toggleButton(btn, toggled) {
 }
 
 function appendAnswer(listener, answer, ext) {
-    const time = window.moment(answer.time);
+    const time = answer.time;
     const ad = window.document.createElement('div');
     ad.className = 'answer';
     if (ext)

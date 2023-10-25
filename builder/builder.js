@@ -89,12 +89,13 @@ async function buildCss(bundle, debug = false) {
     }
 
     return new Promise((resolve, reject) => {
-      const appPath = path.resolve(mainConfig.root);
+      const root = mainConfig.root;
+      const appPath = path.join(root, 'apps');
       recursive(appPath, [ignore], function (err, files) {
         if (err != null) return reject(err);
         const relFiles = [];
         for (let i = 0; i < files.length; i++)
-          relFiles.push(files[i].substring(appPath.length + 1).replace(/\\/g, '/'));
+          relFiles.push(files[i].substring(root.length + 1).replace(/\\/g, '/'));
         return resolve({ absolute: files, relative: relFiles });
       });
     });
