@@ -10,7 +10,7 @@ footer .copyrights {
     background-color: #323232;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     color: #fff;
 }
 
@@ -28,7 +28,7 @@ footer .copyrights .item.copy a {
 }
 
 footer .copyrights .item.copy {
-    padding-top: 1rem;
+    padding-top: 0;
 }
 
 footer .copyrights .item.back a {
