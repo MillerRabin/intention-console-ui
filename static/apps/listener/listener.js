@@ -44,6 +44,7 @@ function toggleButton(btn, toggled) {
 function appendAnswer(listener, answer, ext) {
     const time = answer.time;
     const ad = window.document.createElement('div');
+    if (answer.text == '') return;
     ad.className = 'answer';
     if (ext)
         ad.classList.add('ext');
