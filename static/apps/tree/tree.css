@@ -1,6 +1,6 @@
 .Tree .title {
     display: flex;
-    align-items: stretch;
+    align-items: flex-end;
     padding: 0.3rem 0;
     font-size: 1rem;
 }
@@ -56,6 +56,6 @@
 
 .Tree ul {
     list-style: none;
-    margin-left: 1rem;
-    padding-left: 0.5rem;
+    margin-left: 0;
+    padding-left: 0;
 }

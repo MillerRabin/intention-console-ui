@@ -166,7 +166,7 @@ function renderSelected(browser, selected) {
     props.description.innerHTML = getText(selected.description);
   }
   props.id.innerHTML = selected.id;
-  props.time.innerHTML = selected.mtime.format('DD MMM YYYY HH:MM');
+  props.time.innerHTML = selected.mtime.toLocaleString();
   props.input.innerHTML = selected.input;
   props.output.innerHTML = selected.output;
   buildAccepted(browser, selected);
