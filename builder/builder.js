@@ -95,7 +95,7 @@ async function buildCss(bundle, debug = false) {
         if (err != null) return reject(err);
         const relFiles = [];
         for (let i = 0; i < files.length; i++)
-          relFiles.push(files[i].substring(root.length + 1).replace(/\\/g, '/'));
+          relFiles.push(files[i].substring(mainConfig.root.length + 1).replace(/\\/g, '/'));
         return resolve({ absolute: files, relative: relFiles });
       });
     });
@@ -119,8 +119,8 @@ async function buildCss(bundle, debug = false) {
 
   await Promise.all([write(bundle.desktop, desktopCss), write(bundle.mobile, mobileCss)]);
   return {
-    desktopFiles: [bundle.desktop.substring(bundle.root.length + 1).replace(/\\/g, '/')],
-    mobileFiles: [bundle.mobile.substring(bundle.root.length + 1).replace(/\\/g, '/')]
+    desktopFiles: [bundle.desktop.substring(mainConfig.root.length + 1).replace(/\\/g, '/')],
+    mobileFiles: [bundle.mobile.substring(mainConfig.root.length + 1).replace(/\\/g, '/')]
   };
 }
 

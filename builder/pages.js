@@ -6,7 +6,7 @@ import recursive from 'recursive-readdir';
 
 
 const config = {
-  domain: 'https://int-nt-tech.com',
+  domain: 'https://int-nt-tech.com',  
   utils: {
     getModTime: sitemap.getModTime
   },
@@ -20,7 +20,7 @@ const config = {
     destination: 'sitemap.xml'
   },
   css: {
-    sources: {
+    sources: {      
       desktop: path.resolve(mainConfig.root, 'styles-min', 'desktop.css'),
       mobile: path.resolve(mainConfig.root, 'styles-min', 'mobile.css'),
     }
