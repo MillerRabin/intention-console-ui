@@ -83,7 +83,9 @@
 .Documentation .partners {
   display: grid;
   width: 100%;
+  gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 4rem;
   margin-top: 1rem;
 }
 
@@ -93,4 +95,6 @@
 
 .Documentation .partners .item img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
