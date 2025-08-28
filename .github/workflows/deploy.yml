@@ -41,8 +41,8 @@ jobs:
           script: |
             cd /home/ci/intention-network/intention-console-ui/deploy
             docker compose build
-            docker compose run --rm --workdir /app/server --remove-orphans --entrypoint npm node install
-            docker compose run --rm --workdir /app/server --remove-orphans node deploy.js
+            docker compose run --rm --workdir /app/builder --remove-orphans --entrypoint npm node install
+            docker compose run --rm --workdir /app/builder --remove-orphans node builder.js
       - name: Purge Cache
         run : |
           curl --fail --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${{secrets.ZONE_ID}}/purge_cache" \
