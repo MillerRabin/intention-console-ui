@@ -43,7 +43,7 @@ jobs:
             docker compose build
             docker compose run --rm --workdir /app/static  --remove-orphans --entrypoint npm node install
             docker compose run --rm --workdir /app/builder --remove-orphans --entrypoint npm node install
-            docker compose run --rm --workdir /app/builder --remove-orphans node builder.js            
+            docker compose run --rm --workdir /app/builder --remove-orphans node main.js            
       - name: Purge Cache
         run : |
           curl --fail --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${{secrets.ZONE_ID}}/purge_cache" \

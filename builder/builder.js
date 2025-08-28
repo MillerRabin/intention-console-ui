@@ -20,7 +20,6 @@ export async function checkDirectories(fileName) {
 
 export async function writeHtml(config, item) {
   async function compile(source, target, params) {
-    console.log('render file ' + target);
     const html = pug.renderFile(source, params);
     await checkDirectories(target);
     try {
@@ -126,8 +125,7 @@ async function buildCss(bundle, debug = false) {
 
  export async function build(debug) {
   const lp = [];
-  const config = await pages.build();
-
+  const config = await pages.build();  
   lp.push(buildCssBundles(config, debug).then((files) => {
     config.css.files = files;
     const promises = [];
