@@ -1,7 +1,7 @@
 **Intension Console UI**
 
 ## Structure
-    The builder folder contains builder for the project. It creates html files from pug templates.    
+    The builder folder contains builder for the project. It creates html files from pug templates.  
 ---
 
 ## Dependencies
