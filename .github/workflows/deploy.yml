@@ -30,7 +30,7 @@ jobs:
           port: 22
           key: ${{secrets.SSH}}
           source: "*"
-          target: "/home/intention-network/intention-console-ui"
+          target: "/home/ci/intention-network/intention-console-ui"
       - name: Docker Compose Node
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.SSH }}
           port: 22
           script: |
-            cd /home/intention-network/intention-console-ui/deploy
+            cd /home/ci/intention-network/intention-console-ui/deploy
             docker compose build
             docker compose run --rm --workdir /app/server --remove-orphans --entrypoint npm node install
             docker compose run --rm --workdir /app/server --remove-orphans node deploy.js
