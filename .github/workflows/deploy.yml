@@ -41,7 +41,7 @@ jobs:
           script: |
             cd /home/ci/intention-network/intention-console-ui/deploy
             docker compose build
-            docker compose run --rm --workdir /app/static  --remove-orphans --entrypoint npm install
+            docker compose run --rm --workdir /app/static  --remove-orphans --entrypoint npm node install
             docker compose run --rm --workdir /app/builder --remove-orphans --entrypoint npm node install
             docker compose run --rm --workdir /app/builder --remove-orphans node builder.js            
       - name: Purge Cache
