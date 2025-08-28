@@ -75,8 +75,7 @@ function searchJS(file, stats) {
 
 function searchPages() {  
   return new Promise((resolve, reject) => {
-    const appPath = path.resolve(mainConfig.root, 'apps');
-    console.log(`Searching in ${appPath}`);
+    const appPath = path.resolve(mainConfig.root, 'apps');    
     recursive(appPath, [searchJS], function (err, files) {
       if (err != null) return reject(err);
       return resolve(files);
