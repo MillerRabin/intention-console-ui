@@ -1,0 +1,51 @@
+name: Intention Network Console UI Deploy
+run-name: ${{ github.actor }} is deploying the project
+
+on:
+  push:
+    branches: [ production ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Personal Projects
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cleanup docker volumes
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH }}
+          port: 22
+          script: |
+            docker system prune -a --volumes -f
+      - name: Deploy to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: 22
+          key: ${{secrets.SSH}}
+          source: "*"
+          target: "/home/intention-network/intention-console-ui"
+      - name: Docker Compose Node
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH }}
+          port: 22
+          script: |
+            cd /home/intention-network/intention-console-ui/deploy
+            docker compose build
+            docker compose run --rm --workdir /app/server --remove-orphans --entrypoint npm node install
+            docker compose run --rm --workdir /app/server --remove-orphans node deploy.js
+      - name: Purge Cache
+        run : |
+          curl --fail --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${{secrets.ZONE_ID}}/purge_cache" \
+                -H "Authorization: Bearer ${{secrets.PURGE_CACHE_TOKEN}}" \
+                -H "Content-Type: application/json" \
+                --data '{"purge_everything":true}'

@@ -1,0 +1,7 @@
+services:
+  node:
+    build: ./node
+    volumes:
+      - ..:/app
+    working_dir: /app
+    entrypoint: ["node"]
