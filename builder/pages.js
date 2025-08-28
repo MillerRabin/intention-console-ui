@@ -6,7 +6,7 @@ import recursive from 'recursive-readdir';
 
 
 const config = {
-  domain: 'https://int-nt-tech.com',  
+  domain: 'https://int-t.com',  
   utils: {
     getModTime: sitemap.getModTime
   },
@@ -73,9 +73,10 @@ function searchJS(file, stats) {
   return false;  
 }
 
-function searchPages() {
+function searchPages() {  
   return new Promise((resolve, reject) => {
     const appPath = path.resolve(mainConfig.root, 'apps');
+    console.log(`Searching in ${appPath}`);
     recursive(appPath, [searchJS], function (err, files) {
       if (err != null) return reject(err);
       return resolve(files);
