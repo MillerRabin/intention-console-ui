@@ -1,7 +1,8 @@
 # Intention Network WebConsole
 
 **Intention Console UI** is a web debugger for **Intention Network**.  
-It uses both voice and text prompts to send commands to the internal infrastructure.
+It uses both voice and text prompts to send commands to the internal infrastructure.  
+Use [https://int-t](https://int-t) for online testing.
 
 ---
 
