@@ -1,36 +1,32 @@
-**Intension Console UI**
+# Intention Network WebConsole
 
-## Structure
-    The builder folder contains builder for the project. It creates html files from pug templates.  
+**Intention Console UI** is a web debugger for **Intention Network**.  
+It uses both voice and text prompts to send commands to the internal infrastructure.
+
 ---
 
-## Dependencies
-    NodeJS 14
+## 📂 Project Structure
 
-## How to install
+- **`builder/`** — contains the project builder.  
+  It generates HTML files from Pug templates.
+- **`deploy/`** — contains files for CI/CD.
+- **`server/`** — debug server (used only in local environments).
+- **`static/`** — web server root.
+- **`test/`** — automated tests.
 
-First, You need to install dependencies for the project and builder 
+---
 
-```sh
-npm install
-cd ./builder
-npm install
-```
+## ⚙️ Dependencies
 
-Next, you need to build static html files from pug templates
+- **Node.js** version **14+**
 
-```sh
-node ./builder/main.js
-```
+---
 
-Finally, map your favorite web server to the project folder and open it in browser
+## 🚀 Installation
 
-## Build in development mode
+1. Install dependencies for both the main project and the builder:
 
-To build html with all files uncompressed.
-
-```sh
-./builder/main.js debug
-```
-
-
+   ```sh
+   npm install
+   cd ./builder
+   npm install
